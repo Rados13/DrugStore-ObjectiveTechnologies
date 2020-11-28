@@ -1,5 +1,7 @@
 package pl.edu.agh.to.drugstore;
 
+import pl.edu.agh.to.drugstore.model.medications.Medication;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
