@@ -1,6 +1,10 @@
 package pl.edu.agh.to.drugstore.model.people;
 
+import pl.edu.agh.to.drugstore.model.business.Notification;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -22,6 +26,9 @@ public abstract class Person {
 
     @OneToOne()
     private Address address;
+
+    @OneToMany()
+    private final Collection<Notification> notificationList = new ArrayList<>();
 
     public void setId(int id) {
         this.id = id;
@@ -61,5 +68,9 @@ public abstract class Person {
 
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public Collection<Notification> getNotificationList() {
+        return notificationList;
     }
 }

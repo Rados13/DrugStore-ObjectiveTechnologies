@@ -1,8 +1,10 @@
 package pl.edu.agh.to.drugstore.model.business;
 
+import pl.edu.agh.to.drugstore.model.medications.Medication;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import java.util.Collection;
 
 public class Magazine {
 
@@ -18,5 +20,16 @@ public class Magazine {
         em.persist(product);
         etx.commit();
     }
+
+    public Collection<Medication> searchForMedicine() {
+        // TODO
+        return null;
+    }
+
+    public Collection<ConcreteProduct> searchForProduct() {
+        // TODO
+        return null;
+    }
+
 
 }
