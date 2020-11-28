@@ -11,11 +11,11 @@
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/drugstore" /> <!-- BD Mane -->
-            <property name="javax.persistence.jdbc.user" value="wiktor2" /> <!-- DB User -->
-            <property name="javax.persistence.jdbc.password" value="pass" /> <!-- DB Password -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-35-168-77-215.compute-1.amazonaws.com:5432/dddnufd788s97e" /> <!-- BD Mane -->
+            <property name="javax.persistence.jdbc.user" value="uauietgltybxbi" /> <!-- DB User -->
+            <property name="javax.persistence.jdbc.password" value="8d540c7f7c147e38f81625549dfbb63c3a7a811404893a76c8cc0fbf3f0f1003" /> <!-- DB Password -->
 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/> <!-- DB Dialect -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect"/> <!-- DB Dialect -->
             <property name="hibernate.hbm2ddl.auto" value="update" /> <!-- create / create-drop / update -->
             <property name="hibernate.show_sql" value="true" /> <!-- Show SQL in console -->
             <property name="hibernate.format_sql" value="true" /> <!-- Show SQL formatted -->
