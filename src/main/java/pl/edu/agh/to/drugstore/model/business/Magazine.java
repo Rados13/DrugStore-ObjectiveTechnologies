@@ -14,22 +14,21 @@ public class Magazine {
         this.em = em;
     }
 
-    public void addProduct(ConcreteProduct product) {
+    public void addMedication(Medication medication, int quantity) {
         EntityTransaction etx = em.getTransaction();
         etx.begin();
-        em.persist(product);
+
+        // TODO
+        //  check if medication exists, if not insert, if yes increase quantity
+
         etx.commit();
     }
 
     public Collection<Medication> searchForMedicine() {
         // TODO
+        //  search by given criteria
+
         return null;
     }
-
-    public Collection<ConcreteProduct> searchForProduct() {
-        // TODO
-        return null;
-    }
-
 
 }
