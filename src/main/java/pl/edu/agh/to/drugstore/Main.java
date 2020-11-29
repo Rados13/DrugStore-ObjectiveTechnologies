@@ -19,7 +19,6 @@ public class Main {
         Magazine magazine = new Magazine(em);
         HRDepartment hrDepartment = new HRDepartment(em);
 
-        magazine.addProduct(new ConcreteProduct());
         hrDepartment.addPerson(new Person());
 
         try {
