@@ -27,6 +27,7 @@ public class Medication {
     private MedicationForm form;
     private boolean prescriptionRequired;
     private BigDecimal price;
+    private int quantity;
 
     @ManyToMany()
     private final Collection<Illness> illnessesToCure = new LinkedHashSet<>();
@@ -89,4 +90,11 @@ public class Medication {
         this.price = price;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

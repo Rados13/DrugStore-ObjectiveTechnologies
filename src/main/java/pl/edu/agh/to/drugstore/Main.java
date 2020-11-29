@@ -1,7 +1,6 @@
 package pl.edu.agh.to.drugstore;
 
 import pl.edu.agh.to.drugstore.consoleCRUD.ConsoleApp;
-import pl.edu.agh.to.drugstore.model.business.ConcreteProduct;
 import pl.edu.agh.to.drugstore.model.business.HRDepartment;
 import pl.edu.agh.to.drugstore.model.business.Magazine;
 import pl.edu.agh.to.drugstore.model.people.Person;
