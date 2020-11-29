@@ -1,12 +1,20 @@
 package pl.edu.agh.to.drugstore.model.people;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Builder
+@AllArgsConstructor
 public class Address {
+
+    public Address(){
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,8 +22,8 @@ public class Address {
 
     private String city;
     private String street;
-    private int houseId;
-    private int apartmentId;
+    private Integer houseId;
+    private Integer apartmentId;
 
     public String getCity() {
         return city;
@@ -33,7 +41,7 @@ public class Address {
         this.street = street;
     }
 
-    public int getHouseId() {
+    public Integer getHouseId() {
         return houseId;
     }
 
@@ -42,7 +50,12 @@ public class Address {
         this.houseId = houseId;
     }
 
-    public int getApartmentId() {
+    public boolean equalWithoutID(Address address){
+        return address.getCity().equals(city) && address.getStreet().equals(street)
+                && address.getHouseId().equals(houseId) && address.getApartmentId().equals(apartmentId);
+    }
+
+    public Integer getApartmentId() {
         return apartmentId;
     }
 
@@ -63,4 +76,7 @@ public class Address {
     public String toString() {
         return city + ", " + street + " " + houseId + (apartmentId > 0 ? ("/" + apartmentId) : "");
     }
+
+
+
 }

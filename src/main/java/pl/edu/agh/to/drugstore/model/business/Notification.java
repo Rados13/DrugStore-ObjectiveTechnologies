@@ -5,6 +5,7 @@ import pl.edu.agh.to.drugstore.model.people.Person;
 import javax.persistence.*;
 
 @Entity
+@Table(name="notifications")
 public class Notification {
 
     public Notification() {}

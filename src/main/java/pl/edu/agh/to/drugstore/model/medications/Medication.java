@@ -1,6 +1,9 @@
 package pl.edu.agh.to.drugstore.model.medications;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -9,6 +12,9 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 @Entity
+@Builder
+@Getter
+@AllArgsConstructor
 public class Medication {
 
     public Medication() {}

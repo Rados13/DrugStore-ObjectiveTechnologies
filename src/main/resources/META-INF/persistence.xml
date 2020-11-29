@@ -9,11 +9,10 @@
         <!-- This is where we tell JPA/Hibernate about our @Entity objects -->
         <class>pl.edu.agh.to.drugstore.model.people.Address</class>
         <class>pl.edu.agh.to.drugstore.model.people.Person</class>
-        <class>pl.edu.agh.to.drugstore.model.people.Client</class>
-        <class>pl.edu.agh.to.drugstore.model.people.Seller</class>
         <class>pl.edu.agh.to.drugstore.model.medications.Illness</class>
         <class>pl.edu.agh.to.drugstore.model.medications.Medication</class>
         <class>pl.edu.agh.to.drugstore.model.business.ConcreteProduct</class>
+        <class>pl.edu.agh.to.drugstore.model.business.Notification</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->

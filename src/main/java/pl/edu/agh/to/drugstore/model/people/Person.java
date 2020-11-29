@@ -1,15 +1,21 @@
 package pl.edu.agh.to.drugstore.model.people;
 
+import lombok.*;
 import pl.edu.agh.to.drugstore.model.business.Notification;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Person {
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@ToString
+public class Person {
 
     public Person() {}
 
@@ -26,9 +32,11 @@ public abstract class Person {
 
     @OneToOne()
     private Address address;
+    @NonNull()
+    private Role role;
 
     @OneToMany()
-    private final Collection<Notification> notificationList = new ArrayList<>();
+    private List<Notification> notificationList = new ArrayList<>();
 
     public void setId(int id) {
         this.id = id;
