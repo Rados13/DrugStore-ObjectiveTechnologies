@@ -74,7 +74,8 @@ public class Address {
 
     @Override
     public String toString() {
-        return city + ", " + street + " " + houseId + (apartmentId > 0 ? ("/" + apartmentId) : "");
+        return city + ", " + (street!=null?street:"") + " " + (houseId!=null?houseId:"") +
+                (apartmentId!=null ? ("/" + apartmentId) : "");
     }
 
 
