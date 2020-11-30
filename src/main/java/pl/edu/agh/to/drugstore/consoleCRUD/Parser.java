@@ -6,9 +6,7 @@ import pl.edu.agh.to.drugstore.model.people.*;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class Parser {
@@ -17,38 +15,6 @@ public class Parser {
 
     public Parser(ConsoleApp app) {
         this.app = app;
-    }
-
-
-    Address getAddressFromParams(List<String> params) {
-        if (params.size() == 0) return null;
-        return Address.builder()
-                .city(params.size() > 0 && !params.get(0).equals("-") ? params.get(0) : null)
-                .street(params.size() > 1 && !params.get(1).equals("-")? params.get(1) : null)
-                .houseId(params.size() > 2 && !params.get(2).equals("-")
-                        ? Integer.parseInt(params.get(2)) : null)
-                .apartmentId(params.size() > 3 && !params.get(3).equals("-")
-                        ? Integer.parseInt(params.get(3)) : null)
-                .build();
-    }
-
-
-    private Person parseClient(List<String> params) throws ParseException {
-        if (params.size() < 6) {
-            System.out.println("Not proper number of params");
-            return null;
-        }
-        Date date = !params.get(4).equals("-") ? new SimpleDateFormat("dd/MM/yyyy").parse(params.get(4)) : null;
-        return Person
-                .builder()
-                .role(!params.get(1).equals("-")?
-                        Role.valueOf(params.get(1).toUpperCase()):null)
-                .firstname(!params.get(2).equals("-")?params.get(2):null)
-                .lastname(!params.get(3).equals("-")?params.get(3):null)
-                .birthdate(date)
-                .PESEL(params.get(5))
-                .address(getAddressFromParams(params.subList(6, params.size())))
-                .build();
     }
 
     public void parse(List<String> params) {
@@ -62,7 +28,7 @@ public class Parser {
             case "administrator":
                 if (!params.get(0).equals("delete")) {
                     try {
-                        person = parseClient(params);
+                        person = Person.personBulder(params);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -77,7 +43,7 @@ public class Parser {
                         .build();
                 break;
             case "address":
-                address = getAddressFromParams(params.subList(2, params.size()));
+                address = Address.addressBuilder(params.subList(2, params.size()));
                 break;
             default:
                 System.out.println("Not proper name of thing to change");
@@ -106,6 +72,5 @@ public class Parser {
                     app.getHrDepartment().deleteAddress(Integer.parseInt(params.get(2)));
                 break;
         }
-
     }
 }

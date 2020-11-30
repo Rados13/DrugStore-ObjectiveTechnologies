@@ -84,7 +84,8 @@ public class HRDepartment {
 
     public Address searchExistingAddress(Address address){
         List<Address> addresses = searchAddresses(address);
-        Optional<Address> possible= addresses.stream()
+        if(addresses == null) return null;
+        Optional<Address> possible = addresses.stream()
                 .filter(address::equalWithoutID).findFirst();
         return possible.orElse(null);
     }

@@ -1,7 +1,5 @@
 package pl.edu.agh.to.drugstore.model.business;
 
-import pl.edu.agh.to.drugstore.model.people.Person;
-
 import javax.persistence.*;
 
 @Entity

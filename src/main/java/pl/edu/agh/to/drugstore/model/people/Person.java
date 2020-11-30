@@ -4,6 +4,7 @@ import lombok.*;
 import pl.edu.agh.to.drugstore.model.business.Notification;
 
 import javax.persistence.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -97,5 +98,23 @@ public class Person {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public static Person personBulder(List<String> params) throws ParseException {
+        if (params.size() < 6) {
+            System.out.println("Not proper number of params");
+            return null;
+        }
+        Date date = !params.get(4).equals("-") ? new SimpleDateFormat("dd/MM/yyyy").parse(params.get(4)) : null;
+        return Person
+                .builder()
+                .role(!params.get(1).equals("-")?
+                        Role.valueOf(params.get(1).toUpperCase()):null)
+                .firstname(!params.get(2).equals("-")?params.get(2):null)
+                .lastname(!params.get(3).equals("-")?params.get(3):null)
+                .birthdate(date)
+                .PESEL(params.get(5))
+                .address(Address.addressBuilder(params.subList(6, params.size())))
+                .build();
     }
 }

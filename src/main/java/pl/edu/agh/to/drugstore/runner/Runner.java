@@ -22,7 +22,6 @@ public class Runner {
 
         Parser parser = new Parser(new ConsoleApp(em));
         List<String> query = Arrays.asList(args);
-        System.out.println(query);
         parser.parse(query);
 
         em.close();
