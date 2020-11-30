@@ -4,6 +4,7 @@ import lombok.*;
 import pl.edu.agh.to.drugstore.model.business.Notification;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;

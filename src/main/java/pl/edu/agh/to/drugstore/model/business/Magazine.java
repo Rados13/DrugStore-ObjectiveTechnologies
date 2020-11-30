@@ -30,5 +30,4 @@ public class Magazine {
 
         return null;
     }
-
 }

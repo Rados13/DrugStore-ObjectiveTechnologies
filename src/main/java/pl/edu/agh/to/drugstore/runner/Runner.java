@@ -1,31 +1,29 @@
-package pl.edu.agh.to.drugstore;
+package pl.edu.agh.to.drugstore.runner;
 
 import pl.edu.agh.to.drugstore.consoleCRUD.ConsoleApp;
+import pl.edu.agh.to.drugstore.consoleCRUD.Parser;
 import pl.edu.agh.to.drugstore.model.business.HRDepartment;
 import pl.edu.agh.to.drugstore.model.business.Magazine;
-import pl.edu.agh.to.drugstore.model.people.Person;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
-public class Main {
+public class Runner {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("postgresql");
         EntityManager em = emf.createEntityManager();
 
         Magazine magazine = new Magazine(em);
         HRDepartment hrDepartment = new HRDepartment(em);
 
-        hrDepartment.addPerson(new Person());
-
-        try {
-            new ConsoleApp(em).start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Parser parser = new Parser(new ConsoleApp(em));
+        List<String> query = Arrays.asList(args);
+        System.out.println(query);
+        parser.parse(query);
 
         em.close();
     }

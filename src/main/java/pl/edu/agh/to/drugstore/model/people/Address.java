@@ -77,7 +77,4 @@ public class Address {
         return city + ", " + (street!=null?street:"") + " " + (houseId!=null?houseId:"") +
                 (apartmentId!=null ? ("/" + apartmentId) : "");
     }
-
-
-
 }

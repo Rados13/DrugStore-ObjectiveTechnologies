@@ -1,5 +1,6 @@
 package pl.edu.agh.to.drugstore.consoleCRUD;
 
+import lombok.Data;
 import pl.edu.agh.to.drugstore.model.business.HRDepartment;
 import pl.edu.agh.to.drugstore.model.business.Magazine;
 
@@ -7,15 +8,15 @@ import javax.persistence.EntityManager;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+@Data
 public class ConsoleApp {
 
-    final Magazine magazine;
-    final HRDepartment hrDepartment;
+    private final Magazine magazine;
+    private final HRDepartment hrDepartment;
 
     public ConsoleApp(EntityManager em) {
         this.magazine = new Magazine(em);
@@ -30,7 +31,7 @@ public class ConsoleApp {
 
         System.out.println("Write command or q to quit or h for help");
         String input = reader.readLine();
-        ArrayList<String> params = new ArrayList<>();
+        ArrayList<String> params;
         while (!input.equals("q")) {
             params = Arrays.stream(input.split(" ")).collect(Collectors.toCollection(ArrayList::new));
             if (params.size() == 1){
@@ -46,7 +47,6 @@ public class ConsoleApp {
         }
     }
 
-
     private void printHelp(){
         System.out.println("For now possible are three actions:");
         System.out.println("add)    adding new element");
@@ -61,8 +61,5 @@ public class ConsoleApp {
         System.out.println("add client Jan Wozniak 11/01/1971 710111543216 Krakow");
         System.out.println("search administrator John - - - - - - - - - - -");
         System.out.println("This line search all administrators with name John");
-
-
-
     }
 }

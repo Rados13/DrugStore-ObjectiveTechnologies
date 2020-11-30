@@ -1,11 +1,9 @@
 package pl.edu.agh.to.drugstore.consoleCRUD;
 
-import org.hsqldb.persist.Log;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
 import pl.edu.agh.to.drugstore.model.medications.MedicationForm;
 import pl.edu.agh.to.drugstore.model.people.*;
 
-import javax.swing.*;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -53,7 +51,7 @@ public class Parser {
                 .build();
     }
 
-    void parse(List<String> params) {
+    public void parse(List<String> params) {
         String operation = params.get(0);
         Person person = null;
         Medication medication = null;
@@ -88,27 +86,26 @@ public class Parser {
 
         switch (operation) {
             case "add":
-                if (person != null) app.hrDepartment.addPerson(person);
-                if (address != null) app.hrDepartment.addAddress(address);
+                if (person != null) app.getHrDepartment().addPerson(person);
+                if (address != null) app.getHrDepartment().addAddress(address);
                 break;
             case "search":
                 if (person != null)
-                    app.hrDepartment.searchPersons(person)
+                    app.getHrDepartment().searchPersons(person)
                             .forEach(elem -> System.out.println(elem.toString()));
                 if (address != null)
-                    app.hrDepartment.searchAddresses(address)
+                    app.getHrDepartment().searchAddresses(address)
                             .forEach(elem -> System.out.println(elem.toString()));
                 break;
             case "delete":
                 if (Arrays.stream(Role.values()).anyMatch(elem -> elem.toString()
                         .equals(params.get(1).toUpperCase()))) {
-                    app.hrDepartment.deletePerson(Integer.parseInt(params.get(2)));
+                    app.getHrDepartment().deletePerson(Integer.parseInt(params.get(2)));
                 }
                 if (params.get(1).equals("address"))
-                    app.hrDepartment.deleteAddress(Integer.parseInt(params.get(2)));
+                    app.getHrDepartment().deleteAddress(Integer.parseInt(params.get(2)));
                 break;
         }
 
     }
-
 }

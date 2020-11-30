@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'application'
 }
 
 group 'pl.edu.agh.to'
@@ -20,9 +20,11 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
 }
 
-
-
 java {
     sourceCompatibility = JavaVersion.VERSION_14
     targetCompatibility = JavaVersion.VERSION_14
+}
+
+application {
+    mainClassName = 'pl.edu.agh.to.drugstore.runner.Runner'
 }

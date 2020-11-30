@@ -127,5 +127,4 @@ public class HRDepartment {
         em.remove(address);
         etx.commit();
     }
-
 }
