@@ -34,7 +34,6 @@ public class HRDepartment {
     }
 
     public Collection<Notification> getNotifications(Person person) {
-        // TODO
         EntityTransaction etx = em.getTransaction();
         etx.begin();
 
