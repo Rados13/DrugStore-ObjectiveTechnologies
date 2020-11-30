@@ -33,10 +33,15 @@ public class ConsoleApp {
         ArrayList<String> params = new ArrayList<>();
         while (!input.equals("q")) {
             params = Arrays.stream(input.split(" ")).collect(Collectors.toCollection(ArrayList::new));
-            if (params.size() == 1 && params.get(0).equals("h")) printHelp();
+            if (params.size() == 1){
+                switch (params.get(0)) {
+                    case "h" -> printHelp();
+                    case "" -> System.out.println("\n");
+                }
+            }
             else if (params.size() <= 2) System.out.println("Not proper number of params");
             else parser.parse(params);
-            System.out.println("Write new command");
+            if(!input.equals(""))System.out.println("Write new command");
             input = reader.readLine();
         }
     }
