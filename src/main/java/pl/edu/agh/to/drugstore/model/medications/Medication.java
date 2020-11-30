@@ -1,6 +1,9 @@
 package pl.edu.agh.to.drugstore.model.medications;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -9,6 +12,9 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 @Entity
+@Builder
+@Getter
+@AllArgsConstructor
 public class Medication {
 
     public Medication() {}
@@ -21,6 +27,7 @@ public class Medication {
     private MedicationForm form;
     private boolean prescriptionRequired;
     private BigDecimal price;
+    private int quantity;
 
     @ManyToMany()
     private final Collection<Illness> illnessesToCure = new LinkedHashSet<>();
@@ -83,4 +90,11 @@ public class Medication {
         this.price = price;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }
