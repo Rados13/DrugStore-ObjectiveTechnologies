@@ -54,8 +54,8 @@ public class HRDepartment {
         etx.begin();
         String sql = "from Person where ";
         if(person.getRole()!=null)sql += " role = :role and";
-        if(!person.getFirstname().equals("-"))sql += " firstname = :firstname and";
-        if(!person.getLastname().equals("-"))sql += " lastname = :lastname and";
+        if(person.getFirstname()!=null)sql += " firstname = :firstname and";
+        if(person.getLastname()!=null)sql += " lastname = :lastname and";
         if(person.getBirthdate()!=null)sql += " birthdate = :birthdate and";
         if(!person.getPESEL().equals("-"))sql += " PESEL = :pesel and";
         if(personAddress!=null)sql += " address = :address and";
@@ -63,8 +63,8 @@ public class HRDepartment {
 
         Query query = em.createQuery(sql);
         if(person.getRole()!=null)query.setParameter("role",person.getRole());
-        if(!person.getFirstname().equals("-"))query.setParameter("firstname",person.getFirstname());
-        if(!person.getLastname().equals("-"))query.setParameter("lastname",person.getLastname());
+        if(person.getFirstname()!=null)query.setParameter("firstname",person.getFirstname());
+        if(person.getLastname()!=null)query.setParameter("lastname",person.getLastname());
         if(person.getBirthdate()!=null)query.setParameter("birthdate",person.getBirthdate());
         if(!person.getPESEL().equals("-"))query.setParameter("PESEL",person.getPESEL());
         if(personAddress!=null)query.setParameter("address",person.getAddress());
@@ -95,15 +95,15 @@ public class HRDepartment {
 
         etx.begin();
         String sql = "from Address where ";
-        if(!address.getCity().equals("-"))sql += " city = :city and";
-        if(!address.getStreet().equals("-"))sql += " street = :street and";
+        if(address.getCity()!=null)sql += " city = :city and";
+        if(address.getStreet()!=null)sql += " street = :street and";
         if(address.getHouseId()!=null)sql += " houseId = :houseID and";
         if(address.getApartmentId()!=null)sql += " apartmentId = :apartmentID and";
         sql = new StringBuffer(sql).replace(sql.length()-3,sql.length(),"").toString();
 
         Query query = em.createQuery(sql);
-        if(!address.getCity().equals("-"))query.setParameter("city",address.getCity());
-        if(!address.getStreet().equals("-"))query.setParameter("street",address.getStreet());
+        if(address.getCity()!=null)query.setParameter("city",address.getCity());
+        if(address.getStreet()!=null)query.setParameter("street",address.getStreet());
         if(address.getHouseId()!=null)query.setParameter("houseID",address.getHouseId());
         if(address.getApartmentId()!=null)query.setParameter("apartmentID",address.getApartmentId());
 

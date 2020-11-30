@@ -25,8 +25,8 @@ public class Parser {
     Address getAddressFromParams(List<String> params) {
         if (params.size() == 0) return null;
         return Address.builder()
-                .city(params.size() > 0 ? params.get(0) : "-")
-                .street(params.size() > 1 ? params.get(1) : "-")
+                .city(params.size() > 0 ? params.get(0) : null)
+                .street(params.size() > 1 ? params.get(1) : null)
                 .houseId(params.size() > 2 && !params.get(2).equals("-")
                         ? Integer.parseInt(params.get(2)) : null)
                 .apartmentId(params.size() > 3 && !params.get(3).equals("-")
@@ -43,10 +43,10 @@ public class Parser {
         Date date = !params.get(4).equals("-") ? new SimpleDateFormat("dd/MM/yyyy").parse(params.get(4)) : null;
         return Person
                 .builder()
-                .role(params.get(2).equals("-")?
+                .role(!params.get(1).equals("-")?
                         Role.valueOf(params.get(1).toUpperCase()):null)
-                .firstname(params.get(2).equals("-")?params.get(2):null)
-                .lastname(params.get(3).equals("-")?params.get(3):null)
+                .firstname(!params.get(2).equals("-")?params.get(2):null)
+                .lastname(!params.get(3).equals("-")?params.get(3):null)
                 .birthdate(date)
                 .PESEL(params.get(5))
                 .address(getAddressFromParams(params.subList(6, params.size())))
