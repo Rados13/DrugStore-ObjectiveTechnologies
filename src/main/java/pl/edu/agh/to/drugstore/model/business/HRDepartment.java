@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Queue;
 
 public class HRDepartment {
 
@@ -43,6 +44,17 @@ public class HRDepartment {
         List result = query.getResultList();
 
         etx.commit();
+        return result;
+    }
+
+    public List<Person> searchAllPersons() {
+        EntityTransaction etx = em.getTransaction();
+
+        etx.begin();
+        Query query = em.createQuery("from Person");
+        List result = query.getResultList();
+        etx.commit();
+
         return result;
     }
 

@@ -1,5 +1,7 @@
 package pl.edu.agh.to.drugstore.consoleCRUD;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
 import pl.edu.agh.to.drugstore.model.medications.MedicationForm;
 import pl.edu.agh.to.drugstore.model.people.*;
@@ -11,7 +13,9 @@ import java.util.List;
 
 public class Parser {
 
-    ConsoleApp app;
+    private ConsoleApp app;
+
+    private static final Logger logger = LoggerFactory.getLogger(Parser.class);
 
     public Parser(ConsoleApp app) {
         this.app = app;
@@ -24,13 +28,17 @@ public class Parser {
         Address address = null;
         switch (params.get(1)) {
             case "client":
+                // optional permissions here
+                break;
             case "seller":
+                // optional permissions here
+                break;
             case "administrator":
                 if (!params.get(0).equals("delete")) {
                     try {
                         person = Person.personBulder(params);
                     } catch (ParseException e) {
-                        e.printStackTrace();
+                        logger.info("A problem appeared when parsing Person object" + e);
                     }
                 }
                 break;
@@ -45,8 +53,11 @@ public class Parser {
             case "address":
                 address = Address.addressBuilder(params.subList(2, params.size()));
                 break;
+            case "people":
+                System.out.println("Showing all people from database:");
+                break;
             default:
-                System.out.println("Not proper name of thing to change");
+                logger.info("Not proper name of thing to change");
                 return;
         }
 
@@ -71,6 +82,8 @@ public class Parser {
                 if (params.get(1).equals("address"))
                     app.getHrDepartment().deleteAddress(Integer.parseInt(params.get(2)));
                 break;
+            case "show":
+                app.getHrDepartment().searchAllPersons().forEach(System.out::println);
         }
     }
 }

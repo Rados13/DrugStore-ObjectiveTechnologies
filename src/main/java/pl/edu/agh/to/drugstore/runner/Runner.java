@@ -10,6 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 
 public class Runner {
 

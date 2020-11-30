@@ -102,8 +102,7 @@ public class Person {
 
     public static Person personBulder(List<String> params) throws ParseException {
         if (params.size() < 6) {
-            System.out.println("Not proper number of params");
-            return null;
+            throw new IllegalArgumentException("Given number of arguments is too low.");
         }
         Date date = !params.get(4).equals("-") ? new SimpleDateFormat("dd/MM/yyyy").parse(params.get(4)) : null;
         return Person

@@ -40,7 +40,6 @@ public class ConsoleApp {
                     case "" -> System.out.println("\n");
                 }
             }
-            else if (params.size() <= 2) System.out.println("Not proper number of params");
             else parser.parse(params);
             if(!input.equals(""))System.out.println("Write new command");
             input = reader.readLine();
