@@ -25,8 +25,8 @@ public class Parser {
     Address getAddressFromParams(List<String> params) {
         if (params.size() == 0) return null;
         return Address.builder()
-                .city(params.size() > 0 && !params.get(2).equals("-") ? params.get(0) : null)
-                .street(params.size() > 1 && !params.get(2).equals("-")? params.get(1) : null)
+                .city(params.size() > 0 && !params.get(0).equals("-") ? params.get(0) : null)
+                .street(params.size() > 1 && !params.get(1).equals("-")? params.get(1) : null)
                 .houseId(params.size() > 2 && !params.get(2).equals("-")
                         ? Integer.parseInt(params.get(2)) : null)
                 .apartmentId(params.size() > 3 && !params.get(3).equals("-")
