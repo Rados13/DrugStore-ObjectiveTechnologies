@@ -1,4 +1,4 @@
-package pl.edu.agh.to.drugstore.model.business;
+package pl.edu.agh.to.drugstore.model.dao;
 
 import pl.edu.agh.to.drugstore.model.medications.Medication;
 
@@ -6,11 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.Collection;
 
-public class Magazine {
+public class MedicationDAO {
 
     private final EntityManager em;
 
-    public Magazine(EntityManager em) {
+    public MedicationDAO(EntityManager em) {
         this.em = em;
     }
 

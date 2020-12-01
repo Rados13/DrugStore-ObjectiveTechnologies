@@ -30,10 +30,8 @@ public class Parser {
         switch (params.get(1)) {
             case "client":
                 // optional permissions here
-                break;
             case "seller":
                 // optional permissions here
-                break;
             case "administrator":
                 if (!params.get(0).equals("delete")) {
                     try {
@@ -64,27 +62,27 @@ public class Parser {
 
         switch (operation) {
             case "add":
-                if (person != null) app.getHrDepartment().addPerson(person);
-                if (address != null) app.getHrDepartment().addAddress(address);
+                if (person != null) app.getPersonDAO().addPerson(person);
+                if (address != null) app.getAddressDAO().addAddress(address);
                 break;
             case "search":
                 if (person != null)
-                    app.getHrDepartment().searchPersons(person)
+                    app.getPersonDAO().searchPersons(person)
                             .forEach(elem -> System.out.println(elem.toString()));
                 if (address != null)
-                    app.getHrDepartment().searchAddresses(address)
+                    app.getAddressDAO().searchAddresses(address)
                             .forEach(elem -> System.out.println(elem.toString()));
                 break;
             case "delete":
                 if (Arrays.stream(Role.values()).anyMatch(elem -> elem.toString()
                         .equals(params.get(1).toUpperCase()))) {
-                    app.getHrDepartment().deletePerson(Integer.parseInt(params.get(2)));
+                    app.getPersonDAO().deletePerson(Integer.parseInt(params.get(2)));
                 }
                 if (params.get(1).equals("address"))
-                    app.getHrDepartment().deleteAddress(Integer.parseInt(params.get(2)));
+                    app.getAddressDAO().deleteAddress(Integer.parseInt(params.get(2)));
                 break;
             case "show":
-                List<Person> allExisting = new ArrayList<>(app.getHrDepartment().searchAllPersons());
+                List<Person> allExisting = new ArrayList<>(app.getPersonDAO().searchAllPersons());
                 logger.info("Found " + allExisting.size() + " people:");
                 allExisting.forEach(p -> logger.info(String.valueOf(p)));
         }

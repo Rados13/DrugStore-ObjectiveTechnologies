@@ -1,7 +1,7 @@
 package pl.edu.agh.to.drugstore.model.people;
 
 import lombok.*;
-import pl.edu.agh.to.drugstore.model.business.Notification;
+import pl.edu.agh.to.drugstore.model.Notification;
 
 import javax.persistence.*;
 import java.text.ParseException;

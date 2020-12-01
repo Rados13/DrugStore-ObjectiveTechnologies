@@ -1,8 +1,9 @@
 package pl.edu.agh.to.drugstore.consoleCRUD;
 
 import lombok.Data;
-import pl.edu.agh.to.drugstore.model.business.HRDepartment;
-import pl.edu.agh.to.drugstore.model.business.Magazine;
+import pl.edu.agh.to.drugstore.model.dao.AddressDAO;
+import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
+import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 
 import javax.persistence.EntityManager;
 import java.io.BufferedReader;
@@ -15,12 +16,16 @@ import java.util.stream.Collectors;
 @Data
 public class ConsoleApp {
 
-    private final Magazine magazine;
-    private final HRDepartment hrDepartment;
+    private final MedicationDAO medicationDAO;
+
+    private final PersonDAO personDAO;
+
+    private final AddressDAO addressDAO;
 
     public ConsoleApp(EntityManager em) {
-        this.magazine = new Magazine(em);
-        this.hrDepartment = new HRDepartment(em);
+        this.medicationDAO = new MedicationDAO(em);
+        this.personDAO = new PersonDAO(em);
+        this.addressDAO = new AddressDAO(em);
     }
 
     public void start() throws IOException {
