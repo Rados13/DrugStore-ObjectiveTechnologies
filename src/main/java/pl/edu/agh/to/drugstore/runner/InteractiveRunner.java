@@ -27,7 +27,7 @@ public class InteractiveRunner {
         try {
             new ConsoleApp(em).start();
         } catch (IOException e) {
-            logger.error("An error appeared during ConsoleApp intialization!" + e);
+            logger.error("An error appeared during ConsoleApp initialization!" + e);
             System.exit(2);
         }
 

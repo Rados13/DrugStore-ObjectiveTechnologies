@@ -8,6 +8,7 @@ import pl.edu.agh.to.drugstore.model.people.*;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -83,7 +84,9 @@ public class Parser {
                     app.getHrDepartment().deleteAddress(Integer.parseInt(params.get(2)));
                 break;
             case "show":
-                app.getHrDepartment().searchAllPersons().forEach(System.out::println);
+                List<Person> allExisting = new ArrayList<>(app.getHrDepartment().searchAllPersons());
+                logger.info("Found " + allExisting.size() + " people:");
+                allExisting.forEach(p -> logger.info(String.valueOf(p)));
         }
     }
 }
