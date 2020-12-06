@@ -1,5 +1,8 @@
 package pl.edu.agh.to.drugstore.model.people;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import lombok.*;
 import pl.edu.agh.to.drugstore.model.Notification;
 
@@ -19,10 +22,11 @@ import java.util.List;
 @ToString
 public class Person {
 
-    public Person() {}
+    public Person() {
+    }
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String firstname;
@@ -107,13 +111,34 @@ public class Person {
         Date date = !params.get(4).equals("-") ? new SimpleDateFormat("dd/MM/yyyy").parse(params.get(4)) : null;
         return Person
                 .builder()
-                .role(!params.get(1).equals("-")?
-                        Role.valueOf(params.get(1).toUpperCase()):null)
-                .firstname(!params.get(2).equals("-")?params.get(2):null)
-                .lastname(!params.get(3).equals("-")?params.get(3):null)
+                .role(!params.get(1).equals("-") ?
+                        Role.valueOf(params.get(1).toUpperCase()) : null)
+                .firstname(!params.get(2).equals("-") ? params.get(2) : null)
+                .lastname(!params.get(3).equals("-") ? params.get(3) : null)
                 .birthdate(date)
                 .PESEL(params.get(5))
                 .address(Address.addressBuilder(params.subList(6, params.size())))
                 .build();
     }
+
+    public ObservableValue<String> getFirstNameProperty() {
+        return new SimpleStringProperty(firstname);
+    }
+
+    public ObservableValue<String> getLastNameProperty() {
+        return new SimpleStringProperty(lastname);
+    }
+
+    public ObservableValue<String> getPESELProperty() {
+        return new SimpleStringProperty(PESEL);
+    }
+
+    public ObservableValue<Date> getBirthdateProperty() {
+        return new SimpleObjectProperty<Date>(birthdate);
+    }
+
+    public ObservableValue<Role> getRoleProperty() {
+        return new SimpleObjectProperty<Role>(role);
+    }
+
 }

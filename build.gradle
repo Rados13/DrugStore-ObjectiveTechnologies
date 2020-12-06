@@ -1,9 +1,12 @@
 plugins {
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
 group 'pl.edu.agh.to'
 version '1.0-SNAPSHOT'
+
+apply plugin: 'org.openjfx.javafxplugin'
 
 repositories {
     mavenCentral()
@@ -27,4 +30,9 @@ java {
 
 application {
     mainClassName = 'pl.edu.agh.to.drugstore.runner.Runner'
+}
+
+javafx {
+    version = '14'
+    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media', 'javafx.swing', 'javafx.web']
 }

@@ -1,29 +1,28 @@
 package pl.edu.agh.to.drugstore.runner;
 
-import pl.edu.agh.to.drugstore.consoleCRUD.ConsoleApp;
-import pl.edu.agh.to.drugstore.consoleCRUD.Parser;
-import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
-import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import pl.edu.agh.to.drugstore.controller.PersonAppController;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.Arrays;
-import java.util.List;
+import java.io.IOException;
 
-public class Runner {
+public class Runner extends Application {
 
-    public static void main(String... args) {
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws IOException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("postgresql");
         EntityManager em = emf.createEntityManager();
 
-        MedicationDAO medicationDAO = new MedicationDAO(em);
-        PersonDAO personDAO = new PersonDAO(em);
+        primaryStage.setTitle("My first JavaFX app");
 
-        Parser parser = new Parser(new ConsoleApp(em));
-        List<String> query = Arrays.asList(args);
-        parser.parse(query);
-
-        em.close();
+        PersonAppController appController = new PersonAppController(primaryStage, em);
+        appController.initRootLayout();
     }
 }
