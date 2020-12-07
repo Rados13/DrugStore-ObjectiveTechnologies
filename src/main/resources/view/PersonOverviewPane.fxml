@@ -49,5 +49,28 @@
             </BorderPane.margin>
         </VBox>
     </right>
+    <bottom>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <center>
+                <ListView fx:id="commandLogView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            </center>
+            <top>
+                <HBox maxHeight="-Infinity" prefHeight="39.0" prefWidth="800.0" BorderPane.alignment="TOP_LEFT">
+                    <children>
+<!--                        <Button fx:id="undoButton" mnemonicParsing="false" onAction="#handleUndoAction" text="Undo">-->
+<!--                            <HBox.margin>-->
+<!--                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
+<!--                            </HBox.margin>-->
+<!--                        </Button>-->
+<!--                        <Button fx:id="redoButton" mnemonicParsing="false" onAction="#handleRedoAction" text="Redo">-->
+<!--                            <HBox.margin>-->
+<!--                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
+<!--                            </HBox.margin>-->
+<!--                        </Button>-->
+                    </children>
+                </HBox>
+            </top>
+        </BorderPane>
+    </bottom>
 
 </BorderPane>

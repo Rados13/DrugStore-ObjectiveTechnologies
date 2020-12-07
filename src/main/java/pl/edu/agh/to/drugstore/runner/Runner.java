@@ -3,6 +3,7 @@ package pl.edu.agh.to.drugstore.runner;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import pl.edu.agh.to.drugstore.controller.PersonAppController;
+import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,7 +21,7 @@ public class Runner extends Application {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("postgresql");
         EntityManager em = emf.createEntityManager();
 
-        primaryStage.setTitle("My first JavaFX app");
+        primaryStage.setTitle("DrugStore");
 
         PersonAppController appController = new PersonAppController(primaryStage, em);
         appController.initRootLayout();

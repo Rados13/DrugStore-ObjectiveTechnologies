@@ -22,9 +22,6 @@ import java.util.List;
 @ToString
 public class Person {
 
-    public Person() {
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -43,6 +40,19 @@ public class Person {
 
     @OneToMany()
     private List<Notification> notificationList = new ArrayList<>();
+
+    public Person() {
+    }
+
+    public Person(Person person) {
+        this.firstname= person.firstname;
+        this.lastname= person.lastname;
+        this.birthdate= person.birthdate;
+        this.PESEL= person.PESEL;
+        this.role= person.role;
+        this.address = person.address;
+        this.notificationList = person.notificationList;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -104,7 +114,7 @@ public class Person {
         this.role = role;
     }
 
-    public static Person personBulder(List<String> params) throws ParseException {
+    public static Person personBuilder(List<String> params) throws ParseException {
         if (params.size() < 6) {
             throw new IllegalArgumentException("Given number of arguments is too low.");
         }

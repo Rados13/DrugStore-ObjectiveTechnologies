@@ -45,7 +45,7 @@ public class PersonDAO {
         return result;
     }
 
-    public List searchPersons(Person person){
+    public List searchPeople(Person person){
         EntityTransaction etx = em.getTransaction();
 
         Address personAddress = this.addressDAO.searchExistingAddress(person.getAddress());
@@ -78,6 +78,13 @@ public class PersonDAO {
         Person person = em.find(Person.class,personID);
         System.out.println(person.toString());
         em.remove(person);
+        etx.commit();
+    }
+
+    public void editPerson(Person newPerson){
+        EntityTransaction etx = em.getTransaction();
+        etx.begin();
+        em.merge(newPerson);
         etx.commit();
     }
 }

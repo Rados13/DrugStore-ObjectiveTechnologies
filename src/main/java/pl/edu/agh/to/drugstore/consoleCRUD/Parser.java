@@ -35,7 +35,7 @@ public class Parser {
             case "administrator":
                 if (!params.get(0).equals("delete")) {
                     try {
-                        person = Person.personBulder(params);
+                        person = Person.personBuilder(params);
                     } catch (ParseException e) {
                         logger.info("A problem appeared when parsing Person object" + e);
                     }
@@ -67,7 +67,7 @@ public class Parser {
                 break;
             case "search":
                 if (person != null)
-                    app.getPersonDAO().searchPersons(person)
+                    app.getPersonDAO().searchPeople(person)
                             .forEach(elem -> System.out.println(elem.toString()));
                 if (address != null)
                     app.getAddressDAO().searchAddresses(address)
