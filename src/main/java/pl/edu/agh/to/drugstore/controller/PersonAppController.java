@@ -5,6 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.model.dao.AddressDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
@@ -25,15 +27,18 @@ public class PersonAppController {
 
     private final CommandRegistry commandRegistry = new CommandRegistry();
 
+    private final static Logger logger = LoggerFactory.getLogger(PersonAppController.class);
+
     public PersonAppController(Stage primaryStage, EntityManager em) {
         this.primaryStage = primaryStage;
         this.personDAO = new PersonDAO(em);
         this.addressDAO = new AddressDAO(em);
     }
 
-    PersonDAO getPersonDAO() {
+    public PersonDAO getPersonDAO() {
         return personDAO;
     }
+
 
     public void initRootLayout() throws IOException {
         this.primaryStage.setTitle("Drugstore");
@@ -83,7 +88,7 @@ public class PersonAppController {
             return presenter.isApproved();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("An error appeared when loading page.", e);
             return false;
         }
     }

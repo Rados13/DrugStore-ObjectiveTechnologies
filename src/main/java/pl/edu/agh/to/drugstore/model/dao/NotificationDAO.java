@@ -17,6 +17,11 @@ public class NotificationDAO {
         this.em = em;
     }
 
+    /**
+     * Wyszukuje w bazie danych i zwraca kolekcję powiadomień dotyczących konkretnej osoby.
+     * @param person
+     * @return
+     */
     public Collection<Notification> getNotifications(Person person) {
         EntityTransaction etx = em.getTransaction();
         etx.begin();

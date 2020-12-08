@@ -15,6 +15,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
+/**
+ * Klasa odpowiadająca z wyświetlenie okna edycji wybranej osoby w interfejsie graficznym
+ */
 public class PersonEditDialogPresenter {
 
     private Person person;

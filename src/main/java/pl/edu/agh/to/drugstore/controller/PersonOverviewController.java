@@ -16,6 +16,9 @@ import pl.edu.agh.to.drugstore.model.people.Role;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Klasa interfejsu graficznego odpowiedzialna za wyświetlanie wszystkich osób dostępnych w bazie danych.
+ */
 public class PersonOverviewController {
 
     private PersonAppController appController;
@@ -75,6 +78,9 @@ public class PersonOverviewController {
     @FXML
     private Button redoButton;
 
+    /**
+     * Inicjalizuje główne okno aplikacji, w którym wyświetlane są osoby zapisane w bazie danych.
+     */
     @FXML
     private void initialize() {
         personTableView.getSelectionModel().setSelectionMode(
@@ -109,6 +115,10 @@ public class PersonOverviewController {
                                 .getSelectedItems()).isNotEqualTo(1));
     }
 
+    /**
+     * Odpowiada za obsługę eventu - naciśnięcie przycisku delete odpowiedzialnego za usuwanie osoby z bazy danych.
+     * @param event
+     */
     @FXML
     private void handleDeleteAction(ActionEvent event) {
         List<Person> peopleToRemove = List.copyOf(personTableView.getSelectionModel().getSelectedItems());
@@ -117,6 +127,12 @@ public class PersonOverviewController {
         setData();
     }
 
+    /**
+     * Odpowiada za obsługę eventu - naciśnięcie przycisku edit odpowiedzialnego za edytowanie danych wybranej osoby.
+     * Wyświetla osobne okno w interfejsie graficznym, które umożliwia edycję danych.
+     * @param event
+     * @throws InterruptedException
+     */
     @FXML
     private void handleEditAction(ActionEvent event) throws InterruptedException {
         Person personToEdit = personTableView.getSelectionModel()
@@ -130,6 +146,10 @@ public class PersonOverviewController {
         setData();
     }
 
+    /**
+     * Odpowiada za obsługę eventu - naciśnięcie przycisku add odpowiedzialnego za dodawanie osoby do bazy danych.
+     * @param event
+     */
     @FXML
     private void handleAddAction(ActionEvent event) {
         Person person = new Person();

@@ -22,9 +22,13 @@ public class Medication {
     private int id;
 
     private String name;
+
     private MedicationForm form;
+
     private boolean prescriptionRequired;
+
     private BigDecimal price;
+
     private int quantity;
 
     @ManyToMany()

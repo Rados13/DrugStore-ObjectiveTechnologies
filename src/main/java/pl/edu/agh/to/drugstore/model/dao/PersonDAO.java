@@ -19,6 +19,10 @@ public class PersonDAO {
         this.addressDAO = new AddressDAO(em);
     }
 
+    /**
+     * Dodaje nową osobę do bazy danych.
+     * @param person
+     */
     public void addPerson(Person person) {
         EntityTransaction etx = em.getTransaction();
 
@@ -34,6 +38,10 @@ public class PersonDAO {
         etx.commit();
     }
 
+    /**
+     * Zwraca listę wszystkich osób zapisanych w bazie danych.
+     * @return
+     */
     public List<Person> searchAllPersons() {
         EntityTransaction etx = em.getTransaction();
 
@@ -45,7 +53,12 @@ public class PersonDAO {
         return result;
     }
 
-    public List searchPeople(Person person){
+    /**
+     * Zwraca listę osób spełniających określone kryteria.
+     * @param person
+     * @return
+     */
+    public List<Person> searchPeople(Person person){
         EntityTransaction etx = em.getTransaction();
 
         Address personAddress = this.addressDAO.searchExistingAddress(person.getAddress());
@@ -72,6 +85,10 @@ public class PersonDAO {
         return result;
     }
 
+    /**
+     * Usuwa osobę z bazy danych
+     * @param personID
+     */
     public void deletePerson(int personID){
         EntityTransaction etx = em.getTransaction();
         etx.begin();
@@ -81,6 +98,10 @@ public class PersonDAO {
         etx.commit();
     }
 
+    /**
+     * Aktualizuje w bazie danych dane dotyczące określonej osoby.
+     * @param newPerson
+     */
     public void editPerson(Person newPerson){
         EntityTransaction etx = em.getTransaction();
         etx.begin();

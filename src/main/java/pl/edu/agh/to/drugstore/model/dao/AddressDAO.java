@@ -16,6 +16,11 @@ public class AddressDAO {
         this.em = em;
     }
 
+    /**
+     * Wyszukuje w bazie danych adres o określonych parametrach.
+     * @param address
+     * @return
+     */
     public Address searchExistingAddress(Address address){
         List<Address> addresses = searchAddresses(address);
         if(addresses == null) return null;
@@ -24,6 +29,11 @@ public class AddressDAO {
         return possible.orElse(null);
     }
 
+    /**
+     * Wyszukuje w bazie danych adres o określonych parametrach.
+     * @param address
+     * @return
+     */
     public List<Address> searchAddresses(Address address){
         EntityTransaction etx = em.getTransaction();
 
@@ -46,6 +56,11 @@ public class AddressDAO {
         return result;
     }
 
+    /**
+     * Dodaje do bazy danych nowy adres.
+     * @param address
+     * @return
+     */
     public int addAddress(Address address){
         EntityTransaction etx = em.getTransaction();
         etx.begin();
@@ -54,6 +69,10 @@ public class AddressDAO {
         return address.getId();
     }
 
+    /**
+     * Usuwa z bazy danych adres o podanym ID.
+     * @param addressID
+     */
     public void deleteAddress(int addressID){
         EntityTransaction etx = em.getTransaction();
         etx.begin();
