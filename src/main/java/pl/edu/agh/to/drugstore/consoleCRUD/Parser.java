@@ -4,7 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
 import pl.edu.agh.to.drugstore.model.medications.MedicationForm;
-import pl.edu.agh.to.drugstore.model.people.*;
+import pl.edu.agh.to.drugstore.model.people.Address;
+import pl.edu.agh.to.drugstore.model.people.Person;
+import pl.edu.agh.to.drugstore.model.people.Role;
 
 import java.math.BigDecimal;
 import java.text.ParseException;

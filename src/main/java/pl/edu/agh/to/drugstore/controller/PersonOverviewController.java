@@ -7,8 +7,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pl.edu.agh.to.drugstore.command.*;
+import pl.edu.agh.to.drugstore.model.dao.AddressDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
+import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
+import pl.edu.agh.to.drugstore.model.people.Role;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +22,7 @@ public class PersonOverviewController {
     private PersonAppController appController;
     private CommandRegistry commandRegistry;
     private PersonDAO personDAO;
+    private AddressDAO addressDAO;
 
     @FXML
     private TableView<Person> personTableView;
@@ -34,6 +38,22 @@ public class PersonOverviewController {
 
     @FXML
     public TableColumn<Person, String> PESELColumn;
+
+    @FXML
+    public TableColumn<Person, Role> roleColumn;
+
+    @FXML
+    public TableColumn<Person, String> cityColumn;
+
+    @FXML
+    public TableColumn<Person, String> streetColumn;
+
+    @FXML
+    public TableColumn<Person, String> houseIdColumn;
+
+    @FXML
+    public TableColumn<Person, String> apartmentIdColumn;
+
 
     @FXML
     private ListView<Command> commandLogView;
@@ -66,6 +86,16 @@ public class PersonOverviewController {
                 .getBirthdateProperty());
         PESELColumn.setCellValueFactory(dataValue -> dataValue.getValue()
                 .getPESELProperty());
+        roleColumn.setCellValueFactory(dataValue -> dataValue.getValue()
+                .getRoleProperty());
+        cityColumn.setCellValueFactory(dataValue -> dataValue.getValue()
+                .getAddress().getCityProperty());
+        streetColumn.setCellValueFactory(dataValue -> dataValue.getValue()
+                .getAddress().getStreetProperty());
+        houseIdColumn.setCellValueFactory(dataValue -> dataValue.getValue()
+                .getAddress().getHouseIdProperty());
+        apartmentIdColumn.setCellValueFactory(dataValue -> dataValue.getValue()
+                .getAddress().getApartmentIdProperty());
 
 
         deleteButton.disableProperty().bind(
@@ -101,8 +131,9 @@ public class PersonOverviewController {
     @FXML
     private void handleAddAction(ActionEvent event) {
         Person person = new Person();
+        Address address = new Address();
         if (appController.showPersonEditDialog(person)) {
-            AddPersonCommand addPersonCommand = new AddPersonCommand(person, personDAO);
+            AddPersonCommand addPersonCommand = new AddPersonCommand(person, address, personDAO, addressDAO);
             commandRegistry.executeCommand(addPersonCommand);
         }
         setData();
@@ -143,5 +174,9 @@ public class PersonOverviewController {
 
     public void setPersonDAO(PersonDAO personDAO) {
         this.personDAO = personDAO;
+    }
+
+    public void setAddressDAO(AddressDAO addressDAO) {
+        this.addressDAO = addressDAO;
     }
 }

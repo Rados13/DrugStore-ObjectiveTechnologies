@@ -1,5 +1,7 @@
 package pl.edu.agh.to.drugstore.model.people;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
@@ -23,8 +25,8 @@ public class Address {
 
     private String city;
     private String street;
-    private Integer houseId;
-    private Integer apartmentId;
+    private String houseId;
+    private String apartmentId;
 
     public String getCity() {
         return city;
@@ -42,12 +44,12 @@ public class Address {
         this.street = street;
     }
 
-    public Integer getHouseId() {
+    public String getHouseId() {
         return houseId;
     }
 
-    public void setHouseId(int houseId) {
-        if (houseId <= 0) throw new IllegalArgumentException("House Id must be positive number");
+    public void setHouseId(String houseId) {
+        if (Integer.parseInt(houseId) <= 0) throw new IllegalArgumentException("House Id must be positive number");
         this.houseId = houseId;
     }
 
@@ -56,12 +58,12 @@ public class Address {
                 && address.getHouseId().equals(houseId) && address.getApartmentId().equals(apartmentId);
     }
 
-    public Integer getApartmentId() {
+    public String getApartmentId() {
         return apartmentId;
     }
 
-    public void setApartmentId(int apartmentId) {
-        if (houseId < 0) throw new IllegalArgumentException("Negative apartment Id isn't allowed");
+    public void setApartmentId(String apartmentId) {
+        if (Integer.parseInt(houseId) < 0) throw new IllegalArgumentException("Negative apartment Id isn't allowed");
         this.apartmentId = apartmentId;
     }
 
@@ -79,9 +81,9 @@ public class Address {
                 .city(params.size() > 0 && !params.get(0).equals("-") ? params.get(0) : null)
                 .street(params.size() > 1 && !params.get(1).equals("-") ? params.get(1) : null)
                 .houseId(params.size() > 2 && !params.get(2).equals("-")
-                        ? Integer.parseInt(params.get(2)) : null)
+                        ? (params.get(2)) : null)
                 .apartmentId(params.size() > 3 && !params.get(3).equals("-")
-                        ? Integer.parseInt(params.get(3)) : null)
+                        ? (params.get(3)) : null)
                 .build();
 
     }
@@ -91,4 +93,22 @@ public class Address {
         return city + ", " + (street != null ? street : "") + " " + (houseId != null ? houseId : "") +
                 (apartmentId != null ? ("/" + apartmentId) : "");
     }
+
+    public ObservableValue<String> getCityProperty() {
+        return new SimpleStringProperty(city);
+    }
+
+    public ObservableValue<String> getStreetProperty() {
+        return new SimpleStringProperty(street);
+    }
+
+    public ObservableValue<String> getHouseIdProperty() {
+        return new SimpleStringProperty(houseId);
+    }
+
+    public ObservableValue<String> getApartmentIdProperty() {
+        return new SimpleStringProperty(apartmentId);
+    }
+
+
 }

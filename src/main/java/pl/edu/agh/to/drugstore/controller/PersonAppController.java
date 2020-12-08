@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.model.dao.AddressDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
+import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
 import pl.edu.agh.to.drugstore.presenter.PersonEditDialogPresenter;
 
@@ -47,6 +48,7 @@ public class PersonAppController {
         controller.setData();
         controller.setCommandRegistry(commandRegistry);
         controller.setPersonDAO(personDAO);
+        controller.setAddressDAO(addressDAO);
 
         Scene scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
@@ -58,7 +60,7 @@ public class PersonAppController {
             // Load the fxml file and create a new stage for the dialog
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(PersonAppController.class
-                    .getResource("/view/TransactionEditDialog.fxml"));
+                    .getResource("/view/PersonEditDialog.fxml"));
             BorderPane page = (BorderPane) loader.load();
 
             // Create the dialog Stage.
@@ -72,7 +74,10 @@ public class PersonAppController {
             // Set the person into the presenter.
             PersonEditDialogPresenter presenter = loader.getController();
             presenter.setDialogStage(dialogStage);
-            presenter.setData(person);
+            if (person.getAddress() == null)
+                presenter.setData(person, new Address());
+            else presenter.setData(person, person.getAddress());
+
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             return presenter.isApproved();
