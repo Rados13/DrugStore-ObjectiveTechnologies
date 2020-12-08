@@ -5,17 +5,21 @@ import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
 
-public class AddPersonCommand implements Command{
+public class AddPersonCommand implements Command {
+
     private final Person personToAdd;
+
     private final Address address;
+
     private final PersonDAO personDAO;
+
     private final AddressDAO addressDAO;
 
     public AddPersonCommand(Person person, Address address, PersonDAO personDAO, AddressDAO addressDAO) {
         this.personToAdd = person;
         this.address = address;
         this.personDAO = personDAO;
-        this. addressDAO = addressDAO;
+        this.addressDAO = addressDAO;
     }
 
     @Override

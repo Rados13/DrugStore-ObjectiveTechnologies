@@ -6,7 +6,9 @@ import pl.edu.agh.to.drugstore.model.people.Person;
 import java.util.List;
 
 public class RemovePeopleCommand implements Command {
+
     private final List<Person> peopleToRemove;
+
     private final PersonDAO personDAO;
 
     public RemovePeopleCommand(List<Person> peopleToRemove, PersonDAO personDAO) {

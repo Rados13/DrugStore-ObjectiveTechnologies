@@ -18,6 +18,7 @@ import java.util.Date;
 public class PersonEditDialogPresenter {
 
     private Person person;
+
     private Address address;
 
     @FXML

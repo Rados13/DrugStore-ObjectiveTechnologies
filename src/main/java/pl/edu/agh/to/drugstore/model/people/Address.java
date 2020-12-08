@@ -16,16 +16,18 @@ import java.util.List;
 @AllArgsConstructor
 public class Address {
 
-    public Address() {
-    }
+    public Address() { }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String city;
+
     private String street;
+
     private String houseId;
+
     private String apartmentId;
 
     public String getCity() {
@@ -109,6 +111,4 @@ public class Address {
     public ObservableValue<String> getApartmentIdProperty() {
         return new SimpleStringProperty(apartmentId);
     }
-
-
 }

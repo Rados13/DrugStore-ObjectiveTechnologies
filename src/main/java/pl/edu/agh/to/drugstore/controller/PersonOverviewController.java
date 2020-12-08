@@ -16,12 +16,14 @@ import pl.edu.agh.to.drugstore.model.people.Role;
 import java.util.Date;
 import java.util.List;
 
-
 public class PersonOverviewController {
 
     private PersonAppController appController;
+
     private CommandRegistry commandRegistry;
+
     private PersonDAO personDAO;
+
     private AddressDAO addressDAO;
 
     @FXML

@@ -27,7 +27,9 @@ public class Person {
     private int id;
 
     private String firstname;
+
     private String lastname;
+
     private Date birthdate;
 
     @Column(unique = true)
@@ -35,21 +37,21 @@ public class Person {
 
     @OneToOne()
     private Address address;
+
     @NonNull()
     private Role role;
 
     @OneToMany()
     private List<Notification> notificationList = new ArrayList<>();
 
-    public Person() {
-    }
+    public Person() { }
 
     public Person(Person person) {
-        this.firstname= person.firstname;
-        this.lastname= person.lastname;
-        this.birthdate= person.birthdate;
-        this.PESEL= person.PESEL;
-        this.role= person.role;
+        this.firstname = person.firstname;
+        this.lastname = person.lastname;
+        this.birthdate = person.birthdate;
+        this.PESEL = person.PESEL;
+        this.role = person.role;
         this.address = person.address;
         this.notificationList = person.notificationList;
     }
@@ -150,5 +152,4 @@ public class Person {
     public ObservableValue<Role> getRoleProperty() {
         return new SimpleObjectProperty<Role>(role);
     }
-
 }
