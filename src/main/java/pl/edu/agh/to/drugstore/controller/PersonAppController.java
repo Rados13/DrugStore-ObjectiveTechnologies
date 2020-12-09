@@ -12,6 +12,7 @@ import pl.edu.agh.to.drugstore.model.dao.AddressDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
+import pl.edu.agh.to.drugstore.presenter.LoginScreenPresenter;
 import pl.edu.agh.to.drugstore.presenter.PersonEditDialogPresenter;
 
 import javax.persistence.EntityManager;
@@ -41,6 +42,13 @@ public class PersonAppController {
 
 
     public void initRootLayout() throws IOException {
+
+        boolean approved = showLoginScreen();
+        while(!approved){
+            //show login error
+            approved = showLoginScreen();
+        }
+
         this.primaryStage.setTitle("Drugstore");
 
         FXMLLoader loader = new FXMLLoader();
@@ -82,6 +90,36 @@ public class PersonAppController {
             if (person.getAddress() == null)
                 presenter.setData(person, new Address());
             else presenter.setData(person, person.getAddress());
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+            return presenter.isApproved();
+
+        } catch (IOException e) {
+            logger.error("An error appeared when loading page.", e);
+            return false;
+        }
+    }
+
+    public boolean showLoginScreen() {
+        try {
+            // Load the fxml file and create a new stage for the dialog
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(PersonAppController.class
+                    .getResource("/view/LoginPane.fxml"));
+            BorderPane page = (BorderPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Login");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the presenter.
+            LoginScreenPresenter presenter = loader.getController();
+            presenter.setDialogStage(dialogStage);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
