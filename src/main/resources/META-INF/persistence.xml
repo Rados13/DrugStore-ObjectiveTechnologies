@@ -11,7 +11,12 @@
         <class>pl.edu.agh.to.drugstore.model.people.Person</class>
         <class>pl.edu.agh.to.drugstore.model.medications.Illness</class>
         <class>pl.edu.agh.to.drugstore.model.medications.Medication</class>
-        <class>pl.edu.agh.to.drugstore.model.Notification</class>
+        <class>pl.edu.agh.to.drugstore.model.business.Notification</class>
+        <class>pl.edu.agh.to.drugstore.model.business.Order</class>
+        <class>pl.edu.agh.to.drugstore.model.business.ClientOrder</class>
+        <class>pl.edu.agh.to.drugstore.model.business.SupplyOrder</class>
+        <class>pl.edu.agh.to.drugstore.model.business.Supplier</class>
+        <!--<class>pl.edu.agh.to.drugstore.model.business.Tuple</class>-->
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->

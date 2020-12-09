@@ -1,6 +1,6 @@
 package pl.edu.agh.to.drugstore.model.dao;
 
-import pl.edu.agh.to.drugstore.model.Notification;
+import pl.edu.agh.to.drugstore.model.business.Notification;
 import pl.edu.agh.to.drugstore.model.people.Person;
 
 import javax.persistence.EntityManager;
