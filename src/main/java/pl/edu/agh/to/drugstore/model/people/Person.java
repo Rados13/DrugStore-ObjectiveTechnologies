@@ -9,6 +9,7 @@ import pl.edu.agh.to.drugstore.model.Notification;
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -30,7 +31,7 @@ public class Person {
 
     private String lastname;
 
-    private Date birthdate;
+    private LocalDate birthdate;
 
     @Column(unique = true)
     private String PESEL;
@@ -88,11 +89,11 @@ public class Person {
         this.PESEL = PESEL;
     }
 
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -120,7 +121,7 @@ public class Person {
         if (params.size() < 6) {
             throw new IllegalArgumentException("Given number of arguments is too low.");
         }
-        Date date = !params.get(4).equals("-") ? new SimpleDateFormat("dd/MM/yyyy").parse(params.get(4)) : null;
+        LocalDate date = !params.get(4).equals("-") ? LocalDate.from(new SimpleDateFormat("dd/MM/yyyy").parse(params.get(4)).toInstant()) : null;
         return Person
                 .builder()
                 .role(!params.get(1).equals("-") ?
@@ -145,8 +146,8 @@ public class Person {
         return new SimpleStringProperty(PESEL);
     }
 
-    public ObservableValue<Date> getBirthdateProperty() {
-        return new SimpleObjectProperty<Date>(birthdate);
+    public ObservableValue<LocalDate> getBirthdateProperty() {
+        return new SimpleObjectProperty<LocalDate>(birthdate);
     }
 
     public ObservableValue<Role> getRoleProperty() {

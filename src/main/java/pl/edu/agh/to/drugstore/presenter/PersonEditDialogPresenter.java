@@ -94,7 +94,7 @@ public class PersonEditDialogPresenter {
     private void updateModel() {
         person.setFirstname(firstNameTextField.getText());
         person.setLastname(lastNameTextField.getText());
-        person.setBirthdate(Date.from(birthDatePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        person.setBirthdate(LocalDate.from(birthDatePicker.getValue()));
         person.setPESEL(PESELTextField.getText());
         person.setRole(roleComboBox.getValue());
 
@@ -110,7 +110,7 @@ public class PersonEditDialogPresenter {
         firstNameTextField.setText(person.getFirstname());
         lastNameTextField.setText(person.getLastname());
         if (person.getBirthdate() != null)
-            birthDatePicker.setValue(person.getBirthdate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            birthDatePicker.setValue(person.getBirthdate());
         else birthDatePicker.setValue(LocalDate.now());
         PESELTextField.setText(person.getPESEL());
         if (person.getRole() != null)

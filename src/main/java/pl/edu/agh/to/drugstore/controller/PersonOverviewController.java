@@ -13,6 +13,7 @@ import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
 import pl.edu.agh.to.drugstore.model.people.Role;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,8 @@ public class PersonOverviewController {
 
     private AddressDAO addressDAO;
 
+    ObservableList<Person> allExisting;
+
     @FXML
     private TableView<Person> personTableView;
 
@@ -39,7 +42,7 @@ public class PersonOverviewController {
     private TableColumn<Person, String> lastNameColumn;
 
     @FXML
-    public TableColumn<Person, Date> birthdateColumn;
+    public TableColumn<Person, LocalDate> birthdateColumn;
 
     @FXML
     public TableColumn<Person, String> PESELColumn;
@@ -124,7 +127,10 @@ public class PersonOverviewController {
         List<Person> peopleToRemove = List.copyOf(personTableView.getSelectionModel().getSelectedItems());
         RemovePeopleCommand removePeopleCommand = new RemovePeopleCommand(peopleToRemove, personDAO);
         commandRegistry.executeCommand(removePeopleCommand);
-        setData();
+        for(Person person : peopleToRemove){
+            allExisting.remove(person);
+        }
+        refresh();
     }
 
     /**
@@ -143,7 +149,7 @@ public class PersonOverviewController {
             EditPersonCommand editPersonCommand = new EditPersonCommand(personToEdit, editedPerson, personDAO);
             commandRegistry.executeCommand(editPersonCommand);
         }
-        setData();
+        refresh();
     }
 
     /**
@@ -158,25 +164,31 @@ public class PersonOverviewController {
             AddPersonCommand addPersonCommand = new AddPersonCommand(person, address, personDAO, addressDAO);
             commandRegistry.executeCommand(addPersonCommand);
         }
-        setData();
+        allExisting.add(person);
+        refresh();
     }
 
     @FXML
     private void handleUndoAction(ActionEvent event) {
         commandRegistry.undo();
-        setData();
+        refresh();
     }
 
     @FXML
     private void handleRedoAction(ActionEvent event) {
         commandRegistry.redo();
-        setData();
+        refresh();
     }
 
     public void setData() {
-        ObservableList<Person> allExisting = FXCollections.observableArrayList(appController.getPersonDAO().searchAllPersons());
+        allExisting = FXCollections.observableArrayList(appController.getPersonDAO().searchAllPersons());
         System.out.println(allExisting);
+        personTableView.refresh();
         personTableView.setItems(allExisting);
+    }
+
+    void refresh() {
+        personTableView.refresh();
     }
 
     public void setAppController(PersonAppController appController) {
