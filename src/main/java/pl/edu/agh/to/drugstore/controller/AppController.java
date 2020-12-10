@@ -20,12 +20,15 @@ public class AppController {
 
     private final Stage primaryStage;
 
+    private final EntityManager em;
+
     private final CommandRegistry commandRegistry = new CommandRegistry();
 
     private final static Logger logger = LoggerFactory.getLogger(AppController.class);
 
     public AppController(Stage primaryStage, EntityManager em) {
         this.primaryStage = primaryStage;
+        this.em = em;
     }
 
     public void initRootLayout() throws IOException {
@@ -38,9 +41,9 @@ public class AppController {
         Person person = new Person();
         person.setRole(Role.ADMINISTRATOR);
 
-        switch (person.getRole()){
+        switch (person.getRole()) {
             case ADMINISTRATOR:
-               showAdminPanel();
+                showAdminPanel();
             case CLIENT:
 
             case SELLER:
@@ -97,6 +100,8 @@ public class AppController {
             // Set the person into the presenter.
             AdminPanelPresenter presenter = loader.getController();
             presenter.setDialogStage(dialogStage);
+            presenter.setAppStage(primaryStage);
+            presenter.setEntityManager(em);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
