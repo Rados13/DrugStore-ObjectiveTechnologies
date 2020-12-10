@@ -180,7 +180,7 @@ public class PersonOverviewController {
     }
 
     public void setData() {
-        allExisting = FXCollections.observableArrayList(appController.getPersonDAO().searchAllPersons());
+        allExisting = FXCollections.observableArrayList(appController.getPersonDAO().findAll());
         System.out.println(allExisting);
         personTableView.refresh();
         personTableView.setItems(allExisting);

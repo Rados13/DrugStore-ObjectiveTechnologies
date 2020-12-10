@@ -8,12 +8,54 @@ import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
-public class AddressDAO {
+public class AddressDAO implements ObjectDAO<Address> {
 
     private final EntityManager em;
 
     public AddressDAO(EntityManager em) {
         this.em = em;
+    }
+
+    @Override
+    public List<Address> findAll() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Address find(int id) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Dodaje do bazy danych nowy adres.
+     * @param address
+     * @return
+     */
+    @Override
+    public void add(Address address){
+        EntityTransaction etx = em.getTransaction();
+        etx.begin();
+        em.persist(address);
+        etx.commit();
+    }
+
+    /**
+     * Usuwa z bazy danych adres o podanym ID.
+     * @param addressID
+     */
+    @Override
+    public void delete(int addressID){
+        EntityTransaction etx = em.getTransaction();
+        etx.begin();
+        Address address = em.find(Address.class,addressID);
+        System.out.println(address.toString());
+        em.remove(address);
+        etx.commit();
+    }
+
+    @Override
+    public void update(Address object) {
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -56,29 +98,4 @@ public class AddressDAO {
         return result;
     }
 
-    /**
-     * Dodaje do bazy danych nowy adres.
-     * @param address
-     * @return
-     */
-    public int addAddress(Address address){
-        EntityTransaction etx = em.getTransaction();
-        etx.begin();
-        em.persist(address);
-        etx.commit();
-        return address.getId();
-    }
-
-    /**
-     * Usuwa z bazy danych adres o podanym ID.
-     * @param addressID
-     */
-    public void deleteAddress(int addressID){
-        EntityTransaction etx = em.getTransaction();
-        etx.begin();
-        Address address = em.find(Address.class,addressID);
-        System.out.println(address.toString());
-        em.remove(address);
-        etx.commit();
-    }
 }

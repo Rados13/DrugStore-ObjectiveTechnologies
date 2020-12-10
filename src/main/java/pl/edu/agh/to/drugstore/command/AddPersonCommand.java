@@ -24,8 +24,8 @@ public class AddPersonCommand implements Command {
 
     @Override
     public void execute() {
-        addressDAO.addAddress(personToAdd.getAddress());
-        personDAO.addPerson(personToAdd);
+        addressDAO.add(personToAdd.getAddress());
+        personDAO.add(personToAdd);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class AddPersonCommand implements Command {
 
     @Override
     public void undo() {
-        personDAO.deletePerson(personToAdd.getId());
+        personDAO.delete(personToAdd.getId());
     }
 
     @Override
