@@ -15,6 +15,7 @@ public abstract class Order {
     protected int id;
 
     protected Date submissionDate;
+
     protected Date shippingDate;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

@@ -1,5 +1,8 @@
 package pl.edu.agh.to.drugstore.model.business;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
 
 import javax.persistence.*;
@@ -7,6 +10,9 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Supplier {
 
     @Id
@@ -15,6 +21,7 @@ public class Supplier {
 
     @Column(nullable = false)
     private String NIP;
+
     private String name;
 
     @ManyToMany
