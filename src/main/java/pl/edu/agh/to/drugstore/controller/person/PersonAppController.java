@@ -38,30 +38,20 @@ public class PersonAppController {
     }
 
     public void initRootLayout() throws IOException {
-
-        boolean approved = showLoginScreen();
-        while (!approved) {
-            //show login error
-            approved = showLoginScreen();
-        }
-
         this.primaryStage.setTitle("Drugstore");
 
         FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(PersonAppController.class
-//                .getResource("/view/PersonOverviewPane.fxml"));
-        loader.setLocation(MedicationOverviewController.class
-                .getResource("/view/MedicationsOverviewPane.fxml"));
+
+        loader.setLocation(PersonOverviewController.class
+                .getResource("/view/PersonOverviewPane.fxml"));
         BorderPane rootLayout = loader.load();
 
-//        PersonOverviewController controller = loader.getController();
         PersonOverviewController controller = loader.getController();
         controller.setAppController(this);
         controller.setData();
         controller.setCommandRegistry(commandRegistry);
         controller.setPersonDAO(personDAO);
-//        controller.setPersonDAO(personDAO);
-//        controller.setAddressDAO(addressDAO);
+
 
         Scene scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
@@ -88,36 +78,6 @@ public class PersonAppController {
                 presenter.setData(person, new Address());
             else presenter.setData(person, person.getAddress());
 
-            dialogStage.showAndWait();
-            return presenter.isApproved();
-
-        } catch (IOException e) {
-            logger.error("An error appeared when loading page.", e);
-            return false;
-        }
-    }
-
-    public boolean showLoginScreen() {
-        try {
-            // Load the fxml file and create a new stage for the dialog
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(PersonAppController.class
-                    .getResource("/view/LoginPane.fxml"));
-            BorderPane page = (BorderPane) loader.load();
-
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Login");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            // Set the person into the presenter.
-            LoginScreenPresenter presenter = loader.getController();
-            presenter.setDialogStage(dialogStage);
-
-            // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             return presenter.isApproved();
 
