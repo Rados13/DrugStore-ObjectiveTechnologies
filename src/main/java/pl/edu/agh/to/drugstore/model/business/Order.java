@@ -53,4 +53,8 @@ public abstract class Order {
     public boolean shipped() {
         return this.shippingDate != null;
     }
+
+    public void bookMedication(Medication medication) {
+        this.medications.get(medication).setBooked(true);
+    }
 }
