@@ -1,5 +1,6 @@
-package pl.edu.agh.to.drugstore.command;
+package pl.edu.agh.to.drugstore.command.person;
 
+import pl.edu.agh.to.drugstore.command.Command;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Person;
 
