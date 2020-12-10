@@ -1,8 +1,6 @@
 package pl.edu.agh.to.drugstore.controller;
 
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -19,20 +17,11 @@ import java.util.List;
 /**
  * Klasa interfejsu graficznego odpowiedzialna za wyświetlanie wszystkich osób dostępnych w bazie danych.
  */
-public class PersonOverviewController {
-
-    private PersonAppController appController;
-
-    private CommandRegistry commandRegistry;
+public class PersonOverviewController extends OverviewController<Person>{
 
     private PersonDAO personDAO;
 
     private AddressDAO addressDAO;
-
-    ObservableList<Person> allExisting;
-
-    @FXML
-    private TableView<Person> personTableView;
 
     @FXML
     private TableColumn<Person, String> firstNameColumn;
@@ -61,31 +50,13 @@ public class PersonOverviewController {
     @FXML
     public TableColumn<Person, String> apartmentIdColumn;
 
-
-    @FXML
-    private ListView<Command> commandLogView;
-
-    @FXML
-    private Button deleteButton;
-
-    @FXML
-    private Button editButton;
-
-    @FXML
-    private Button addButton;
-
-    @FXML
-    private Button undoButton;
-
-    @FXML
-    private Button redoButton;
-
     /**
      * Inicjalizuje główne okno aplikacji, w którym wyświetlane są osoby zapisane w bazie danych.
      */
     @FXML
-    private void initialize() {
-        personTableView.getSelectionModel().setSelectionMode(
+    void initialize() {
+        startInitialize();
+        tableView.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
 
         firstNameColumn.setCellValueFactory(dataValue -> dataValue.getValue()
@@ -106,15 +77,6 @@ public class PersonOverviewController {
                 .getAddress().getHouseIdProperty());
         apartmentIdColumn.setCellValueFactory(dataValue -> dataValue.getValue()
                 .getAddress().getApartmentIdProperty());
-
-
-        deleteButton.disableProperty().bind(
-                Bindings.isEmpty(personTableView.getSelectionModel()
-                        .getSelectedItems()));
-        editButton.disableProperty().bind(
-                Bindings.size(
-                        personTableView.getSelectionModel()
-                                .getSelectedItems()).isNotEqualTo(1));
     }
 
     /**
@@ -122,8 +84,8 @@ public class PersonOverviewController {
      * @param event
      */
     @FXML
-    private void handleDeleteAction(ActionEvent event) {
-        List<Person> peopleToRemove = List.copyOf(personTableView.getSelectionModel().getSelectedItems());
+    void handleDeleteAction(ActionEvent event) {
+        List<Person> peopleToRemove = List.copyOf(tableView.getSelectionModel().getSelectedItems());
         RemovePeopleCommand removePeopleCommand = new RemovePeopleCommand(peopleToRemove, personDAO);
         commandRegistry.executeCommand(removePeopleCommand);
         for(Person person : peopleToRemove){
@@ -136,11 +98,11 @@ public class PersonOverviewController {
      * Odpowiada za obsługę eventu - naciśnięcie przycisku edit odpowiedzialnego za edytowanie danych wybranej osoby.
      * Wyświetla osobne okno w interfejsie graficznym, które umożliwia edycję danych.
      * @param event
-     * @throws InterruptedException
+//     * @throws InterruptedException
      */
     @FXML
-    private void handleEditAction(ActionEvent event) throws InterruptedException {
-        Person personToEdit = personTableView.getSelectionModel()
+    void handleEditAction(ActionEvent event){
+        Person personToEdit = tableView.getSelectionModel()
                 .getSelectedItem();
         Person editedPerson = personToEdit;
         if (personToEdit != null) {
@@ -156,7 +118,7 @@ public class PersonOverviewController {
      * @param event
      */
     @FXML
-    private void handleAddAction(ActionEvent event) {
+    void handleAddAction(ActionEvent event) {
         Person person = new Person();
         Address address = new Address();
         if (appController.showPersonEditDialog(person)) {
@@ -167,42 +129,11 @@ public class PersonOverviewController {
         refresh();
     }
 
-    @FXML
-    private void handleUndoAction(ActionEvent event) {
-        commandRegistry.undo();
-        refresh();
-    }
-
-    @FXML
-    private void handleRedoAction(ActionEvent event) {
-        commandRegistry.redo();
-        refresh();
-    }
-
     public void setData() {
         allExisting = FXCollections.observableArrayList(appController.getPersonDAO().searchAllPersons());
         System.out.println(allExisting);
-        personTableView.refresh();
-        personTableView.setItems(allExisting);
-    }
-
-    void refresh() {
-        personTableView.refresh();
-    }
-
-    public void setAppController(PersonAppController appController) {
-        this.appController = appController;
-    }
-
-    public void setCommandRegistry(CommandRegistry commandRegistry) {
-        this.commandRegistry = commandRegistry;
-        commandLogView.setItems(commandRegistry.getCommandStack());
-        commandLogView.setCellFactory(lv -> new ListCell<Command>() {
-            protected void updateItem(Command item, boolean empty) {
-                super.updateItem(item, empty);
-                setText((item != null && !empty) ? item.getName() : null);
-            }
-        });
+        tableView.refresh();
+        tableView.setItems(allExisting);
     }
 
     public void setPersonDAO(PersonDAO personDAO) {
