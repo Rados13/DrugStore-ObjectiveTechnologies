@@ -2,9 +2,7 @@ package pl.edu.agh.to.drugstore.command.medicationCommands;
 
 import pl.edu.agh.to.drugstore.command.Command;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
-import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
-import pl.edu.agh.to.drugstore.model.people.Person;
 
 import java.util.List;
 
@@ -21,7 +19,7 @@ public class RemoveMedicationCommand implements Command {
 
     @Override
     public void execute() {
-        medicationsToRemove.forEach(medication -> medicationDAO.deleteMedication(medication.getId()));
+        medicationsToRemove.forEach(medication -> medicationDAO.delete(medication.getId()));
     }
 
     @Override

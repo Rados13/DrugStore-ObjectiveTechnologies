@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MedicationDAO {
+public class MedicationDAO implements ObjectDAO<Medication> {
 
     private final EntityManager em;
 
@@ -17,7 +17,39 @@ public class MedicationDAO {
         this.em = em;
     }
 
-    public void addMedication(Medication medication) {
+
+    public Collection<Medication> searchForMedicine() {
+        // TODO
+        //  search by given criteria
+
+        return null;
+    }
+
+    @Override
+    public List<Medication> findAll() {
+        EntityTransaction etx = em.getTransaction();
+
+        etx.begin();
+        Query query = em.createQuery("from Medication");
+        List<Medication> result = query.getResultList();
+        etx.commit();
+
+        return result;
+    }
+
+    @Override
+    public Medication find(int id) {
+        EntityTransaction etx = em.getTransaction();
+
+        etx.begin();
+        Medication medication = em.find(Medication.class, id);
+        etx.commit();
+
+        return medication;
+    }
+
+    @Override
+    public void add(Medication medication) {
         EntityTransaction etx = em.getTransaction();
         etx.begin();
 
@@ -36,24 +68,6 @@ public class MedicationDAO {
         etx.commit();
     }
 
-    public Collection<Medication> searchForMedicine() {
-        // TODO
-        //  search by given criteria
-
-        return null;
-    }
-
-    public List<Medication> getAllMedications() {
-        EntityTransaction etx = em.getTransaction();
-
-        etx.begin();
-        Query query = em.createQuery("from Medication");
-        List<Medication> result = query.getResultList();
-        etx.commit();
-
-        return result;
-    }
-
     public int getMedicationIndexViaName(List<Medication> medications, String name) {
         if (medications.stream().map(Medication::getName).anyMatch(medicationName -> medicationName.equals(name))) {
             return medications.stream().map(Medication::getName).collect(Collectors.toList()).indexOf(name);
@@ -61,14 +75,16 @@ public class MedicationDAO {
         return -1;
     }
 
-    public void editMedication(Medication medication) {
+    @Override
+    public void update(Medication medication) {
         EntityTransaction etx = em.getTransaction();
         etx.begin();
         em.merge(medication);
         etx.commit();
     }
 
-    public void deleteMedication(int id) {
+    @Override
+    public void delete(int id) {
         EntityTransaction etx = em.getTransaction();
         etx.begin();
         Medication medication = em.find(Medication.class, id);

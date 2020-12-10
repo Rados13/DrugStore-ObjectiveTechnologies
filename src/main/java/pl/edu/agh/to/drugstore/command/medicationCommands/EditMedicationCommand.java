@@ -2,9 +2,7 @@ package pl.edu.agh.to.drugstore.command.medicationCommands;
 
 import pl.edu.agh.to.drugstore.command.Command;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
-import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
-import pl.edu.agh.to.drugstore.model.people.Person;
 
 public class EditMedicationCommand implements Command {
 
@@ -19,7 +17,7 @@ public class EditMedicationCommand implements Command {
 
     @Override
     public void execute() {
-        medicationDAO.editMedication(medication);
+        medicationDAO.update(medication);
     }
 
     @Override

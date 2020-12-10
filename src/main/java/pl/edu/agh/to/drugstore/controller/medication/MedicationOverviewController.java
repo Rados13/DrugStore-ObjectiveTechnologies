@@ -161,7 +161,7 @@ public class MedicationOverviewController {
     }
 
     public void setData() {
-        allExisting = FXCollections.observableArrayList(appController.getMedicationDAO().getAllMedications());
+        allExisting = FXCollections.observableArrayList(appController.getMedicationDAO().findAll());
         System.out.println(allExisting);
         medicationTableView.refresh();
         medicationTableView.setItems(allExisting);

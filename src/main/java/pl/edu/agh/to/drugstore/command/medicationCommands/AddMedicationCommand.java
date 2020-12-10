@@ -16,7 +16,7 @@ public class AddMedicationCommand implements Command {
 
     @Override
     public void execute() {
-        medicationDAO.addMedication(medication);
+        medicationDAO.add(medication);
     }
 
     @Override
