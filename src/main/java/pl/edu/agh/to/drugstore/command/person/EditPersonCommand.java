@@ -20,7 +20,7 @@ public class EditPersonCommand implements Command {
 
     @Override
     public void execute() {
-        personDAO.editPerson(editedPerson);
+        personDAO.update(editedPerson);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class EditPersonCommand implements Command {
 
     @Override
     public void undo() {
-        personDAO.editPerson(personToEdit);
+        personDAO.update(personToEdit);
     }
 
     @Override

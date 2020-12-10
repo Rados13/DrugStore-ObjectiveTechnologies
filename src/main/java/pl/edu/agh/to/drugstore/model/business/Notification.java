@@ -1,4 +1,4 @@
-package pl.edu.agh.to.drugstore.model;
+package pl.edu.agh.to.drugstore.model.business;
 
 import javax.persistence.*;
 

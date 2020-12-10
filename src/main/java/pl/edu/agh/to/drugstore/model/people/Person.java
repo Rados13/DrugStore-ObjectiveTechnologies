@@ -4,7 +4,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import lombok.*;
-import pl.edu.agh.to.drugstore.model.Notification;
+import pl.edu.agh.to.drugstore.model.business.Notification;
+import pl.edu.agh.to.drugstore.model.business.Order;
 
 import javax.persistence.*;
 import java.text.ParseException;
@@ -12,13 +13,12 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
+import java.util.*;
 
 @Entity
 @Builder
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @ToString
 public class Person {
@@ -36,14 +36,17 @@ public class Person {
     @Column(unique = true)
     private String PESEL;
 
-    @OneToOne()
+    @OneToOne
     private Address address;
 
-    @NonNull()
+    @NonNull
     private Role role;
 
-    @OneToMany()
-    private List<Notification> notificationList = new ArrayList<>();
+    @OneToMany
+    private Collection<Notification> notificationList = new ArrayList<>();
+
+    @OneToMany
+    private Collection<Order> orders = new LinkedHashSet<>();
 
     public Person() { }
 
@@ -55,6 +58,7 @@ public class Person {
         this.role = person.role;
         this.address = person.address;
         this.notificationList = person.notificationList;
+        this.orders = person.orders;
     }
 
     public void setId(int id) {
@@ -99,6 +103,10 @@ public class Person {
 
     public Collection<Notification> getNotificationList() {
         return notificationList;
+    }
+
+    public Collection<Order> getOrders() {
+        return orders;
     }
 
     public Address getAddress() {

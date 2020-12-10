@@ -64,8 +64,8 @@ public class Parser {
 
         switch (operation) {
             case "add":
-                if (person != null) app.getPersonDAO().addPerson(person);
-                if (address != null) app.getAddressDAO().addAddress(address);
+                if (person != null) app.getPersonDAO().add(person);
+                if (address != null) app.getAddressDAO().add(address);
                 break;
             case "search":
                 if (person != null)
@@ -78,13 +78,13 @@ public class Parser {
             case "delete":
                 if (Arrays.stream(Role.values()).anyMatch(elem -> elem.toString()
                         .equals(params.get(1).toUpperCase()))) {
-                    app.getPersonDAO().deletePerson(Integer.parseInt(params.get(2)));
+                    app.getPersonDAO().delete(Integer.parseInt(params.get(2)));
                 }
                 if (params.get(1).equals("address"))
-                    app.getAddressDAO().deleteAddress(Integer.parseInt(params.get(2)));
+                    app.getAddressDAO().delete(Integer.parseInt(params.get(2)));
                 break;
             case "show":
-                List<Person> allExisting = new ArrayList<>(app.getPersonDAO().searchAllPersons());
+                List<Person> allExisting = new ArrayList<>(app.getPersonDAO().findAll());
                 logger.info("Found " + allExisting.size() + " people:");
                 allExisting.forEach(p -> logger.info(String.valueOf(p)));
         }

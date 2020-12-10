@@ -19,7 +19,7 @@ public class RemovePeopleCommand implements Command {
 
     @Override
     public void execute() {
-        peopleToRemove.forEach(person -> personDAO.deletePerson(person.getId()));
+        peopleToRemove.forEach(person -> personDAO.delete(person.getId()));
     }
 
     @Override
@@ -34,7 +34,7 @@ public class RemovePeopleCommand implements Command {
         peopleToRemove.forEach(
                 person -> {
                     Person newPerson = new Person(person);
-                    personDAO.addPerson(newPerson);
+                    personDAO.add(newPerson);
                 });
     }
 

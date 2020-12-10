@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import pl.edu.agh.to.drugstore.model.business.Supplier;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -32,8 +33,11 @@ public class Medication {
 
     private Integer quantity;
 
-    @ManyToMany()
+    @ManyToMany
     private final Collection<Illness> illnessesToCure = new LinkedHashSet<>();
+
+    @ManyToMany
+    private final Collection<Supplier> suppliers = new LinkedHashSet<>();
 
     @ElementCollection
     private final Collection<String> ingredients = new LinkedHashSet<>();
@@ -86,6 +90,10 @@ public class Medication {
 
     public Collection<Illness> getIllnessesToCure() {
         return illnessesToCure;
+    }
+
+    public Collection<Supplier> getSuppliers() {
+        return suppliers;
     }
 
     public void addIllness(Illness il) {
