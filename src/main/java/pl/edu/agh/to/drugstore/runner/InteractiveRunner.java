@@ -19,9 +19,6 @@ public class InteractiveRunner {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("postgresql");
         EntityManager em = emf.createEntityManager();
 
-        MedicationDAO medicationDAO = new MedicationDAO(em);
-        PersonDAO personDAO = new PersonDAO(em);
-
         try {
             new ConsoleApp(em).start();
         } catch (IOException e) {
