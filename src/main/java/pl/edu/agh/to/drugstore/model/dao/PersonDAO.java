@@ -108,14 +108,14 @@ public class PersonDAO implements ObjectDAO<Person> {
     public List<Person> searchPeople(Person person){
         EntityTransaction etx = em.getTransaction();
 
-        Address personAddress = this.addressDAO.searchExistingAddress(person.getAddress());
+        Address personAddress = person.getAddress()!=null?this.addressDAO.searchExistingAddress(person.getAddress()):null;
         etx.begin();
         String sql = "from Person where ";
         if(person.getRole()!=null)sql += " role = :role and";
         if(person.getFirstname()!=null)sql += " firstname = :firstname and";
         if(person.getLastname()!=null)sql += " lastname = :lastname and";
         if(person.getBirthdate()!=null)sql += " birthdate = :birthdate and";
-        if(!person.getPESEL().equals("-"))sql += " PESEL = :pesel and";
+        if(person.getPESEL()!=null)sql += " PESEL = :pesel and";
         if(personAddress!=null)sql += " address = :address and";
         sql = new StringBuffer(sql).replace(sql.length()-3,sql.length(),"").toString();
 
@@ -124,7 +124,7 @@ public class PersonDAO implements ObjectDAO<Person> {
         if(person.getFirstname()!=null)query.setParameter("firstname",person.getFirstname());
         if(person.getLastname()!=null)query.setParameter("lastname",person.getLastname());
         if(person.getBirthdate()!=null)query.setParameter("birthdate",person.getBirthdate());
-        if(!person.getPESEL().equals("-"))query.setParameter("PESEL",person.getPESEL());
+        if(person.getPESEL()!=null)query.setParameter("PESEL",person.getPESEL());
         if(personAddress!=null)query.setParameter("address",person.getAddress());
 
         List result = query.getResultList();

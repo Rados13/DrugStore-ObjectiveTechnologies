@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="pl.edu.agh.to.drugstore.controller.PersonOverviewController">
+            fx:controller="pl.edu.agh.to.drugstore.controller.ClientOrderOverviewController">
     <center>
         <TableView fx:id="tableView" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First name"/>
-                <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last name"/>
-                <TableColumn fx:id="birthdateColumn" prefWidth="75.0" text="Birth date"/>
-                <TableColumn fx:id="PESELColumn" prefWidth="75.0" text="PESEL"/>
-                <TableColumn fx:id="roleColumn" prefWidth="75.0" text="Role"/>
-                <TableColumn fx:id="cityColumn" prefWidth="75.0" text="City"/>
-                <TableColumn fx:id="streetColumn" prefWidth="75.0" text="Street"/>
-                <TableColumn fx:id="houseIdColumn" prefWidth="75.0" text="House number"/>
-                <TableColumn fx:id="apartmentIdColumn" prefWidth="75.0" text="Apartment number"/>
+                <TableColumn fx:id="clientLastNameColumn" prefWidth="75.0" text="Client last name"/>
+                <TableColumn fx:id="amountOfMedicinesOrderedColumn" prefWidth="75.0" text="Amount of medicines ordered"/>
+                <TableColumn fx:id="shippingDateColumn" prefWidth="75.0" text="Shipping date"/>
+                <TableColumn fx:id="submissionDateColumn" prefWidth="75.0" text="Submission date"/>
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
@@ -31,13 +30,13 @@
             </opaqueInsets>
             <children>
                 <Button fx:id="deleteButton" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308"
-                        mnemonicParsing="false" text="Delete">
+                        mnemonicParsing="false"  text="Delete">
                     <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </VBox.margin>
                 </Button>
                 <Button fx:id="editButton" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308"
-                        mnemonicParsing="false" text="Edit">
+                        mnemonicParsing="false"  text="Edit">
                     <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </VBox.margin>
@@ -62,16 +61,16 @@
             <top>
                 <HBox maxHeight="-Infinity" prefHeight="39.0" prefWidth="800.0" BorderPane.alignment="TOP_LEFT">
                     <children>
-<!--                        <Button fx:id="undoButton" mnemonicParsing="false" onAction="#handleUndoAction" text="Undo">-->
-<!--                            <HBox.margin>-->
-<!--                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
-<!--                            </HBox.margin>-->
-<!--                        </Button>-->
-<!--                        <Button fx:id="redoButton" mnemonicParsing="false" onAction="#handleRedoAction" text="Redo">-->
-<!--                            <HBox.margin>-->
-<!--                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
-<!--                            </HBox.margin>-->
-<!--                        </Button>-->
+                        <!--                        <Button fx:id="undoButton" mnemonicParsing="false" onAction="#handleUndoAction" text="Undo">-->
+                        <!--                            <HBox.margin>-->
+                        <!--                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
+                        <!--                            </HBox.margin>-->
+                        <!--                        </Button>-->
+                        <!--                        <Button fx:id="redoButton" mnemonicParsing="false" onAction="#handleRedoAction" text="Redo">-->
+                        <!--                            <HBox.margin>-->
+                        <!--                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
+                        <!--                            </HBox.margin>-->
+                        <!--                        </Button>-->
                     </children>
                 </HBox>
             </top>
