@@ -15,6 +15,10 @@ public class SupplierDAO implements ObjectDAO<Supplier> {
         this.em = em;
     }
 
+    /**
+     * Zwraca listę wszystkich dostawców
+     * @return
+     */
     @Override
     public List<Supplier> findAll() {
         EntityTransaction etx = em.getTransaction();
@@ -27,6 +31,11 @@ public class SupplierDAO implements ObjectDAO<Supplier> {
         return result;
     }
 
+    /**
+     * Zwraca dostawcę o podanym id
+     * @param id
+     * @return
+     */
     @Override
     public Supplier find(int id) {
         EntityTransaction etx = em.getTransaction();
@@ -45,6 +54,10 @@ public class SupplierDAO implements ObjectDAO<Supplier> {
 
     }
 
+    /**
+     * Zapisuje nowego dostawcę do bazy danych
+     * @param object
+     */
     @Override
     public void add(Supplier object) {
         EntityTransaction etx = em.getTransaction();
@@ -54,6 +67,10 @@ public class SupplierDAO implements ObjectDAO<Supplier> {
         etx.commit();
     }
 
+    /**
+     * Usuwa dostawcę o podanym id z bazy danych
+     * @param id
+     */
     @Override
     public void delete(int id) {
         EntityTransaction etx = em.getTransaction();
@@ -64,6 +81,10 @@ public class SupplierDAO implements ObjectDAO<Supplier> {
         etx.commit();
     }
 
+    /**
+     * Aktualizuje w bazie informacje o dostawcy
+     * @param object
+     */
     @Override
     public void update(Supplier object) {
         EntityTransaction etx = em.getTransaction();

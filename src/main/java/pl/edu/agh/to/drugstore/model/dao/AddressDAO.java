@@ -53,9 +53,16 @@ public class AddressDAO implements ObjectDAO<Address> {
         etx.commit();
     }
 
+    /**
+     * Aktualizuje w bazie danych informacje o adresie
+     * @param address
+     */
     @Override
-    public void update(Address object) {
-        throw new UnsupportedOperationException();
+    public void update(Address address) {
+        EntityTransaction etx = em.getTransaction();
+        etx.begin();
+        em.merge(address);
+        etx.commit();
     }
 
     /**

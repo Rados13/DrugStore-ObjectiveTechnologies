@@ -17,6 +17,10 @@ public class NotificationDAO implements ObjectDAO<Notification> {
         this.em = em;
     }
 
+    /**
+     * Zwraca listę wszystkich powiadomien w bazie danych
+     * @return
+     */
     @Override
     public List<Notification> findAll() {
         EntityTransaction etx = em.getTransaction();
@@ -27,6 +31,11 @@ public class NotificationDAO implements ObjectDAO<Notification> {
         return result;
     }
 
+    /**
+     * Zwraca powiadomienie o podanym id
+     * @param id
+     * @return
+     */
     @Override
     public Notification find(int id) {
         EntityTransaction etx = em.getTransaction();
@@ -36,6 +45,10 @@ public class NotificationDAO implements ObjectDAO<Notification> {
         return result;
     }
 
+    /**
+     * Zapisuje nowe powiadomienie do bazy danych
+     * @param notification
+     */
     @Override
     public void add(Notification notification) {
         EntityTransaction etx = em.getTransaction();
@@ -44,6 +57,10 @@ public class NotificationDAO implements ObjectDAO<Notification> {
         etx.commit();
     }
 
+    /**
+     * Usuwa powiadomienie z bazy danych
+     * @param id
+     */
     @Override
     public void delete(int id) {
         EntityTransaction etx = em.getTransaction();
@@ -53,6 +70,10 @@ public class NotificationDAO implements ObjectDAO<Notification> {
         etx.commit();
     }
 
+    /**
+     * Aktualizuje powiadomienie w bazie
+     * @param notification
+     */
     @Override
     public void update(Notification notification) {
         EntityTransaction etx = em.getTransaction();
