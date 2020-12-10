@@ -1,5 +1,7 @@
 package pl.edu.agh.to.drugstore.model.business;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import lombok.NonNull;
 import pl.edu.agh.to.drugstore.model.people.Person;
 
@@ -21,4 +23,6 @@ public class ClientOrder extends Order {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    public ObservableValue<Person> getClientProperty(){return new SimpleObjectProperty<Person>(person);}
 }

@@ -4,20 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import lombok.Setter;
-import pl.edu.agh.to.drugstore.command.AddPersonCommand;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
-import pl.edu.agh.to.drugstore.command.EditPersonCommand;
-import pl.edu.agh.to.drugstore.command.RemovePeopleCommand;
 import pl.edu.agh.to.drugstore.command.clientorder.AddClientOrderCommand;
 import pl.edu.agh.to.drugstore.command.clientorder.EditClientOrderCommand;
 import pl.edu.agh.to.drugstore.command.clientorder.RemoveClientOrderCommand;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
 import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
-import pl.edu.agh.to.drugstore.model.people.Address;
-import pl.edu.agh.to.drugstore.model.people.Person;
 
 import java.util.Date;
 import java.util.List;
@@ -47,7 +42,14 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
     @Override
     void initialize() {
         startInitialize();
+        tableView.getSelectionModel().setSelectionMode(
+                SelectionMode.MULTIPLE);
 
+        submissionDateColumn.setCellValueFactory(dataValue -> dataValue.getValue().getSubmissionDateProperty());
+        shippingDateColumn.setCellValueFactory(dataValue -> dataValue.getValue().getShippingDateProperty());
+        clientLastNameColumn.setCellValueFactory(dataValue ->
+                dataValue.getValue().getClientProperty().getValue().getLastNameProperty());
+        amountOfMedicinesOrderedColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMedicationsNumProperty());
     }
 
     @Override
@@ -67,7 +69,7 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
                 .getSelectedItem();
         ClientOrder editedClientOrder = clientOrderToEdit;
         if (clientOrderToEdit != null) {
-            appController.showPersonEditDialog(editedClientOrder);
+            appController.showClientOrderEditDialog(editedClientOrder);
             EditClientOrderCommand editPersonCommand = new EditClientOrderCommand(clientOrderToEdit, editedClientOrder, clientOrderDAO);
             commandRegistry.executeCommand(editPersonCommand);
         }
@@ -77,9 +79,9 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
     @Override
     void handleAddAction(ActionEvent event) {
         ClientOrder clientOrder = new ClientOrder();
-        if (appController.showPersonEditDialog(clientOrderDAO)) {
-            AddClientOrderCommand addPersonCommand = new AddClientOrderCommand(clientOrder, clientOrderDAO);
-            commandRegistry.executeCommand(addPersonCommand);
+        if (appController.showClientOrderEditDialog(clientOrder)) {
+            AddClientOrderCommand addClientOrderCommand = new AddClientOrderCommand(clientOrder, clientOrderDAO);
+            commandRegistry.executeCommand(addClientOrderCommand);
         }
         allExisting.add(clientOrder);
         refresh();

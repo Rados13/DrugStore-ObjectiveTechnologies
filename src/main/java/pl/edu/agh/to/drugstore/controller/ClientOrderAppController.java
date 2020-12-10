@@ -10,13 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
-import pl.edu.agh.to.drugstore.model.dao.AddressDAO;
 import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
-import pl.edu.agh.to.drugstore.model.people.Address;
-import pl.edu.agh.to.drugstore.model.people.Person;
+import pl.edu.agh.to.drugstore.presenter.ClientOrderEditDialogPresenter;
 import pl.edu.agh.to.drugstore.presenter.LoginScreenPresenter;
-import pl.edu.agh.to.drugstore.presenter.PersonEditDialogPresenter;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
@@ -50,8 +47,8 @@ public class ClientOrderAppController {
         this.primaryStage.setTitle("Drugstore");
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(PersonAppController.class
-                .getResource("/view/PersonOverviewPane.fxml"));
+        loader.setLocation(ClientOrderAppController.class
+                .getResource("/view/ClientOrderOverviewPane.fxml"));
         BorderPane rootLayout = loader.load();
 
         ClientOrderOverviewController controller = loader.getController();
@@ -65,28 +62,28 @@ public class ClientOrderAppController {
         primaryStage.show();
     }
 
-    public boolean showPersonEditDialog(ClientOrder clientOrder) {
+    public boolean showClientOrderEditDialog(ClientOrder clientOrder) {
         try {
             // Load the fxml file and create a new stage for the dialog
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(PersonAppController.class
-                    .getResource("/view/PersonEditDialog.fxml"));
+                    .getResource("/view/ClientOrderEditDialog.fxml"));
             BorderPane page = (BorderPane) loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit person");
+            dialogStage.setTitle("Edit client order");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the presenter.
-            PersonEditDialogPresenter presenter = loader.getController();
+            // Set the client order into the presenter.
+            ClientOrderEditDialogPresenter presenter = loader.getController();
             presenter.setDialogStage(dialogStage);
-            if (clientOrder.getPerson() == null)
-                presenter.setData(clientOrder, new Person());
-            else presenter.setData(clientOrder, clientOrder.getAddress());
+            presenter.setPersonDAO(personDAO);
+            presenter.updateClientComboBox();
+            presenter.setData(clientOrder);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

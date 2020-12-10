@@ -2,7 +2,9 @@ package pl.edu.agh.to.drugstore.runner;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import pl.edu.agh.to.drugstore.controller.ClientOrderAppController;
 import pl.edu.agh.to.drugstore.controller.PersonAppController;
+import pl.edu.agh.to.drugstore.model.business.ClientOrder;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,7 +24,8 @@ public class Runner extends Application {
 
         primaryStage.setTitle("DrugStore");
 
-        PersonAppController appController = new PersonAppController(primaryStage, em);
+//        PersonAppController appController = new PersonAppController(primaryStage, em);
+        ClientOrderAppController appController = new ClientOrderAppController(primaryStage, em);
         appController.initRootLayout();
     }
 }

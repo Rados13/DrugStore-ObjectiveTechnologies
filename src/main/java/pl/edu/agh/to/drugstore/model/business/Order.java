@@ -1,8 +1,12 @@
 package pl.edu.agh.to.drugstore.model.business;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
+import pl.edu.agh.to.drugstore.model.people.Person;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -57,4 +61,9 @@ public abstract class Order {
     public void bookMedication(Medication medication) {
         this.medications.get(medication).setBooked(true);
     }
+
+
+    public ObservableValue<Date> getShippingDateProperty() {return new SimpleObjectProperty<Date>(shippingDate);}
+    public ObservableValue<Date> getSubmissionDateProperty() {return new SimpleObjectProperty<Date>(submissionDate);}
+    public ObservableValue<Integer> getMedicationsNumProperty() {return new SimpleObjectProperty<Integer>(medications.size());}
 }
