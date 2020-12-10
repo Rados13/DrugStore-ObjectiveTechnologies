@@ -13,8 +13,6 @@ import pl.edu.agh.to.drugstore.command.CommandRegistry;
 
 abstract public class OverviewController<A> {
 
-    PersonAppController appController;
-
     CommandRegistry commandRegistry;
 
     ObservableList<A> allExisting;
@@ -90,10 +88,6 @@ abstract public class OverviewController<A> {
 
     void refresh() {
         tableView.refresh();
-    }
-
-    public void setAppController(PersonAppController appController) {
-        this.appController = appController;
     }
 
     public void setCommandRegistry(CommandRegistry commandRegistry) {

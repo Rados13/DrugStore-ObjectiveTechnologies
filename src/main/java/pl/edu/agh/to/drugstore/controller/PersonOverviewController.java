@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import lombok.Setter;
 import pl.edu.agh.to.drugstore.command.*;
 import pl.edu.agh.to.drugstore.model.dao.AddressDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
@@ -17,11 +18,15 @@ import java.util.List;
 /**
  * Klasa interfejsu graficznego odpowiedzialna za wyświetlanie wszystkich osób dostępnych w bazie danych.
  */
+
+@Setter
 public class PersonOverviewController extends OverviewController<Person>{
 
     private PersonDAO personDAO;
 
     private AddressDAO addressDAO;
+
+    private PersonAppController appController;
 
     @FXML
     private TableColumn<Person, String> firstNameColumn;
@@ -136,11 +141,8 @@ public class PersonOverviewController extends OverviewController<Person>{
         tableView.setItems(allExisting);
     }
 
-    public void setPersonDAO(PersonDAO personDAO) {
-        this.personDAO = personDAO;
-    }
 
-    public void setAddressDAO(AddressDAO addressDAO) {
-        this.addressDAO = addressDAO;
+    public void setAppController(PersonAppController controller){
+        this.appController = controller;
     }
 }
