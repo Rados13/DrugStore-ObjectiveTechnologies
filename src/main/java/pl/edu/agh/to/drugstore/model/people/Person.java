@@ -18,8 +18,7 @@ import java.util.*;
 
 @Entity
 @Builder
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @ToString
 public class Person {

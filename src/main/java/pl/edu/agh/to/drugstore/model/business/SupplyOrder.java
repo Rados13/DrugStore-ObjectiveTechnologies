@@ -1,6 +1,7 @@
 package pl.edu.agh.to.drugstore.model.business;
 
-import javax.persistence.Column;
+import lombok.NonNull;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -9,7 +10,7 @@ import javax.persistence.OneToOne;
 public class SupplyOrder extends Order {
 
     @OneToOne
-    @Column(nullable = false)
+    @NonNull
     private Supplier supplier;
 
     public Supplier getSupplier() {

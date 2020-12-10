@@ -1,12 +1,11 @@
 package pl.edu.agh.to.drugstore.model.business;
 
 import pl.edu.agh.to.drugstore.model.medications.Medication;
-import pl.edu.agh.to.drugstore.model.people.Person;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -18,9 +17,9 @@ public abstract class Order {
     protected Date submissionDate;
     protected Date shippingDate;
 
-    @ElementCollection
-//    @MapKeyJoinColumn
-    protected final HashMap<Medication, Tuple> medications = new LinkedHashMap<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @MapKey(name = "id")
+    protected final Map<Medication, Tuple> medications = new LinkedHashMap<>();
 
     public void setId(int id) {
         this.id = id;
@@ -30,7 +29,7 @@ public abstract class Order {
         return id;
     }
 
-    public HashMap<Medication, Tuple> getMedications() {
+    public Map<Medication, Tuple> getMedications() {
         return medications;
     }
 

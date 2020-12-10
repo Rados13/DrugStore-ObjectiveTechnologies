@@ -16,6 +16,7 @@
         <class>pl.edu.agh.to.drugstore.model.business.ClientOrder</class>
         <class>pl.edu.agh.to.drugstore.model.business.SupplyOrder</class>
         <class>pl.edu.agh.to.drugstore.model.business.Supplier</class>
+        <class>pl.edu.agh.to.drugstore.model.business.Tuple</class>
         <!--<class>pl.edu.agh.to.drugstore.model.business.Tuple</class>-->
 
         <properties>

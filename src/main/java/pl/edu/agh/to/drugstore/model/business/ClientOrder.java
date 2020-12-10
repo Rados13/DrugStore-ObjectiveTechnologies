@@ -1,8 +1,8 @@
 package pl.edu.agh.to.drugstore.model.business;
 
+import lombok.NonNull;
 import pl.edu.agh.to.drugstore.model.people.Person;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 public class ClientOrder extends Order {
 
     @OneToOne
-    @Column(nullable = false)
+    @NonNull
     private Person person;
 
     public Person getPerson() {

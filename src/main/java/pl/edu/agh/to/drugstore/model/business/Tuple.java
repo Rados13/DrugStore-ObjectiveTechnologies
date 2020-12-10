@@ -1,13 +1,16 @@
 package pl.edu.agh.to.drugstore.model.business;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
-// TODO
-//  check persistence.xml
-
-@Embeddable
+@Entity
 public class Tuple {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
     private int quantity;
+
     private boolean booked;
 
     public Tuple() {}
