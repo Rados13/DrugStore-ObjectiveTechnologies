@@ -1,4 +1,4 @@
-package pl.edu.agh.to.drugstore.controller;
+package pl.edu.agh.to.drugstore.controller.supplier;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;

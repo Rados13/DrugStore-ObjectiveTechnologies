@@ -1,4 +1,4 @@
-package pl.edu.agh.to.drugstore.controller;
+package pl.edu.agh.to.drugstore.controller.clientOrder;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +11,7 @@ import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.command.clientorder.AddClientOrderCommand;
 import pl.edu.agh.to.drugstore.command.clientorder.EditClientOrderCommand;
 import pl.edu.agh.to.drugstore.command.clientorder.RemoveClientOrderCommand;
+import pl.edu.agh.to.drugstore.controller.OverviewController;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
 import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
 
@@ -18,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 @Setter
-public class ClientOrderOverviewController extends OverviewController<ClientOrder>{
+public class ClientOrderOverviewController extends OverviewController<ClientOrder> {
 
     private CommandRegistry commandRegistry;
     private ClientOrderDAO clientOrderDAO;
@@ -40,7 +41,7 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
     private TableColumn<ClientOrder, String> clientLastNameColumn;
 
     @Override
-    void initialize() {
+    protected void initialize() {
         startInitialize();
         tableView.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
@@ -53,7 +54,7 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
     }
 
     @Override
-    void handleDeleteAction(ActionEvent event) {
+    protected void handleDeleteAction(ActionEvent event) {
         List<ClientOrder> clientOrdersToRemove = List.copyOf(tableView.getSelectionModel().getSelectedItems());
         RemoveClientOrderCommand removePeopleCommand = new RemoveClientOrderCommand(clientOrdersToRemove, clientOrderDAO);
         commandRegistry.executeCommand(removePeopleCommand);
@@ -64,7 +65,7 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
     }
 
     @Override
-    void handleEditAction(ActionEvent event) throws InterruptedException {
+    protected void handleEditAction(ActionEvent event) throws InterruptedException {
         ClientOrder clientOrderToEdit = tableView.getSelectionModel()
                 .getSelectedItem();
         ClientOrder editedClientOrder = clientOrderToEdit;
@@ -77,7 +78,7 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
     }
 
     @Override
-    void handleAddAction(ActionEvent event) {
+    protected void handleAddAction(ActionEvent event) {
         ClientOrder clientOrder = new ClientOrder();
         if (appController.showClientOrderEditDialog(clientOrder)) {
             AddClientOrderCommand addClientOrderCommand = new AddClientOrderCommand(clientOrder, clientOrderDAO);
@@ -88,7 +89,7 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
     }
 
     @Override
-    void setData() {
+    protected void setData() {
         allExisting = FXCollections.observableArrayList(appController.getClientOrderDAO().findAll());
         System.out.println(allExisting);
         tableView.refresh();

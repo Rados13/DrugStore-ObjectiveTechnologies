@@ -1,4 +1,4 @@
-package pl.edu.agh.to.drugstore.controller;
+package pl.edu.agh.to.drugstore.controller.medication;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -22,9 +22,9 @@ import java.util.stream.Collectors;
 /**
  * Klasa interfejsu graficznego odpowiedzialna za wyświetlanie wszystkich lekarstw dostępnych w bazie danych.
  */
-public class MedicationsOverviewController {
+public class MedicationOverviewController {
 
-    private PersonAppController appController;
+    private MedicationAppController appController;
 
     private CommandRegistry commandRegistry;
 
@@ -171,7 +171,7 @@ public class MedicationsOverviewController {
         medicationTableView.refresh();
     }
 
-    public void setAppController(PersonAppController appController) {
+    public void setAppController(MedicationAppController appController) {
         this.appController = appController;
     }
 

@@ -52,7 +52,7 @@ public class Medication {
 
 
     public Medication(String name, MedicationForm medicationForm, boolean b, BigDecimal v, int quantity) {
-        this.name = name;
+        this.name = formatMedicationName(name);
         this.form = medicationForm;
         this.prescriptionRequired = b;
         this.price = v;
@@ -73,7 +73,7 @@ public class Medication {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = formatMedicationName(name);
     }
 
     public MedicationForm getForm() {
@@ -135,17 +135,17 @@ public class Medication {
         return new SimpleStringProperty(name);
     }
     public ObservableValue<MedicationForm> getFormProperty() {
-        return new SimpleObjectProperty<MedicationForm>(form);
+        return new SimpleObjectProperty<>(form);
     }
     public ObservableValue<Boolean> getPrescriptionRequiredProperty() {
-        return new SimpleObjectProperty<Boolean>(prescriptionRequired);
+        return new SimpleObjectProperty<>(prescriptionRequired);
     }
 
     public ObservableValue<BigDecimal> getPriceProperty() {
-        return new SimpleObjectProperty<BigDecimal>(price);
+        return new SimpleObjectProperty<>(price);
     }
 
     public ObservableValue<Integer> getQuantityProperty() {
-        return new SimpleObjectProperty<Integer>(quantity);
+        return new SimpleObjectProperty<>(quantity);
     }
 }

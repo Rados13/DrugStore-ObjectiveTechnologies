@@ -1,14 +1,18 @@
-package pl.edu.agh.to.drugstore.controller;
+package pl.edu.agh.to.drugstore.controller.person;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
 import lombok.Setter;
-import pl.edu.agh.to.drugstore.command.*;
+import pl.edu.agh.to.drugstore.command.Command;
+import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.command.person.AddPersonCommand;
 import pl.edu.agh.to.drugstore.command.person.EditPersonCommand;
 import pl.edu.agh.to.drugstore.command.person.RemovePeopleCommand;
+import pl.edu.agh.to.drugstore.controller.OverviewController;
 import pl.edu.agh.to.drugstore.model.dao.AddressDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Address;
@@ -23,7 +27,7 @@ import java.util.List;
  */
 
 @Setter
-public class PersonOverviewController extends OverviewController<Person>{
+public class PersonOverviewController extends OverviewController<Person> {
 
     private PersonDAO personDAO;
 
@@ -62,7 +66,7 @@ public class PersonOverviewController extends OverviewController<Person>{
      * Inicjalizuje główne okno aplikacji, w którym wyświetlane są osoby zapisane w bazie danych.
      */
     @FXML
-    void initialize() {
+    protected void initialize() {
         startInitialize();
         tableView.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
@@ -92,7 +96,7 @@ public class PersonOverviewController extends OverviewController<Person>{
      * @param event
      */
     @FXML
-    void handleDeleteAction(ActionEvent event) {
+    protected void handleDeleteAction(ActionEvent event) {
         List<Person> peopleToRemove = List.copyOf(tableView.getSelectionModel().getSelectedItems());
         RemovePeopleCommand removePeopleCommand = new RemovePeopleCommand(peopleToRemove, personDAO);
         commandRegistry.executeCommand(removePeopleCommand);
@@ -109,7 +113,7 @@ public class PersonOverviewController extends OverviewController<Person>{
 //     * @throws InterruptedException
      */
     @FXML
-    void handleEditAction(ActionEvent event){
+    protected void handleEditAction(ActionEvent event){
         Person personToEdit = tableView.getSelectionModel()
                 .getSelectedItem();
         Person editedPerson = personToEdit;
@@ -126,7 +130,7 @@ public class PersonOverviewController extends OverviewController<Person>{
      * @param event
      */
     @FXML
-    void handleAddAction(ActionEvent event) {
+    protected void handleAddAction(ActionEvent event) {
         Person person = new Person();
         Address address = new Address();
         if (appController.showPersonEditDialog(person)) {
@@ -137,7 +141,7 @@ public class PersonOverviewController extends OverviewController<Person>{
         refresh();
     }
 
-    public void setData() {
+    protected void setData() {
         allExisting = FXCollections.observableArrayList(appController.getPersonDAO().findAll());
         System.out.println(allExisting);
         tableView.refresh();

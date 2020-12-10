@@ -13,12 +13,12 @@ import pl.edu.agh.to.drugstore.command.CommandRegistry;
 
 abstract public class OverviewController<A> {
 
-    CommandRegistry commandRegistry;
+    protected CommandRegistry commandRegistry;
 
-    ObservableList<A> allExisting;
+    protected ObservableList<A> allExisting;
 
     @FXML
-    TableView<A> tableView;
+    protected TableView<A> tableView;
 
     public void startInitialize(){
         editButton.setOnAction(event -> {
@@ -42,55 +42,55 @@ abstract public class OverviewController<A> {
 
 
     @FXML
-    ListView<Command> commandLogView;
+    protected ListView<Command> commandLogView;
 
     @FXML
-    Button deleteButton;
+    protected Button deleteButton;
 
     @FXML
-    Button editButton;
+    protected Button editButton;
 
     @FXML
-    Button addButton;
+    protected Button addButton;
 
     @FXML
-    private Button undoButton;
+    protected Button undoButton;
 
     @FXML
-    private Button redoButton;
+    protected Button redoButton;
 
 
     @FXML
-    abstract void initialize();
+    protected abstract void initialize();
 
     @FXML
-    abstract void handleDeleteAction(ActionEvent event);
+    protected abstract void handleDeleteAction(ActionEvent event);
 
     @FXML
-    abstract void handleEditAction(ActionEvent event) throws InterruptedException;
+    protected abstract void handleEditAction(ActionEvent event) throws InterruptedException;
 
     @FXML
-    abstract void handleAddAction(ActionEvent event);
+    protected abstract void handleAddAction(ActionEvent event);
 
     @FXML
-    private void handleUndoAction(ActionEvent event) {
+    protected void handleUndoAction(ActionEvent event) {
         commandRegistry.undo();
         refresh();
     }
 
     @FXML
-    private void handleRedoAction(ActionEvent event) {
+    protected void handleRedoAction(ActionEvent event) {
         commandRegistry.redo();
         refresh();
     }
 
-    abstract void setData();
+    protected abstract void setData();
 
-    void refresh() {
+    protected void refresh() {
         tableView.refresh();
     }
 
-    public void setCommandRegistry(CommandRegistry commandRegistry) {
+    protected void setCommandRegistry(CommandRegistry commandRegistry) {
         this.commandRegistry = commandRegistry;
         commandLogView.setItems(commandRegistry.getCommandStack());
         commandLogView.setCellFactory(lv -> new ListCell<Command>() {

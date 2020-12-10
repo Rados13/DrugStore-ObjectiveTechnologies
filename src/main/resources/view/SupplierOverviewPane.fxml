@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="pl.edu.agh.to.drugstore.controller.SupplierOverviewController">
+            fx:controller="pl.edu.agh.to.drugstore.controller.supplier.SupplierOverviewController">
     <center>
         <TableView fx:id="supplierTableView" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
             <columns>

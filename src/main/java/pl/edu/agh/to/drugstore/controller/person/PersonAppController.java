@@ -1,4 +1,4 @@
-package pl.edu.agh.to.drugstore.controller;
+package pl.edu.agh.to.drugstore.controller.person;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,14 +8,12 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
+import pl.edu.agh.to.drugstore.controller.medication.MedicationOverviewController;
 import pl.edu.agh.to.drugstore.model.dao.AddressDAO;
-import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
-import pl.edu.agh.to.drugstore.model.medications.Medication;
 import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
 import pl.edu.agh.to.drugstore.presenter.LoginScreenPresenter;
-import pl.edu.agh.to.drugstore.presenter.MedicationEditDialogPresenter;
 import pl.edu.agh.to.drugstore.presenter.PersonEditDialogPresenter;
 
 import javax.persistence.EntityManager;
@@ -27,8 +25,6 @@ public class PersonAppController {
 
     private final AddressDAO addressDAO;
 
-    private final MedicationDAO medicationDAO;
-
     private final Stage primaryStage;
 
     private final CommandRegistry commandRegistry = new CommandRegistry();
@@ -39,7 +35,6 @@ public class PersonAppController {
         this.primaryStage = primaryStage;
         this.personDAO = new PersonDAO(em);
         this.addressDAO = new AddressDAO(em);
-        this.medicationDAO = new MedicationDAO(em);
     }
 
     public void initRootLayout() throws IOException {
@@ -55,16 +50,16 @@ public class PersonAppController {
         FXMLLoader loader = new FXMLLoader();
 //        loader.setLocation(PersonAppController.class
 //                .getResource("/view/PersonOverviewPane.fxml"));
-        loader.setLocation(MedicationsOverviewController.class
+        loader.setLocation(MedicationOverviewController.class
                 .getResource("/view/MedicationsOverviewPane.fxml"));
         BorderPane rootLayout = loader.load();
 
 //        PersonOverviewController controller = loader.getController();
-        MedicationsOverviewController controller = loader.getController();
+        PersonOverviewController controller = loader.getController();
         controller.setAppController(this);
         controller.setData();
         controller.setCommandRegistry(commandRegistry);
-        controller.setMedicationDAO(medicationDAO);
+        controller.setPersonDAO(personDAO);
 //        controller.setPersonDAO(personDAO);
 //        controller.setAddressDAO(addressDAO);
 
@@ -130,36 +125,6 @@ public class PersonAppController {
             logger.error("An error appeared when loading page.", e);
             return false;
         }
-    }
-
-    public boolean showMedicationEditDialog(Medication editedMedication) {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(PersonAppController.class
-                    .getResource("/view/MedicationEditDialog.fxml"));
-            BorderPane page = (BorderPane) loader.load();
-
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Medication");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            MedicationEditDialogPresenter presenter = loader.getController();
-            presenter.setDialogStage(dialogStage);
-            presenter.setData(editedMedication);
-            dialogStage.showAndWait();
-            return presenter.isApproved();
-
-        } catch (IOException e) {
-            logger.error("An error appeared when loading page.", e);
-            return false;
-        }
-    }
-
-    public MedicationDAO getMedicationDAO() {
-        return medicationDAO;
     }
 
     public PersonDAO getPersonDAO() {

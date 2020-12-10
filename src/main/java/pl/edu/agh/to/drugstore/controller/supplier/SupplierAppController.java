@@ -1,40 +1,38 @@
-package pl.edu.agh.to.drugstore.controller;
+package pl.edu.agh.to.drugstore.controller.supplier;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lombok.Getter;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
-import pl.edu.agh.to.drugstore.model.business.ClientOrder;
-import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
-import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
-import pl.edu.agh.to.drugstore.presenter.ClientOrderEditDialogPresenter;
+import pl.edu.agh.to.drugstore.model.business.Supplier;
+import pl.edu.agh.to.drugstore.model.dao.SupplierDAO;
 import pl.edu.agh.to.drugstore.presenter.LoginScreenPresenter;
+import pl.edu.agh.to.drugstore.presenter.SupplierEditDialogPresenter;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
 
-@Getter
-public class ClientOrderAppController {
-    private final ClientOrderDAO clientOrderDAO;
+@Data
+public class SupplierAppController {
 
-    private final PersonDAO personDAO;
+    private final SupplierDAO supplierDAO;
 
     private final Stage primaryStage;
 
     private final CommandRegistry commandRegistry = new CommandRegistry();
 
-    private final static Logger logger = LoggerFactory.getLogger(PersonAppController.class);
+    private final static Logger logger = LoggerFactory.getLogger(SupplierAppController.class);
 
-    public ClientOrderAppController(Stage primaryStage, EntityManager em) {
+    public SupplierAppController(Stage primaryStage, EntityManager em) {
         this.primaryStage = primaryStage;
-        this.personDAO = new PersonDAO(em);
-        this.clientOrderDAO = new ClientOrderDAO(em);
+        this.supplierDAO = new SupplierDAO(em);
     }
+
 
     public void initRootLayout() throws IOException {
 
@@ -44,46 +42,44 @@ public class ClientOrderAppController {
             approved = showLoginScreen();
         }
 
-        this.primaryStage.setTitle("Drugstore");
+        this.primaryStage.setTitle("Suppliers");
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(ClientOrderAppController.class
-                .getResource("/view/ClientOrderOverviewPane.fxml"));
+        loader.setLocation(SupplierAppController.class
+                .getResource("/view/SupplierOverviewPane.fxml"));
         BorderPane rootLayout = loader.load();
 
-        ClientOrderOverviewController controller = loader.getController();
+        SupplierOverviewController controller = loader.getController();
         controller.setAppController(this);
         controller.setData();
         controller.setCommandRegistry(commandRegistry);
-        controller.setClientOrderDAO(clientOrderDAO);
+        controller.setSupplierDAO(supplierDAO);
 
         Scene scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public boolean showClientOrderEditDialog(ClientOrder clientOrder) {
+    public boolean showSupplierEditDialog(Supplier supplier) {
         try {
             // Load the fxml file and create a new stage for the dialog
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(PersonAppController.class
-                    .getResource("/view/ClientOrderEditDialog.fxml"));
+            loader.setLocation(SupplierAppController.class
+                    .getResource("/view/SupplierEditDialog.fxml"));
             BorderPane page = (BorderPane) loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit client order");
+            dialogStage.setTitle("Edit supplier");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the client order into the presenter.
-            ClientOrderEditDialogPresenter presenter = loader.getController();
+            // Set the person into the presenter.
+            SupplierEditDialogPresenter presenter = loader.getController();
             presenter.setDialogStage(dialogStage);
-            presenter.setPersonDAO(personDAO);
-            presenter.updateClientComboBox();
-            presenter.setData(clientOrder);
+            presenter.setData(supplier);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -99,7 +95,7 @@ public class ClientOrderAppController {
         try {
             // Load the fxml file and create a new stage for the dialog
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(PersonAppController.class
+            loader.setLocation(SupplierAppController.class
                     .getResource("/view/LoginPane.fxml"));
             BorderPane page = (BorderPane) loader.load();
 
