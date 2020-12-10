@@ -7,6 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pl.edu.agh.to.drugstore.command.*;
+import pl.edu.agh.to.drugstore.command.person.AddPersonCommand;
+import pl.edu.agh.to.drugstore.command.person.EditPersonCommand;
+import pl.edu.agh.to.drugstore.command.person.RemovePeopleCommand;
 import pl.edu.agh.to.drugstore.model.dao.AddressDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Address;
@@ -190,8 +193,8 @@ public class PersonOverviewController {
         personTableView.refresh();
     }
 
-    public void setAppController(PersonAppController appController) {
-        this.appController = appController;
+    public void setAppController(PersonAppController personAppController) {
+        this.appController = personAppController;
     }
 
     public void setCommandRegistry(CommandRegistry commandRegistry) {

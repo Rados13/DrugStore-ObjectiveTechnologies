@@ -5,10 +5,10 @@ import javafx.collections.ObservableList;
 
 public class CommandRegistry {
 
-    private ObservableList<Command> commandStack = FXCollections
+    private final ObservableList<Command> commandStack = FXCollections
             .observableArrayList();
 
-    private ObservableList<Command> redoStack = FXCollections
+    private final ObservableList<Command> redoStack = FXCollections
             .observableArrayList();
 
     public void executeCommand(Command command) {

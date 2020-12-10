@@ -1,5 +1,8 @@
 package pl.edu.agh.to.drugstore.model.medications;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,8 +18,6 @@ import java.util.LinkedHashSet;
 @AllArgsConstructor
 public class Medication {
 
-    public Medication() {}
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -29,13 +30,31 @@ public class Medication {
 
     private BigDecimal price;
 
-    private int quantity;
+    private Integer quantity;
 
     @ManyToMany()
     private final Collection<Illness> illnessesToCure = new LinkedHashSet<>();
 
     @ElementCollection
     private final Collection<String> ingredients = new LinkedHashSet<>();
+
+    public Medication() {
+        this.name = "";
+        this.form = null;
+        this.prescriptionRequired = false;
+        this.price = BigDecimal.valueOf(0);
+        this.quantity = 0;
+    }
+
+
+    public Medication(String name, MedicationForm medicationForm, boolean b, BigDecimal v, int quantity) {
+        this.name = name;
+        this.form = medicationForm;
+        this.prescriptionRequired = b;
+        this.price = v;
+        this.quantity = quantity;
+    }
+
 
     public void setId(int id) {
         this.id = id;
@@ -98,5 +117,27 @@ public class Medication {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public static String formatMedicationName(String s){
+        return s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
+    }
+
+    public ObservableValue<String> getNameProperty() {
+        return new SimpleStringProperty(name);
+    }
+    public ObservableValue<MedicationForm> getFormProperty() {
+        return new SimpleObjectProperty<MedicationForm>(form);
+    }
+    public ObservableValue<Boolean> getPrescriptionRequiredProperty() {
+        return new SimpleObjectProperty<Boolean>(prescriptionRequired);
+    }
+
+    public ObservableValue<BigDecimal> getPriceProperty() {
+        return new SimpleObjectProperty<BigDecimal>(price);
+    }
+
+    public ObservableValue<Integer> getQuantityProperty() {
+        return new SimpleObjectProperty<Integer>(quantity);
     }
 }

@@ -93,7 +93,6 @@ public class PersonDAO {
         EntityTransaction etx = em.getTransaction();
         etx.begin();
         Person person = em.find(Person.class,personID);
-        System.out.println(person.toString());
         em.remove(person);
         etx.commit();
     }

@@ -59,9 +59,7 @@ public class PersonEditDialogPresenter {
     public void initialize() {
         roleComboBox.getItems().addAll(
                 FXCollections.observableArrayList(
-                        Role.CLIENT,
-                        Role.SELLER,
-                        Role.ADMINISTRATOR
+                        Role.class.getEnumConstants()
                 ));
     }
 
