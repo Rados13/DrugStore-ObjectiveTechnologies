@@ -93,6 +93,7 @@ public class PersonOverviewController extends OverviewController<Person> {
 
     /**
      * Odpowiada za obsługę eventu - naciśnięcie przycisku delete odpowiedzialnego za usuwanie osoby z bazy danych.
+     *
      * @param event
      */
     @FXML
@@ -100,7 +101,7 @@ public class PersonOverviewController extends OverviewController<Person> {
         List<Person> peopleToRemove = List.copyOf(tableView.getSelectionModel().getSelectedItems());
         RemovePeopleCommand removePeopleCommand = new RemovePeopleCommand(peopleToRemove, personDAO);
         commandRegistry.executeCommand(removePeopleCommand);
-        for(Person person : peopleToRemove){
+        for (Person person : peopleToRemove) {
             allExisting.remove(person);
         }
         refresh();
@@ -109,11 +110,11 @@ public class PersonOverviewController extends OverviewController<Person> {
     /**
      * Odpowiada za obsługę eventu - naciśnięcie przycisku edit odpowiedzialnego za edytowanie danych wybranej osoby.
      * Wyświetla osobne okno w interfejsie graficznym, które umożliwia edycję danych.
-     * @param event
-//     * @throws InterruptedException
+     *
+     * @param event //     * @throws InterruptedException
      */
     @FXML
-    protected void handleEditAction(ActionEvent event){
+    protected void handleEditAction(ActionEvent event) {
         Person personToEdit = tableView.getSelectionModel()
                 .getSelectedItem();
         Person editedPerson = personToEdit;
@@ -127,6 +128,7 @@ public class PersonOverviewController extends OverviewController<Person> {
 
     /**
      * Odpowiada za obsługę eventu - naciśnięcie przycisku add odpowiedzialnego za dodawanie osoby do bazy danych.
+     *
      * @param event
      */
     @FXML
@@ -137,7 +139,9 @@ public class PersonOverviewController extends OverviewController<Person> {
             AddPersonCommand addPersonCommand = new AddPersonCommand(person, address, personDAO, addressDAO);
             commandRegistry.executeCommand(addPersonCommand);
         }
-        allExisting.add(person);
+        if (person.getFirstname() != null && person.getLastname() != null &&
+                !person.getFirstname().isEmpty() && !person.getLastname().isEmpty())
+            allExisting.add(person);
         refresh();
     }
 

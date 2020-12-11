@@ -6,9 +6,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import pl.edu.agh.to.drugstore.command.medicationCommands.AddMedicationCommand;
 import pl.edu.agh.to.drugstore.command.Command;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
+import pl.edu.agh.to.drugstore.command.medicationCommands.AddMedicationCommand;
 import pl.edu.agh.to.drugstore.command.medicationCommands.EditMedicationCommand;
 import pl.edu.agh.to.drugstore.command.medicationCommands.RemoveMedicationCommand;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
@@ -105,7 +105,7 @@ public class MedicationOverviewController {
         List<Medication> medicationsToRemove = List.copyOf(medicationTableView.getSelectionModel().getSelectedItems());
         RemoveMedicationCommand removeMedicationCommand = new RemoveMedicationCommand(medicationsToRemove, medicationDAO);
         commandRegistry.executeCommand(removeMedicationCommand);
-        for(Medication medication : medicationsToRemove){
+        for (Medication medication : medicationsToRemove) {
             allExisting.remove(medication);
         }
         refresh();
@@ -125,7 +125,7 @@ public class MedicationOverviewController {
         Medication editedMedication = medicationToEdit;
         if (medicationToEdit != null) {
             appController.showMedicationEditDialog(editedMedication);
-             EditMedicationCommand editPersonCommand = new EditMedicationCommand(editedMedication,medicationDAO);
+            EditMedicationCommand editPersonCommand = new EditMedicationCommand(editedMedication, medicationDAO);
             commandRegistry.executeCommand(editPersonCommand);
         }
         refresh();
@@ -143,7 +143,8 @@ public class MedicationOverviewController {
             AddMedicationCommand addMedicationCommand = new AddMedicationCommand(medication, medicationDAO);
             commandRegistry.executeCommand(addMedicationCommand);
         }
-        if(!allExisting.stream().map(Medication::getName).collect(Collectors.toList()).contains(medication.getName()))
+        if (!allExisting.stream().map(Medication::getName).collect(Collectors.toList()).contains(medication.getName()) &&
+                medication.getName() != null && !medication.getName().isEmpty())
             allExisting.add(medication);
         refresh();
     }
