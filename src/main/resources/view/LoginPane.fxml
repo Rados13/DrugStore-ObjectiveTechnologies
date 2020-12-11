@@ -25,16 +25,16 @@
                     <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </Label>
-            <TextField fx:id="login" GridPane.columnIndex="1">
+            <TextField fx:id="login" promptText="Username" GridPane.columnIndex="1">
                 <GridPane.margin>
                     <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </TextField>
-            <TextField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <PasswordField fx:id="password" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <GridPane.margin>
                     <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
-            </TextField>
+            </PasswordField>
         </GridPane>
     </center>
     <bottom>
