@@ -1,21 +1,27 @@
 package pl.edu.agh.to.drugstore.presenter;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
+import pl.edu.agh.to.drugstore.model.business.Tuple;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
+import pl.edu.agh.to.drugstore.model.medications.Medication;
 import pl.edu.agh.to.drugstore.model.people.Person;
 import pl.edu.agh.to.drugstore.model.people.Role;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Map;
 
 
 @Setter
@@ -26,6 +32,8 @@ public class ClientOrderEditDialogPresenter {
 
     private PersonDAO personDAO;
 
+    private ObservableList<Pair<Medication,Tuple>> allOrderElems;
+
     @FXML
     private DatePicker submissionDatePicker;
 
@@ -35,6 +43,18 @@ public class ClientOrderEditDialogPresenter {
     @FXML
     private ComboBox<Person> clientComboBox;
 
+    @FXML
+    private TableView<Pair<Medication, Tuple>> orderElemsTableView;
+
+    @FXML
+    private TableColumn<Pair<Medication, Tuple>,String>  medicationNameColumn;
+
+    @FXML
+    private TableColumn<Pair<Medication, Tuple>, BigDecimal>  medicationPriceColumn;
+
+    @FXML
+    private TableColumn<Pair<Medication, Tuple>,Integer>  amountOfMedicationBoxesColumn;
+
     private Stage dialogStage;
 
     private boolean approved;
@@ -43,11 +63,19 @@ public class ClientOrderEditDialogPresenter {
     public void initialize() {
         clientComboBox.getItems().addAll(
                 FXCollections.observableArrayList());
+        orderElemsTableView.getSelectionModel().setSelectionMode(
+                SelectionMode.MULTIPLE);
 
+        medicationNameColumn.setCellValueFactory(dataValue -> dataValue.getValue().getKey().getNameProperty());
+        medicationPriceColumn.setCellValueFactory(dataValue -> dataValue.getValue().getKey().getPriceProperty());
+        amountOfMedicationBoxesColumn.setCellValueFactory(dataValue -> dataValue.getValue().getValue().getQuantityProperty());
     }
 
     public void setData(ClientOrder clientOrder) {
         this.clientOrder = clientOrder;
+        allOrderElems = FXCollections.observableArrayList(clientOrder.getMedicationsAsList());
+        orderElemsTableView.refresh();
+        orderElemsTableView.setItems(allOrderElems);
         updateControls();
     }
 

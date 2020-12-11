@@ -85,14 +85,16 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
             AddClientOrderCommand addClientOrderCommand = new AddClientOrderCommand(clientOrder, clientOrderDAO);
             commandRegistry.executeCommand(addClientOrderCommand);
         }
-        allExisting.add(clientOrder);
-        refresh();
+        if(clientOrder.getPerson()!=null && clientOrder.getPerson().getId()!=0) {
+            allExisting.add(clientOrder);
+            refresh();
+        }
+
     }
 
     @Override
     protected void setData() {
         allExisting = FXCollections.observableArrayList(appController.getClientOrderDAO().findAll());
-        System.out.println(allExisting);
         tableView.refresh();
         tableView.setItems(allExisting);
     }

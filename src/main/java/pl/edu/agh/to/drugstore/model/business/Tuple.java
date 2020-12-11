@@ -1,5 +1,8 @@
 package pl.edu.agh.to.drugstore.model.business;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
+
 import javax.persistence.*;
 
 @Entity
@@ -23,6 +26,8 @@ public class Tuple {
     public int getQuantity() {
         return quantity;
     }
+
+    public ObservableValue<Integer> getQuantityProperty() { return  new SimpleObjectProperty<Integer>(quantity); }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;

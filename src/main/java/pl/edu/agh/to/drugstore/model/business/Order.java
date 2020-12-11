@@ -2,6 +2,8 @@ package pl.edu.agh.to.drugstore.model.business;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.util.Pair;
+import lombok.Setter;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
 import pl.edu.agh.to.drugstore.model.people.Person;
 
@@ -9,10 +11,13 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Setter
 public abstract class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -66,4 +71,9 @@ public abstract class Order {
     public ObservableValue<Date> getShippingDateProperty() {return new SimpleObjectProperty<Date>(shippingDate);}
     public ObservableValue<Date> getSubmissionDateProperty() {return new SimpleObjectProperty<Date>(submissionDate);}
     public ObservableValue<Integer> getMedicationsNumProperty() {return new SimpleObjectProperty<Integer>(medications.size());}
+
+    public List<Pair<Medication,Tuple>> getMedicationsAsList() {
+        return medications.entrySet().stream()
+                .map(elem -> new Pair<Medication,Tuple>(elem.getKey(),elem.getValue())).collect(Collectors.toList());
+    }
 }
