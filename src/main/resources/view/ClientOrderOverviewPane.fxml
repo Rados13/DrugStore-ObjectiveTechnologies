@@ -17,6 +17,7 @@
                 <TableColumn fx:id="amountOfMedicinesOrderedColumn" prefWidth="75.0" text="Amount of medicines ordered"/>
                 <TableColumn fx:id="shippingDateColumn" prefWidth="75.0" text="Shipping date"/>
                 <TableColumn fx:id="submissionDateColumn" prefWidth="75.0" text="Submission date"/>
+                <TableColumn fx:id="summedPriceColumn" prefWidth="75.0" text="Summed price"/>
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>

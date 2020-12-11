@@ -54,6 +54,7 @@ public class ClientOrderAppController {
         controller.setData();
         controller.setCommandRegistry(commandRegistry);
         controller.setClientOrderDAO(clientOrderDAO);
+        controller.setMedicationDAO(medicationDAO);
 
         Scene scene = new Scene(rootLayout);
         primaryStage.setScene(scene);

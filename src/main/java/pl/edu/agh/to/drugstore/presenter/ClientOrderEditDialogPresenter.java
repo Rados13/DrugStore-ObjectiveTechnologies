@@ -1,7 +1,6 @@
 package pl.edu.agh.to.drugstore.presenter;
 
 import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -23,10 +22,7 @@ import pl.edu.agh.to.drugstore.model.people.Role;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Pattern;
+import java.util.*;
 
 
 @Setter
@@ -39,7 +35,7 @@ public class ClientOrderEditDialogPresenter {
 
     private MedicationDAO medicationDAO;
 
-    private ObservableList<Pair<Medication, Tuple>> allOrderElems;
+    private ObservableList<Tuple> allOrderElems;
 
     private ObservableList<Medication> medicationsList;
 
@@ -55,16 +51,16 @@ public class ClientOrderEditDialogPresenter {
     private ComboBox<Person> clientComboBox;
 
     @FXML
-    private TableView<Pair<Medication, Tuple>> orderElemsTableView;
+    private TableView<Tuple> orderElemsTableView;
 
     @FXML
-    private TableColumn<Pair<Medication, Tuple>, String> medicationNameColumn;
+    private TableColumn<Tuple, String> medicationNameColumn;
 
     @FXML
-    private TableColumn<Pair<Medication, Tuple>, BigDecimal> medicationPriceColumn;
+    private TableColumn<Tuple, BigDecimal> medicationPriceColumn;
 
     @FXML
-    private TableColumn<Pair<Medication, Tuple>, Integer> amountOfMedicationBoxesColumn;
+    private TableColumn<Tuple, Integer> amountOfMedicationBoxesColumn;
 
     @FXML
     private ComboBox<Medication> medicationComboBox;
@@ -83,9 +79,9 @@ public class ClientOrderEditDialogPresenter {
         orderElemsTableView.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
 
-        medicationNameColumn.setCellValueFactory(dataValue -> dataValue.getValue().getKey().getNameProperty());
-        medicationPriceColumn.setCellValueFactory(dataValue -> dataValue.getValue().getKey().getPriceProperty());
-        amountOfMedicationBoxesColumn.setCellValueFactory(dataValue -> dataValue.getValue().getValue().getQuantityProperty());
+        medicationNameColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMedication().getNameProperty());
+        medicationPriceColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMedication().getPriceProperty());
+        amountOfMedicationBoxesColumn.setCellValueFactory(dataValue -> dataValue.getValue().getQuantityProperty());
 
         medicationComboBox.setEditable(true);
         medicationComboBox.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
@@ -105,9 +101,9 @@ public class ClientOrderEditDialogPresenter {
 
     public void setData(ClientOrder clientOrder) {
         this.clientOrder = clientOrder;
-        allOrderElems = FXCollections.observableArrayList(clientOrder.getMedicationsAsList());
-        orderElemsTableView.refresh();
+        allOrderElems = FXCollections.observableArrayList(clientOrder.getMedications());
         orderElemsTableView.setItems(allOrderElems);
+        orderElemsTableView.refresh();
         updateControls();
     }
 
@@ -137,11 +133,10 @@ public class ClientOrderEditDialogPresenter {
 
     @FXML
     private void handleAddAction(ActionEvent event) {
-        System.out.println("\n\n" + "Medication size: " + medicationsNames.size() + "\n\n");
         if (medicationsNames.size() > 0) {
             Medication med = medicationsNames.get(0);
             int boxesAmount = Integer.parseInt(amountBoxesTextField.getText());
-            allOrderElems.add(new Pair<Medication, Tuple>(med, new Tuple(boxesAmount, false)));
+            allOrderElems.add(new Tuple(boxesAmount, false,med));
             orderElemsTableView.refresh();
             medicationComboBox.valueProperty().set(null);
             amountBoxesTextField.setText("");
@@ -150,7 +145,7 @@ public class ClientOrderEditDialogPresenter {
 
     @FXML
     private void handleDeleteAction(ActionEvent event) {
-        ObservableList<Pair<Medication, Tuple>> elemsToDelete = orderElemsTableView.getSelectionModel().getSelectedItems();
+        ObservableList<Tuple> elemsToDelete = orderElemsTableView.getSelectionModel().getSelectedItems();
         allOrderElems.removeAll(elemsToDelete);
     }
 
@@ -158,10 +153,7 @@ public class ClientOrderEditDialogPresenter {
         clientOrder.setShippingDate(java.sql.Date.valueOf(shippingDatePicker.getValue()));
         clientOrder.setSubmissionDate(java.sql.Date.valueOf(submissionDatePicker.getValue()));
         clientOrder.setPerson(clientComboBox.getValue());
-
-        Map<Medication, Tuple> map = new HashMap<Medication, Tuple>();
-        allOrderElems.forEach(elem -> map.put(elem.getKey(), elem.getValue()));
-        clientOrder.setMedications(map);
+        clientOrder.updateMedications(allOrderElems);
     }
 
     private LocalDate changeDateToLocalDate(Date date) {

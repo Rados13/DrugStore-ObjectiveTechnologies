@@ -14,8 +14,10 @@ import pl.edu.agh.to.drugstore.command.clientorder.RemoveClientOrderCommand;
 import pl.edu.agh.to.drugstore.controller.OverviewController;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
 import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
+import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.people.Person;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +25,8 @@ import java.util.List;
 public class ClientOrderOverviewController extends OverviewController<ClientOrder> {
 
     private ClientOrderDAO clientOrderDAO;
+
+    private MedicationDAO medicationDAO;
 
     private ClientOrderAppController appController;
 
@@ -38,6 +42,9 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
     @FXML
     private TableColumn<ClientOrder, String> clientLastNameColumn;
 
+    @FXML
+    private TableColumn<ClientOrder, BigDecimal> summedPriceColumn;
+
     @Override
     protected void initialize() {
         startInitialize();
@@ -51,6 +58,7 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
             return client!=null?client.getLastNameProperty():null;
             });
         amountOfMedicinesOrderedColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMedicationsNumProperty());
+        summedPriceColumn.setCellValueFactory(dataValue -> dataValue.getValue().getSumPriceProperty());
     }
 
     @Override

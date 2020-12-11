@@ -4,15 +4,12 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.util.Pair;
 import lombok.Setter;
+import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
-import pl.edu.agh.to.drugstore.model.people.Person;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -27,9 +24,9 @@ public abstract class Order {
 
     protected Date shippingDate;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @MapKey(name = "id")
-    protected Map<Medication, Tuple> medications = new LinkedHashMap<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OrderBy("id")
+    protected List<Tuple> medications = new ArrayList<>();
 
     public void setId(int id) {
         this.id = id;
@@ -39,7 +36,7 @@ public abstract class Order {
         return id;
     }
 
-    public Map<Medication, Tuple> getMedications() {
+    public List<Tuple> getMedications() {
         return medications;
     }
 
@@ -64,16 +61,30 @@ public abstract class Order {
     }
 
     public void bookMedication(Medication medication) {
-        this.medications.get(medication).setBooked(true);
+        var result = this.medications
+                .stream()
+                .filter(elem -> elem.getMedication().equals(medication))
+                .findFirst();
+        result.ifPresent(tuple -> tuple.setBooked(true));
     }
-
 
     public ObservableValue<Date> getShippingDateProperty() {return new SimpleObjectProperty<Date>(shippingDate);}
     public ObservableValue<Date> getSubmissionDateProperty() {return new SimpleObjectProperty<Date>(submissionDate);}
     public ObservableValue<Integer> getMedicationsNumProperty() {return new SimpleObjectProperty<Integer>(medications.size());}
 
-    public List<Pair<Medication,Tuple>> getMedicationsAsList() {
-        return medications.entrySet().stream()
-                .map(elem -> new Pair<Medication,Tuple>(elem.getKey(),elem.getValue())).collect(Collectors.toList());
+    public void updateMedications(List<Tuple> newList){
+        var toDelete = medications.stream().filter(elem -> !newList.contains(elem)).collect(Collectors.toList());
+        medications.removeAll(toDelete);
+        newList.forEach(elem -> {
+            if(!medications.contains(elem))medications.add(elem);
+        });
     }
+
+    public ObservableValue<BigDecimal> getSumPriceProperty() {
+        return new SimpleObjectProperty<BigDecimal>(getMedications().stream()
+                .map(elem -> elem.getMedication().getPrice().multiply(BigDecimal.valueOf(elem.getQuantity())))
+                .reduce(BigDecimal.ZERO,BigDecimal::add));
+    }
+
+
 }
