@@ -14,6 +14,7 @@ import pl.edu.agh.to.drugstore.command.clientorder.RemoveClientOrderCommand;
 import pl.edu.agh.to.drugstore.controller.OverviewController;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
 import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
+import pl.edu.agh.to.drugstore.model.people.Person;
 
 import java.util.Date;
 import java.util.List;
@@ -21,12 +22,10 @@ import java.util.List;
 @Setter
 public class ClientOrderOverviewController extends OverviewController<ClientOrder> {
 
-    private CommandRegistry commandRegistry;
     private ClientOrderDAO clientOrderDAO;
 
-    ObservableList<ClientOrder> allClientOrders;
-
     private ClientOrderAppController appController;
+
 
     @FXML
     private TableColumn<ClientOrder, Date> submissionDateColumn;
@@ -48,8 +47,10 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
 
         submissionDateColumn.setCellValueFactory(dataValue -> dataValue.getValue().getSubmissionDateProperty());
         shippingDateColumn.setCellValueFactory(dataValue -> dataValue.getValue().getShippingDateProperty());
-        clientLastNameColumn.setCellValueFactory(dataValue ->
-                dataValue.getValue().getClientProperty().getValue().getLastNameProperty());
+        clientLastNameColumn.setCellValueFactory(dataValue -> {
+            Person client = dataValue.getValue().getClientProperty().getValue();
+            return client!=null?client.getLastNameProperty():null;
+            });
         amountOfMedicinesOrderedColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMedicationsNumProperty());
     }
 

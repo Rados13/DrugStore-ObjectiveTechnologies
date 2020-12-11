@@ -8,12 +8,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
+import lombok.Setter;
 import pl.edu.agh.to.drugstore.command.Command;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
 
 abstract public class OverviewController<A> {
 
-    protected CommandRegistry commandRegistry;
+    public CommandRegistry commandRegistry;
 
     protected ObservableList<A> allExisting;
 
@@ -90,7 +91,7 @@ abstract public class OverviewController<A> {
         tableView.refresh();
     }
 
-    protected void setCommandRegistry(CommandRegistry commandRegistry) {
+    public void setCommandRegistry(CommandRegistry commandRegistry) {
         this.commandRegistry = commandRegistry;
         commandLogView.setItems(commandRegistry.getCommandStack());
         commandLogView.setCellFactory(lv -> new ListCell<Command>() {

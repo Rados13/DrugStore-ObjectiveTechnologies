@@ -60,7 +60,7 @@ public class ClientOrderEditDialogPresenter {
 
     @FXML
     private void handleOkAction(ActionEvent event) {
-        if(clientOrder.getPerson()!=null) {
+        if(clientComboBox.getValue()!=null) {
             updateModel();
             approved = true;
             dialogStage.close();
