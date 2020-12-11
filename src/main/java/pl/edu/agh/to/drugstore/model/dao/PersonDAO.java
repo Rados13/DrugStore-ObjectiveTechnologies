@@ -1,5 +1,6 @@
 package pl.edu.agh.to.drugstore.model.dao;
 
+import pl.edu.agh.to.drugstore.model.business.Supplier;
 import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
 
@@ -152,5 +153,20 @@ public class PersonDAO implements ObjectDAO<Person> {
         etx.begin();
         em.merge(newPerson);
         etx.commit();
+    }
+
+    public Person findByLogin(String login) {
+        EntityTransaction etx = em.getTransaction();
+        etx.begin();
+        String sql = "from Person where";
+        sql += " login = :login";
+
+        Query query = em.createQuery(sql);
+        query.setParameter("login", login);
+        List result = query.getResultList();
+        etx.commit();
+
+        if (result.size() > 1) throw new RuntimeException("Login atribute is unique for each supplier.");
+        return result.size() == 0 ? null : (Person) result.get(0);
     }
 }

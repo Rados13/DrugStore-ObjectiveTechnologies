@@ -25,7 +25,6 @@ public class AddPersonCommand implements Command {
 
     @Override
     public void execute() {
-        addressDAO.add(personToAdd.getAddress());
         personDAO.add(personToAdd);
     }
 

@@ -70,6 +70,7 @@ public class AppController {
             // Set the person into the presenter.
             LoginScreenPresenter presenter = loader.getController();
             presenter.setDialogStage(dialogStage);
+            presenter.setEntityManager(em);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

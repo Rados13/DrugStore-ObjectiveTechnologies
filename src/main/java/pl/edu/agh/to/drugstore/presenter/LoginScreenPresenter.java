@@ -9,16 +9,17 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Person;
+import pl.edu.agh.to.drugstore.security.PasswordManager;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
 /**
  * Klasa odpowiadająca z wyświetlenie okna edycji wybranej osoby w interfejsie graficznym
  */
 public class LoginScreenPresenter {
-
-    private Person person;
 
     @FXML
     private TextField login;
@@ -28,9 +29,13 @@ public class LoginScreenPresenter {
 
     private Stage dialogStage;
 
+    private EntityManager em;
+
     private boolean approved = false;
 
     private final static Logger logger = LoggerFactory.getLogger(LoginScreenPresenter.class);
+
+    private PasswordManager passwordManager;
 
     @FXML
     public void initialize() {
@@ -51,11 +56,11 @@ public class LoginScreenPresenter {
     private void handleOkAction(ActionEvent event) {
         logger.info("Credentials:" + login.getText() + " " + password.getText());
 
-        //check credentials in dataBase
-        //if correct:
-        approved = true;
-        //if not:
-        //show error
+        approved = passwordManager.verify(login.getText(), password.getText());
+
+        if(!approved) {
+            throw new RuntimeException("Permission denied!");
+        }
 
         dialogStage.close();
     }
@@ -80,5 +85,10 @@ public class LoginScreenPresenter {
         } else {
             alert.close();
         }
+    }
+
+    public void setEntityManager(EntityManager em) {
+        this.em = em;
+        this.passwordManager = new PasswordManager(em);
     }
 }

@@ -8,6 +8,7 @@ import pl.edu.agh.to.drugstore.model.business.Notification;
 import pl.edu.agh.to.drugstore.model.business.Order;
 
 import javax.persistence.*;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -48,17 +49,23 @@ public class Person {
     @OneToMany
     private Collection<Order> orders = new LinkedHashSet<>();
 
+    private String login;
+
+    private String password;
+
     public Person() { }
 
     public Person(Person person) {
-        this.firstname = person.firstname;
-        this.lastname = person.lastname;
-        this.birthdate = person.birthdate;
-        this.PESEL = person.PESEL;
-        this.role = person.role;
-        this.address = person.address;
-        this.notificationList = person.notificationList;
-        this.orders = person.orders;
+        this.firstname = person.getFirstname();
+        this.lastname = person.getLastname();
+        this.birthdate = person.getBirthdate();
+        this.PESEL = person.getPESEL();
+        this.role = person.getRole();
+        this.address = person.getAddress();
+        this.notificationList = person.getNotificationList();
+        this.orders = person.getOrders();
+        this.login = person.getLogin();
+        this.password = person.getPassword();
     }
 
     public void setId(int id) {
@@ -123,6 +130,22 @@ public class Person {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getLogin() {
+        return this.login;
+    }
+
+    public void setPassword(String password) {
+        this.password = Base64.getEncoder().encodeToString(password.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 
     public static Person personBuilder(List<String> params) throws ParseException {

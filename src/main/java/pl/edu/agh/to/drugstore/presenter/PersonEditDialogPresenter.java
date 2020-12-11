@@ -51,6 +51,12 @@ public class PersonEditDialogPresenter {
     @FXML
     private TextField apartmentIdTextField;
 
+    @FXML
+    private TextField loginTextField;
+
+    @FXML
+    private TextField passwordTextField;
+
     private Stage dialogStage;
 
     private boolean approved;
@@ -102,6 +108,8 @@ public class PersonEditDialogPresenter {
         this.address.setApartmentId(apartmentIdTextField.getText());
         this.person.setAddress(address);
 
+        this.person.setLogin(loginTextField.getText());
+        this.person.setPassword(passwordTextField.getText());
     }
 
     private void updateControls() {
@@ -120,5 +128,6 @@ public class PersonEditDialogPresenter {
             houseIdTextField.setText(person.getAddress().getHouseId());
             apartmentIdTextField.setText(person.getAddress().getApartmentId());
         }
+        loginTextField.setText(person.getLogin());
     }
 }

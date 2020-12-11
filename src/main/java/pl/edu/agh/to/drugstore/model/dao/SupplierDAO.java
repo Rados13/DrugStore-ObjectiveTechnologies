@@ -51,7 +51,6 @@ public class SupplierDAO implements ObjectDAO<Supplier> {
 
         if (result.size() > 1) throw new RuntimeException("Id atribute is unique for each supplier.");
         return result.size() == 0 ? null : (Supplier) result.get(0);
-
     }
 
     /**

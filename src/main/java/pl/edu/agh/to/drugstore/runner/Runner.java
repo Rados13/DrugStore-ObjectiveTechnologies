@@ -3,7 +3,7 @@ package pl.edu.agh.to.drugstore.runner;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import pl.edu.agh.to.drugstore.controller.AppController;
-import pl.edu.agh.to.drugstore.controller.medication.MedicationAppController;
+import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,6 +22,9 @@ public class Runner extends Application {
         EntityManager em = emf.createEntityManager();
 
         primaryStage.setTitle("DrugStore");
+
+//        PersonDAO dao = new PersonDAO(em);
+//        dao.
 
         AppController appController = new AppController(primaryStage, em);
         appController.initRootLayout();
