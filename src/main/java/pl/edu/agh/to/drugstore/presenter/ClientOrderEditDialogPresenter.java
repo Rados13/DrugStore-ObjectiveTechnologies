@@ -85,17 +85,18 @@ public class ClientOrderEditDialogPresenter {
 
         medicationComboBox.setEditable(true);
         medicationComboBox.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            if (!oldValue.equals("")) {
+            if(newValue.length()>=oldValue.length()) {
                 final TextField editor = medicationComboBox.getEditor();
                 final Medication tmp = medicationComboBox.getSelectionModel().getSelectedItem();
                 final String selected = tmp != null ? tmp.toString() : null;
-
-                Platform.runLater(() -> {
-                    if (selected == null || !selected.equals(editor.getText())) {
-                        medicationsNames.setPredicate(item -> item.getName().toUpperCase().startsWith(newValue.toUpperCase()));
-                    }
-                });
+                if (selected != null && selected.equals(editor.getText()))return;
+            } else {
+                medicationComboBox.valueProperty().set(null);
+                medicationComboBox.getEditor().setText(newValue);
             }
+            Platform.runLater(() -> {
+                        medicationsNames.setPredicate(item -> item.getName().toUpperCase().startsWith(newValue.toUpperCase()));
+            });
         });
     }
 
@@ -134,7 +135,10 @@ public class ClientOrderEditDialogPresenter {
     @FXML
     private void handleAddAction(ActionEvent event) {
         if (medicationsNames.size() > 0) {
-            Medication med = medicationsNames.get(0);
+            Optional<Medication> optionalMedication = medicationsNames.stream()
+                    .filter(elem -> elem.toString().equals(medicationComboBox.getEditor().getText())).findFirst();
+            if(optionalMedication.isEmpty())return;
+            Medication med = optionalMedication.get();
             int boxesAmount = Integer.parseInt(amountBoxesTextField.getText());
             allOrderElems.add(new Tuple(boxesAmount, false,med));
             orderElemsTableView.refresh();
