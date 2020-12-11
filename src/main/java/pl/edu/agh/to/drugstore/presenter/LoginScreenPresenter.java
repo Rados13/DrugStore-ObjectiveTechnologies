@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Person;
 import pl.edu.agh.to.drugstore.security.PasswordManager;
 
@@ -31,7 +30,7 @@ public class LoginScreenPresenter {
 
     private EntityManager em;
 
-    private boolean approved = false;
+    private Person approved = null;
 
     private final static Logger logger = LoggerFactory.getLogger(LoginScreenPresenter.class);
 
@@ -44,24 +43,19 @@ public class LoginScreenPresenter {
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
         dialogStage.setOnCloseRequest(event -> {
-           showConfirmationAlert();
+            dialogStage.close();
+            System.exit(0);
         });
     }
 
-    public boolean isApproved() {
+    public Person isApproved() {
         return approved;
     }
 
     @FXML
     private void handleOkAction(ActionEvent event) {
         logger.info("Credentials:" + login.getText() + " " + password.getText());
-
-        approved = passwordManager.verify(login.getText(), password.getText());
-
-        if(!approved) {
-            throw new RuntimeException("Permission denied!");
-        }
-
+        approved = passwordManager.verifyAndGetPerson(login.getText(), password.getText());
         dialogStage.close();
     }
 
@@ -85,6 +79,14 @@ public class LoginScreenPresenter {
         } else {
             alert.close();
         }
+    }
+
+    public static void showPermissionsDeniedAlert(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Permissions Denied!");
+        alert.setHeaderText("Permissions Denied!");
+        alert.setContentText("Check your login and password and try again");
+        alert.showAndWait();
     }
 
     public void setEntityManager(EntityManager em) {

@@ -32,16 +32,13 @@ public class AppController {
     }
 
     public void initRootLayout() throws IOException {
-        boolean approved = showLoginScreen();
-        while (!approved) {
-            //show login error
-            approved = showLoginScreen();
-            //we need to return person from logging screen
+        Person approvedPerson = showLoginScreen();
+        while (approvedPerson == null) {
+            LoginScreenPresenter.showPermissionsDeniedAlert();
+            approvedPerson = showLoginScreen();
         }
-        Person person = new Person();
-        person.setRole(Role.ADMINISTRATOR);
 
-        switch (person.getRole()) {
+        switch (approvedPerson.getRole()) {
             case ADMINISTRATOR:
                 showAdminPanel();
             case CLIENT:
@@ -51,15 +48,13 @@ public class AppController {
         }
     }
 
-    public boolean showLoginScreen() {
+    public Person showLoginScreen() {
         try {
-            // Load the fxml file and create a new stage for the dialog
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(AppController.class
                     .getResource("/view/LoginPane.fxml"));
             BorderPane page = (BorderPane) loader.load();
 
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Login");
             dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -67,30 +62,26 @@ public class AppController {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the presenter.
             LoginScreenPresenter presenter = loader.getController();
             presenter.setDialogStage(dialogStage);
             presenter.setEntityManager(em);
 
-            // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             return presenter.isApproved();
 
         } catch (IOException e) {
             logger.error("An error appeared when loading page.", e);
-            return false;
+            return null;
         }
     }
 
     public void showAdminPanel() {
         try {
-            // Load the fxml file and create a new stage for the dialog
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(AppController.class
                     .getResource("/view/AdminPanelPane.fxml"));
             BorderPane page = (BorderPane) loader.load();
 
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("AdminPanel");
             dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -98,13 +89,11 @@ public class AppController {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the presenter.
             AdminPanelPresenter presenter = loader.getController();
             presenter.setDialogStage(dialogStage);
             presenter.setAppStage(primaryStage);
             presenter.setEntityManager(em);
 
-            // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
         } catch (IOException e) {
