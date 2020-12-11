@@ -25,19 +25,11 @@
                 <RowConstraints minHeight="10.0"/>
                 <RowConstraints minHeight="10.0"/>
                 <RowConstraints minHeight="10.0"/>
+                <RowConstraints minHeight="10.0"/>
+                <RowConstraints minHeight="10.0"/>
             </rowConstraints>
             <children>
                 <Label text="Client lastname">
-                    <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
-                    </GridPane.margin>
-                </Label>
-                <Label text="Shipping date" GridPane.rowIndex="1">
-                    <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
-                    </GridPane.margin>
-                </Label>
-                <Label text="Submission date" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
@@ -47,11 +39,22 @@
                         <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </ComboBox>
+                <Label text="Shipping date" GridPane.rowIndex="1">
+                    <GridPane.margin>
+                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                    </GridPane.margin>
+                </Label>
                 <DatePicker fx:id="shippingDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </DatePicker>
+
+                <Label text="Submission date" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                    </GridPane.margin>
+                </Label>
                 <DatePicker fx:id="submissionDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
@@ -70,12 +73,44 @@
                     </columnResizePolicy>
                 </TableView>
 
+                <Label text="Medication" GridPane.rowIndex="9">
+                    <GridPane.margin>
+                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                    </GridPane.margin>
+                </Label>
+                <ComboBox fx:id="medicationComboBox" GridPane.rowIndex="9" GridPane.columnIndex="1">
+                    <GridPane.margin>
+                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                    </GridPane.margin>
+                </ComboBox>
+                <Label text="Amount of boxes" GridPane.rowIndex="10">
+                    <GridPane.margin>
+                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                    </GridPane.margin>
+                </Label>
+                <TextField fx:id="amountBoxesTextField" GridPane.rowIndex="10" GridPane.columnIndex="1">
+                    <GridPane.margin>
+                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                    </GridPane.margin>
+                </TextField>
+
+
             </children>
         </GridPane>
     </center>
     <bottom>
         <HBox alignment="BOTTOM_RIGHT" spacing="5.0" BorderPane.alignment="CENTER">
             <children>
+                <Button mnemonicParsing="false" onAction="#handleAddAction" prefWidth="60.0" text="Add">
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#handleDeleteAction" prefWidth="60.0" text="Delete">
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </HBox.margin>
+                </Button>
                 <Button mnemonicParsing="false" onAction="#handleCancelAction" prefWidth="60.0" text="Cancel">
                     <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

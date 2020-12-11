@@ -26,7 +26,6 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
 
     private ClientOrderAppController appController;
 
-
     @FXML
     private TableColumn<ClientOrder, Date> submissionDateColumn;
 

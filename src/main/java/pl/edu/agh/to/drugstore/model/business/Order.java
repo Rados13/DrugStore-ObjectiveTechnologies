@@ -29,7 +29,7 @@ public abstract class Order {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @MapKey(name = "id")
-    protected final Map<Medication, Tuple> medications = new LinkedHashMap<>();
+    protected Map<Medication, Tuple> medications = new LinkedHashMap<>();
 
     public void setId(int id) {
         this.id = id;

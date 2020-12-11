@@ -12,7 +12,9 @@ import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.controller.person.PersonAppController;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
 import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
+import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
+import pl.edu.agh.to.drugstore.model.medications.Medication;
 import pl.edu.agh.to.drugstore.presenter.ClientOrderEditDialogPresenter;
 import pl.edu.agh.to.drugstore.presenter.LoginScreenPresenter;
 
@@ -24,6 +26,7 @@ public class ClientOrderAppController {
     private final ClientOrderDAO clientOrderDAO;
 
     private final PersonDAO personDAO;
+    private final MedicationDAO medicationDAO;
 
     private final Stage primaryStage;
 
@@ -35,6 +38,7 @@ public class ClientOrderAppController {
         this.primaryStage = primaryStage;
         this.personDAO = new PersonDAO(em);
         this.clientOrderDAO = new ClientOrderDAO(em);
+        this.medicationDAO = new MedicationDAO(em);
     }
 
     public void initRootLayout() throws IOException {
@@ -76,6 +80,7 @@ public class ClientOrderAppController {
             ClientOrderEditDialogPresenter presenter = loader.getController();
             presenter.setDialogStage(dialogStage);
             presenter.setPersonDAO(personDAO);
+            presenter.setMedicationDAO(medicationDAO);
             presenter.updateClientComboBox();
             presenter.setData(clientOrder);
 

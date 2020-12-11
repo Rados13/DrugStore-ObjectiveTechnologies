@@ -148,4 +148,9 @@ public class Medication {
     public ObservableValue<Integer> getQuantityProperty() {
         return new SimpleObjectProperty<>(quantity);
     }
+
+    @Override
+    public String toString() {
+        return name + ", " + form + ", " + price + " zl";
+    }
 }
