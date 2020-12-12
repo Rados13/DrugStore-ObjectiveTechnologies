@@ -1,12 +1,13 @@
 package pl.edu.agh.to.drugstore.presenter;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
 import pl.edu.agh.to.drugstore.model.people.Role;
@@ -16,11 +17,13 @@ import java.time.LocalDate;
 /**
  * Klasa odpowiadająca z wyświetlenie okna edycji wybranej osoby w interfejsie graficznym
  */
-public class PersonEditDialogPresenter {
+public class RegisterUserPresenter {
 
     private Person person;
 
     private Address address;
+
+    private final static Logger logger = LoggerFactory.getLogger(RegisterUserPresenter.class);
 
     @FXML
     private TextField firstNameTextField;
@@ -33,9 +36,6 @@ public class PersonEditDialogPresenter {
 
     @FXML
     private TextField PESELTextField;
-
-    @FXML
-    private ComboBox<Role> roleComboBox;
 
     @FXML
     private TextField cityTextField;
@@ -53,7 +53,11 @@ public class PersonEditDialogPresenter {
     private TextField loginTextField;
 
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordTextField;
+
+    @FXML
+    private PasswordField repeatPasswordTextField;
+
 
     private Stage dialogStage;
 
@@ -61,10 +65,6 @@ public class PersonEditDialogPresenter {
 
     @FXML
     public void initialize() {
-        roleComboBox.getItems().addAll(
-                FXCollections.observableArrayList(
-                        Role.class.getEnumConstants()
-                ));
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -82,10 +82,15 @@ public class PersonEditDialogPresenter {
     }
 
     @FXML
-    private void handleOkAction(ActionEvent event) {
-        updateModel();
-        approved = true;
-        dialogStage.close();
+    private void handleOkAction(ActionEvent event) throws Exception {
+        if (checkPasswords(passwordTextField.getText(), repeatPasswordTextField.getText())) {
+            updateModel();
+            approved = true;
+            dialogStage.close();
+        }
+        else {
+            Alerts.showErrorAlert("Error!", "Passwords do not match", "Check your password and try again");
+        }
     }
 
     @FXML
@@ -93,12 +98,12 @@ public class PersonEditDialogPresenter {
         dialogStage.close();
     }
 
-    private void updateModel() {
+    private void updateModel() throws Exception {
         person.setFirstname(firstNameTextField.getText());
         person.setLastname(lastNameTextField.getText());
         person.setBirthdate(LocalDate.from(birthDatePicker.getValue()));
         person.setPESEL(PESELTextField.getText());
-        person.setRole(roleComboBox.getValue());
+        person.setRole(Role.CLIENT);
 
         this.address.setCity(cityTextField.getText());
         this.address.setStreet(streetTextField.getText());
@@ -108,6 +113,8 @@ public class PersonEditDialogPresenter {
 
         this.person.setLogin(loginTextField.getText());
         this.person.setPassword(passwordTextField.getText());
+
+        //zastąpić dialogiem
     }
 
     private void updateControls() {
@@ -117,9 +124,6 @@ public class PersonEditDialogPresenter {
             birthDatePicker.setValue(person.getBirthdate());
         else birthDatePicker.setValue(LocalDate.now());
         PESELTextField.setText(person.getPESEL());
-        if (person.getRole() != null)
-            roleComboBox.setValue(person.getRole());
-        else roleComboBox.setValue(Role.CLIENT);
         if (person.getAddress() != null) {
             cityTextField.setText(person.getAddress().getCity());
             streetTextField.setText(person.getAddress().getStreet());
@@ -127,5 +131,9 @@ public class PersonEditDialogPresenter {
             apartmentIdTextField.setText(person.getAddress().getApartmentId());
         }
         loginTextField.setText(person.getLogin());
+    }
+
+    boolean checkPasswords(String pass1, String pass2) {
+        return pass1.equals(pass2);
     }
 }

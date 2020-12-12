@@ -8,9 +8,10 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
+import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Person;
-import pl.edu.agh.to.drugstore.model.people.Role;
 import pl.edu.agh.to.drugstore.presenter.AdminPanelPresenter;
+import pl.edu.agh.to.drugstore.presenter.Alerts;
 import pl.edu.agh.to.drugstore.presenter.LoginScreenPresenter;
 
 import javax.persistence.EntityManager;
@@ -34,7 +35,8 @@ public class AppController {
     public void initRootLayout() throws IOException {
         Person approvedPerson = showLoginScreen();
         while (approvedPerson == null) {
-            LoginScreenPresenter.showPermissionsDeniedAlert();
+            if (!LoginScreenPresenter.isCancelClicked())
+                Alerts.showErrorAlert("Permissions Denied!", "Permissions Denied!", "Check your login and password and try again");
             approvedPerson = showLoginScreen();
         }
 
@@ -65,6 +67,8 @@ public class AppController {
             LoginScreenPresenter presenter = loader.getController();
             presenter.setDialogStage(dialogStage);
             presenter.setEntityManager(em);
+            presenter.setPersonDAO(new PersonDAO(em));
+            presenter.setCommandRegistry(commandRegistry);
 
             dialogStage.showAndWait();
             return presenter.isApproved();
