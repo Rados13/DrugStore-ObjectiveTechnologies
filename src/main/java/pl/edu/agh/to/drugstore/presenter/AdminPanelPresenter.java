@@ -76,7 +76,7 @@ public class AdminPanelPresenter {
     }
 
     @FXML
-    private void handleExitAction(ActionEvent event) {
+    private void handleExitAction(ActionEvent event) throws Exception {
         showConfirmationAlert();
     }
 
@@ -85,13 +85,13 @@ public class AdminPanelPresenter {
     }
 
 
-    private void showConfirmationAlert() {
+    private void showConfirmationAlert() throws Exception {
         Alert alert = Alerts.showConfirmationDialog("Confirmation Dialog", null, "Are you sure?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             alert.close();
             dialogStage.close();
-            appController.showLoginScreen();
+//            appController.initRootLayout();
         } else {
             alert.close();
         }

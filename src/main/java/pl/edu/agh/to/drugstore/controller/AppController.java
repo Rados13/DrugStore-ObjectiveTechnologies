@@ -30,25 +30,27 @@ public class AppController {
         this.em = em;
     }
 
-    public void initRootLayout() throws IOException {
+    public void initRootLayout() throws Exception {
         Person approvedPerson = showLoginScreen();
         while (approvedPerson == null) {
             if (!LoginScreenPresenter.isCancelClicked())
                 Alerts.showErrorAlert("Permissions Denied!", "Permissions Denied!", "Check your login and password and try again");
             approvedPerson = showLoginScreen();
         }
-
+        Alert alert;
         switch (approvedPerson.getRole()) {
             case ADMINISTRATOR:
                 showAdminPanel();
-            case CLIENT:
-                Alert clientAlert = Alerts.showInformationDialog("Not Avaiable", "We are sorry :(", "This place is not implemented yet");
-                clientAlert.showAndWait();
-                showLoginScreen();
+                break;
             case SELLER:
-                Alert sellerAlert = Alerts.showInformationDialog("Not Avaiable", "We are sorry :(", "This place is not implemented yet");
-                sellerAlert.showAndWait();
-                showLoginScreen();
+            case CLIENT:
+                alert = Alerts.showInformationDialog("Not Avaiable", "We are sorry :(", "This place is not implemented yet");
+                alert.showAndWait();
+                primaryStage.close();
+                initRootLayout();
+                break;
+            default:
+                throw new Exception("Role not recognized");
         }
     }
 
