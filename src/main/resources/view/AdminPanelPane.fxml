@@ -4,12 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="82.0" prefWidth="458.0"
-            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="pl.edu.agh.to.drugstore.presenter.AdminPanelPresenter">
+            xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="pl.edu.agh.to.drugstore.presenter.AdminPanelPresenter">
     <bottom>
         <HBox alignment="BOTTOM_RIGHT" prefHeight="36.0" prefWidth="481.0" spacing="5.0" BorderPane.alignment="CENTER">
             <children>
                 <Button mnemonicParsing="false" onAction="#handleExitAction" prefHeight="26.0" prefWidth="80.0"
-                        text="Exit">
+                        text="Logout">
                     <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </HBox.margin>
