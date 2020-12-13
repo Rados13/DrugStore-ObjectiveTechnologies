@@ -20,29 +20,26 @@ import java.util.LinkedHashSet;
 @ToString
 public class Supplier {
 
+    @ManyToMany
+    private final Collection<Medication> suppliedMedications = new LinkedHashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     @Column(nullable = false)
     private String NIP;
-
     private String name;
-
-    @ManyToMany
-    private final Collection<Medication> suppliedMedications = new LinkedHashSet<>();
 
     public Supplier(Supplier supplier) {
         this.id = supplier.getId();
         this.name = supplier.getName();
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Collection<Medication> getSuppliedMedications() {

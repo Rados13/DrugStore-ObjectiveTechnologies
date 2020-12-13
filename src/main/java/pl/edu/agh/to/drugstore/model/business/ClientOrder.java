@@ -24,5 +24,7 @@ public class ClientOrder extends Order {
         this.person = person;
     }
 
-    public ObservableValue<Person> getClientProperty(){return new SimpleObjectProperty<Person>(person);}
+    public ObservableValue<Person> getClientProperty() {
+        return new SimpleObjectProperty<Person>(person);
+    }
 }

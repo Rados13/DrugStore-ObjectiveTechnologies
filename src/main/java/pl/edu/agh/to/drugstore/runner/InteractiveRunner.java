@@ -3,8 +3,6 @@ package pl.edu.agh.to.drugstore.runner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.consoleCRUD.ConsoleApp;
-import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
-import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

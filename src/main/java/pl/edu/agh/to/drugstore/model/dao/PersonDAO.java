@@ -1,6 +1,5 @@
 package pl.edu.agh.to.drugstore.model.dao;
 
-import pl.edu.agh.to.drugstore.model.business.Supplier;
 import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
 
@@ -22,6 +21,7 @@ public class PersonDAO implements ObjectDAO<Person> {
 
     /**
      * Zwraca listę wszystkich osób zapisanych w bazie danych.
+     *
      * @return
      */
     @Override
@@ -38,6 +38,7 @@ public class PersonDAO implements ObjectDAO<Person> {
 
     /**
      * Zwraca z bazu osobę o podanym id
+     *
      * @param id
      * @return
      */
@@ -53,13 +54,14 @@ public class PersonDAO implements ObjectDAO<Person> {
 
     /**
      * Dodaje nową osobę do bazy danych.
+     *
      * @param person
      */
     @Override
     public void add(Person person) {
         EntityTransaction etx = em.getTransaction();
 
-        if(person.getAddress()!=null) {
+        if (person.getAddress() != null) {
             Address personAddress = this.addressDAO.searchExistingAddress(person.getAddress());
             if (personAddress == null) {
                 this.addressDAO.add(person.getAddress());
@@ -73,16 +75,16 @@ public class PersonDAO implements ObjectDAO<Person> {
     }
 
 
-
     /**
      * Usuwa osobę z bazy danych
+     *
      * @param personID
      */
     @Override
-    public void delete(int personID){
+    public void delete(int personID) {
         EntityTransaction etx = em.getTransaction();
         etx.begin();
-        Person person = em.find(Person.class,personID);
+        Person person = em.find(Person.class, personID);
         System.out.println(person.toString());
         em.remove(person);
         etx.commit();
@@ -90,10 +92,11 @@ public class PersonDAO implements ObjectDAO<Person> {
 
     /**
      * Aktualizuje w bazie danych dane dotyczące określonej osoby.
+     *
      * @param newPerson
      */
     @Override
-    public void update(Person newPerson){
+    public void update(Person newPerson) {
         EntityTransaction etx = em.getTransaction();
         etx.begin();
         em.merge(newPerson);
@@ -103,52 +106,56 @@ public class PersonDAO implements ObjectDAO<Person> {
 
     /**
      * Zwraca listę osób spełniających określone kryteria.
+     *
      * @param person
      * @return
      */
-    public List<Person> searchPeople(Person person){
+    public List<Person> searchPeople(Person person) {
         EntityTransaction etx = em.getTransaction();
 
-        Address personAddress = person.getAddress()!=null?this.addressDAO.searchExistingAddress(person.getAddress()):null;
+        Address personAddress = person.getAddress() != null ? this.addressDAO.searchExistingAddress(person.getAddress()) : null;
         etx.begin();
         String sql = "from Person where ";
-        if(person.getRole()!=null)sql += " role = :role and";
-        if(person.getFirstname()!=null)sql += " firstname = :firstname and";
-        if(person.getLastname()!=null)sql += " lastname = :lastname and";
-        if(person.getBirthdate()!=null)sql += " birthdate = :birthdate and";
-        if(person.getPESEL()!=null)sql += " PESEL = :pesel and";
-        if(personAddress!=null)sql += " address = :address and";
-        sql = new StringBuffer(sql).replace(sql.length()-3,sql.length(),"").toString();
+        if (person.getRole() != null) sql += " role = :role and";
+        if (person.getFirstname() != null) sql += " firstname = :firstname and";
+        if (person.getLastname() != null) sql += " lastname = :lastname and";
+        if (person.getBirthdate() != null) sql += " birthdate = :birthdate and";
+        if (person.getPESEL() != null) sql += " PESEL = :pesel and";
+        if (personAddress != null) sql += " address = :address and";
+        sql = new StringBuffer(sql).replace(sql.length() - 3, sql.length(), "").toString();
 
         Query query = em.createQuery(sql);
-        if(person.getRole()!=null)query.setParameter("role",person.getRole());
-        if(person.getFirstname()!=null)query.setParameter("firstname",person.getFirstname());
-        if(person.getLastname()!=null)query.setParameter("lastname",person.getLastname());
-        if(person.getBirthdate()!=null)query.setParameter("birthdate",person.getBirthdate());
-        if(person.getPESEL()!=null)query.setParameter("PESEL",person.getPESEL());
-        if(personAddress!=null)query.setParameter("address",person.getAddress());
+        if (person.getRole() != null) query.setParameter("role", person.getRole());
+        if (person.getFirstname() != null) query.setParameter("firstname", person.getFirstname());
+        if (person.getLastname() != null) query.setParameter("lastname", person.getLastname());
+        if (person.getBirthdate() != null) query.setParameter("birthdate", person.getBirthdate());
+        if (person.getPESEL() != null) query.setParameter("PESEL", person.getPESEL());
+        if (personAddress != null) query.setParameter("address", person.getAddress());
 
         List result = query.getResultList();
         etx.commit();
         return result;
     }
+
     /**
      * Usuwa osobę z bazy danych
+     *
      * @param personID
      */
-    public void deletePerson(int personID){
+    public void deletePerson(int personID) {
         EntityTransaction etx = em.getTransaction();
         etx.begin();
-        Person person = em.find(Person.class,personID);
+        Person person = em.find(Person.class, personID);
         em.remove(person);
         etx.commit();
     }
 
     /**
      * Aktualizuje w bazie danych dane dotyczące określonej osoby.
+     *
      * @param newPerson
      */
-    public void editPerson(Person newPerson){
+    public void editPerson(Person newPerson) {
         EntityTransaction etx = em.getTransaction();
         etx.begin();
         em.merge(newPerson);

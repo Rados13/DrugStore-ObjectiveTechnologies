@@ -25,7 +25,7 @@ public class RemoveSupplierCommand implements Command {
     @Override
     public String getName() {
         return suppliersToRemove.size() > 1 ? "Removed " + suppliersToRemove.size() + " transactions"
-        : "Removed transaction: " + suppliersToRemove.toString();
+                : "Removed transaction: " + suppliersToRemove.toString();
     }
 
     @Override

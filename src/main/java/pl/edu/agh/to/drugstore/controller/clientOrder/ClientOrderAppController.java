@@ -9,36 +9,34 @@ import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
+import pl.edu.agh.to.drugstore.controller.AppController;
 import pl.edu.agh.to.drugstore.controller.person.PersonAppController;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
 import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
-import pl.edu.agh.to.drugstore.model.medications.Medication;
 import pl.edu.agh.to.drugstore.presenter.ClientOrderEditDialogPresenter;
-import pl.edu.agh.to.drugstore.presenter.LoginScreenPresenter;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
 
 @Getter
 public class ClientOrderAppController {
+    private final static Logger logger = LoggerFactory.getLogger(PersonAppController.class);
     private final ClientOrderDAO clientOrderDAO;
-
     private final PersonDAO personDAO;
     private final MedicationDAO medicationDAO;
-
     private final Stage primaryStage;
 
     private final CommandRegistry commandRegistry = new CommandRegistry();
+    private final AppController appController;
 
-    private final static Logger logger = LoggerFactory.getLogger(PersonAppController.class);
-
-    public ClientOrderAppController(Stage primaryStage, EntityManager em) {
+    public ClientOrderAppController(Stage primaryStage, EntityManager em, AppController appController) {
         this.primaryStage = primaryStage;
         this.personDAO = new PersonDAO(em);
         this.clientOrderDAO = new ClientOrderDAO(em);
         this.medicationDAO = new MedicationDAO(em);
+        this.appController = appController;
     }
 
     public void initRootLayout() throws IOException {
@@ -67,9 +65,8 @@ public class ClientOrderAppController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(PersonAppController.class
                     .getResource("/view/ClientOrderEditDialog.fxml"));
-            BorderPane page = (BorderPane) loader.load();
+            BorderPane page = loader.load();
 
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit client order");
             dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -77,7 +74,6 @@ public class ClientOrderAppController {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the client order into the presenter.
             ClientOrderEditDialogPresenter presenter = loader.getController();
             presenter.setDialogStage(dialogStage);
             presenter.setPersonDAO(personDAO);
@@ -85,7 +81,6 @@ public class ClientOrderAppController {
             presenter.updateClientComboBox();
             presenter.setData(clientOrder);
 
-            // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             return presenter.isApproved();
 
@@ -94,4 +89,13 @@ public class ClientOrderAppController {
             return false;
         }
     }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public AppController getAppController() {
+        return appController;
+    }
+
 }

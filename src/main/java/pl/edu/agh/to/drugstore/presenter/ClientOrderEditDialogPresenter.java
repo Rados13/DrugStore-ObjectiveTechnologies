@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
@@ -22,7 +21,8 @@ import pl.edu.agh.to.drugstore.model.people.Role;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.Date;
+import java.util.Optional;
 
 /**
  * Klasa odpowiadająca z wyświetlenie okna edycji wybranego zamówienia klienta w interfejsie graficznym
@@ -88,17 +88,17 @@ public class ClientOrderEditDialogPresenter {
 
         medicationComboBox.setEditable(true);
         medicationComboBox.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            if(newValue.length()>=oldValue.length()) {
+            if (newValue.length() >= oldValue.length()) {
                 final TextField editor = medicationComboBox.getEditor();
                 final Medication tmp = medicationComboBox.getSelectionModel().getSelectedItem();
                 final String selected = tmp != null ? tmp.toString() : null;
-                if (selected != null && selected.equals(editor.getText()))return;
+                if (selected != null && selected.equals(editor.getText())) return;
             } else {
                 medicationComboBox.valueProperty().set(null);
                 medicationComboBox.getEditor().setText(newValue);
             }
             Platform.runLater(() -> {
-                        medicationsNames.setPredicate(item -> item.getName().toUpperCase().startsWith(newValue.toUpperCase()));
+                medicationsNames.setPredicate(item -> item.getName().toUpperCase().startsWith(newValue.toUpperCase()));
             });
         });
     }
@@ -140,10 +140,10 @@ public class ClientOrderEditDialogPresenter {
         if (medicationsNames.size() > 0) {
             Optional<Medication> optionalMedication = medicationsNames.stream()
                     .filter(elem -> elem.toString().equals(medicationComboBox.getEditor().getText())).findFirst();
-            if(optionalMedication.isEmpty())return;
+            if (optionalMedication.isEmpty()) return;
             Medication med = optionalMedication.get();
             int boxesAmount = Integer.parseInt(amountBoxesTextField.getText());
-            allOrderElems.add(new Tuple(boxesAmount, false,med));
+            allOrderElems.add(new Tuple(boxesAmount, false, med));
             orderElemsTableView.refresh();
             medicationComboBox.valueProperty().set(null);
             amountBoxesTextField.setText("");

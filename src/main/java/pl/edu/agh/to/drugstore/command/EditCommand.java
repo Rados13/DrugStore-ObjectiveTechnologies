@@ -5,7 +5,7 @@ import pl.edu.agh.to.drugstore.model.dao.ObjectDAO;
 
 
 @Getter
-public abstract class EditCommand<A> implements Command{
+public abstract class EditCommand<A> implements Command {
 
     private final A objectToEdit;
 

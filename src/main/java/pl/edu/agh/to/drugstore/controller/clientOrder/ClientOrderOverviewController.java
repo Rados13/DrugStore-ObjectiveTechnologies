@@ -1,13 +1,11 @@
 package pl.edu.agh.to.drugstore.controller.clientOrder;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import lombok.Setter;
-import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.command.clientorder.AddClientOrderCommand;
 import pl.edu.agh.to.drugstore.command.clientorder.EditClientOrderCommand;
 import pl.edu.agh.to.drugstore.command.clientorder.RemoveClientOrderCommand;
@@ -62,8 +60,8 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
         shippingDateColumn.setCellValueFactory(dataValue -> dataValue.getValue().getShippingDateProperty());
         clientLastNameColumn.setCellValueFactory(dataValue -> {
             Person client = dataValue.getValue().getClientProperty().getValue();
-            return client!=null?client.getLastNameProperty():null;
-            });
+            return client != null ? client.getLastNameProperty() : null;
+        });
         amountOfMedicinesOrderedColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMedicationsNumProperty());
         summedPriceColumn.setCellValueFactory(dataValue -> dataValue.getValue().getSumPriceProperty());
     }
@@ -78,7 +76,7 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
         List<ClientOrder> clientOrdersToRemove = List.copyOf(tableView.getSelectionModel().getSelectedItems());
         RemoveClientOrderCommand removePeopleCommand = new RemoveClientOrderCommand(clientOrdersToRemove, clientOrderDAO);
         commandRegistry.executeCommand(removePeopleCommand);
-        for(ClientOrder person : clientOrdersToRemove){
+        for (ClientOrder person : clientOrdersToRemove) {
             allExisting.remove(person);
         }
         refresh();
@@ -116,11 +114,17 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
             AddClientOrderCommand addClientOrderCommand = new AddClientOrderCommand(clientOrder, clientOrderDAO);
             commandRegistry.executeCommand(addClientOrderCommand);
         }
-        if(clientOrder.getPerson()!=null && clientOrder.getPerson().getId()!=0) {
+        if (clientOrder.getPerson() != null && clientOrder.getPerson().getId() != 0) {
             allExisting.add(clientOrder);
             refresh();
         }
 
+    }
+
+    @Override
+    protected void handleExitAction(ActionEvent event) {
+        appController.getPrimaryStage().close();
+        appController.getAppController().showAdminPanel();
     }
 
     @Override
@@ -130,7 +134,7 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
         tableView.setItems(allExisting);
     }
 
-    public void setAppController(ClientOrderAppController controller){
+    public void setAppController(ClientOrderAppController controller) {
         this.appController = controller;
     }
 }

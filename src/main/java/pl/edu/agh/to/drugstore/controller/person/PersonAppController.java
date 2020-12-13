@@ -8,12 +8,11 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
-import pl.edu.agh.to.drugstore.controller.medication.MedicationOverviewController;
+import pl.edu.agh.to.drugstore.controller.AppController;
 import pl.edu.agh.to.drugstore.model.dao.AddressDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
-import pl.edu.agh.to.drugstore.presenter.LoginScreenPresenter;
 import pl.edu.agh.to.drugstore.presenter.PersonEditDialogPresenter;
 
 import javax.persistence.EntityManager;
@@ -21,20 +20,18 @@ import java.io.IOException;
 
 public class PersonAppController {
 
-    private final PersonDAO personDAO;
-
-    private final AddressDAO addressDAO;
-
-    private final Stage primaryStage;
-
-    private final CommandRegistry commandRegistry = new CommandRegistry();
-
     private final static Logger logger = LoggerFactory.getLogger(PersonAppController.class);
+    private final PersonDAO personDAO;
+    private final AddressDAO addressDAO;
+    private final Stage primaryStage;
+    private final CommandRegistry commandRegistry = new CommandRegistry();
+    private AppController appController;
 
-    public PersonAppController(Stage primaryStage, EntityManager em) {
+    public PersonAppController(Stage primaryStage, EntityManager em, AppController appController) {
         this.primaryStage = primaryStage;
         this.personDAO = new PersonDAO(em);
         this.addressDAO = new AddressDAO(em);
+        this.appController = appController;
     }
 
     public void initRootLayout() throws IOException {
@@ -52,7 +49,6 @@ public class PersonAppController {
         controller.setCommandRegistry(commandRegistry);
         controller.setPersonDAO(personDAO);
 
-
         Scene scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -63,7 +59,7 @@ public class PersonAppController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(PersonAppController.class
                     .getResource("/view/PersonEditDialog.fxml"));
-            BorderPane page = (BorderPane) loader.load();
+            BorderPane page = loader.load();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit person");
@@ -89,5 +85,17 @@ public class PersonAppController {
 
     public PersonDAO getPersonDAO() {
         return personDAO;
+    }
+
+    public AppController getAppController() {
+        return appController;
+    }
+
+    public void setAppController(AppController appController) {
+        this.appController = appController;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 }

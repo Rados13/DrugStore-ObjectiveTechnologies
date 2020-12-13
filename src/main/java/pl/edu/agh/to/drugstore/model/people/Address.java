@@ -16,19 +16,29 @@ import java.util.List;
 @AllArgsConstructor
 public class Address {
 
-    public Address() { }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     private String city;
-
     private String street;
-
     private String houseId;
-
     private String apartmentId;
+
+    public Address() {
+    }
+
+    public static Address addressBuilder(List<String> params) {
+        if (params.size() == 0) return null;
+        return Address.builder()
+                .city(params.size() > 0 && !params.get(0).equals("-") ? params.get(0) : null)
+                .street(params.size() > 1 && !params.get(1).equals("-") ? params.get(1) : null)
+                .houseId(params.size() > 2 && !params.get(2).equals("-")
+                        ? (params.get(2)) : null)
+                .apartmentId(params.size() > 3 && !params.get(3).equals("-")
+                        ? (params.get(3)) : null)
+                .build();
+
+    }
 
     public String getCity() {
         return city;
@@ -69,25 +79,12 @@ public class Address {
         this.apartmentId = apartmentId;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getId() {
         return id;
     }
 
-    public static Address addressBuilder(List<String> params) {
-        if (params.size() == 0) return null;
-        return Address.builder()
-                .city(params.size() > 0 && !params.get(0).equals("-") ? params.get(0) : null)
-                .street(params.size() > 1 && !params.get(1).equals("-") ? params.get(1) : null)
-                .houseId(params.size() > 2 && !params.get(2).equals("-")
-                        ? (params.get(2)) : null)
-                .apartmentId(params.size() > 3 && !params.get(3).equals("-")
-                        ? (params.get(3)) : null)
-                .build();
-
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

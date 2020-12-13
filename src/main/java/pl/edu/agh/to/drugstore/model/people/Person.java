@@ -12,9 +12,6 @@ import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.*;
 
 @Entity
@@ -53,7 +50,8 @@ public class Person {
 
     private String password;
 
-    public Person() { }
+    public Person() {
+    }
 
     public Person(Person person) {
         this.firstname = person.getFirstname();
@@ -68,12 +66,29 @@ public class Person {
         this.password = person.getPassword();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public static Person personBuilder(List<String> params) throws ParseException {
+        if (params.size() < 6) {
+            throw new IllegalArgumentException("Given number of arguments is too low.");
+        }
+        LocalDate date = !params.get(4).equals("-") ? LocalDate.from(new SimpleDateFormat("dd/MM/yyyy").parse(params.get(4)).toInstant()) : null;
+        return Person
+                .builder()
+                .role(!params.get(1).equals("-") ?
+                        Role.valueOf(params.get(1).toUpperCase()) : null)
+                .firstname(!params.get(2).equals("-") ? params.get(2) : null)
+                .lastname(!params.get(3).equals("-") ? params.get(3) : null)
+                .birthdate(date)
+                .PESEL(params.get(5))
+                .address(Address.addressBuilder(params.subList(6, params.size())))
+                .build();
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstname() {
@@ -132,37 +147,20 @@ public class Person {
         this.role = role;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public String getLogin() {
         return this.login;
     }
 
-    public void setPassword(String password) {
-        this.password = Base64.getEncoder().encodeToString(password.getBytes(StandardCharsets.UTF_8));
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
         return this.password;
     }
 
-    public static Person personBuilder(List<String> params) throws ParseException {
-        if (params.size() < 6) {
-            throw new IllegalArgumentException("Given number of arguments is too low.");
-        }
-        LocalDate date = !params.get(4).equals("-") ? LocalDate.from(new SimpleDateFormat("dd/MM/yyyy").parse(params.get(4)).toInstant()) : null;
-        return Person
-                .builder()
-                .role(!params.get(1).equals("-") ?
-                        Role.valueOf(params.get(1).toUpperCase()) : null)
-                .firstname(!params.get(2).equals("-") ? params.get(2) : null)
-                .lastname(!params.get(3).equals("-") ? params.get(3) : null)
-                .birthdate(date)
-                .PESEL(params.get(5))
-                .address(Address.addressBuilder(params.subList(6, params.size())))
-                .build();
+    public void setPassword(String password) {
+        this.password = Base64.getEncoder().encodeToString(password.getBytes(StandardCharsets.UTF_8));
     }
 
     public ObservableValue<String> getFirstNameProperty() {

@@ -3,7 +3,6 @@ package pl.edu.agh.to.drugstore.runner;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import pl.edu.agh.to.drugstore.controller.AppController;
-import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

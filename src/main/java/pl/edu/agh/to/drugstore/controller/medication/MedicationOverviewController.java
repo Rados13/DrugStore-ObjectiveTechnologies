@@ -24,32 +24,22 @@ import java.util.stream.Collectors;
  */
 public class MedicationOverviewController {
 
-    private MedicationAppController appController;
-
-    private CommandRegistry commandRegistry;
-
-    private MedicationDAO medicationDAO;
-
-    ObservableList<Medication> allExisting;
-
-    @FXML
-    private TableView<Medication> medicationTableView;
-
-    @FXML
-    private TableColumn<Medication, String> nameColumn;
-
-    @FXML
-    private TableColumn<Medication, MedicationForm> formColumn;
-
     @FXML
     public TableColumn<Medication, Boolean> prescriptionRequiredColumn;
-
     @FXML
     public TableColumn<Medication, BigDecimal> priceColumn;
-
     @FXML
     public TableColumn<Medication, Integer> quantityColumn;
-
+    ObservableList<Medication> allExisting;
+    private MedicationAppController medicationAppController;
+    private CommandRegistry commandRegistry;
+    private MedicationDAO medicationDAO;
+    @FXML
+    private TableView<Medication> medicationTableView;
+    @FXML
+    private TableColumn<Medication, String> nameColumn;
+    @FXML
+    private TableColumn<Medication, MedicationForm> formColumn;
     @FXML
     private ListView<Command> commandLogView;
 
@@ -67,6 +57,9 @@ public class MedicationOverviewController {
 
     @FXML
     private Button redoButton;
+
+    @FXML
+    private Button exitButton;
 
     /**
      * Inicjalizuje główne okno aplikacji, w którym wyświetlane są osoby zapisane w bazie danych.
@@ -124,7 +117,7 @@ public class MedicationOverviewController {
                 .getSelectedItem();
         Medication editedMedication = medicationToEdit;
         if (medicationToEdit != null) {
-            appController.showMedicationEditDialog(editedMedication);
+            medicationAppController.showMedicationEditDialog(editedMedication);
             EditMedicationCommand editPersonCommand = new EditMedicationCommand(editedMedication, medicationDAO);
             commandRegistry.executeCommand(editPersonCommand);
         }
@@ -139,7 +132,7 @@ public class MedicationOverviewController {
     @FXML
     private void handleAddAction(ActionEvent event) {
         Medication medication = new Medication();
-        if (appController.showMedicationEditDialog(medication)) {
+        if (medicationAppController.showMedicationEditDialog(medication)) {
             AddMedicationCommand addMedicationCommand = new AddMedicationCommand(medication, medicationDAO);
             commandRegistry.executeCommand(addMedicationCommand);
         }
@@ -161,8 +154,14 @@ public class MedicationOverviewController {
         refresh();
     }
 
+    @FXML
+    protected void handleExitAction(ActionEvent event) {
+        medicationAppController.getPrimaryStage().close();
+        medicationAppController.getAppController().showAdminPanel();
+    }
+
     public void setData() {
-        allExisting = FXCollections.observableArrayList(appController.getMedicationDAO().findAll());
+        allExisting = FXCollections.observableArrayList(medicationAppController.getMedicationDAO().findAll());
         System.out.println(allExisting);
         medicationTableView.refresh();
         medicationTableView.setItems(allExisting);
@@ -172,8 +171,8 @@ public class MedicationOverviewController {
         medicationTableView.refresh();
     }
 
-    public void setAppController(MedicationAppController appController) {
-        this.appController = appController;
+    public void setMedicationAppController(MedicationAppController medicationAppController) {
+        this.medicationAppController = medicationAppController;
     }
 
     public void setCommandRegistry(CommandRegistry commandRegistry) {

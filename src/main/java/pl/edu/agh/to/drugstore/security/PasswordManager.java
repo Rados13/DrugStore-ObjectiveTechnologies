@@ -9,11 +9,11 @@ import java.util.Base64;
 
 public class PasswordManager {
 
+    private final PersonDAO dao;
+
     public PasswordManager(EntityManager em) {
         this.dao = new PersonDAO(em);
     }
-
-    private final PersonDAO dao;
 
     public String encodePassword(String plaintext) {
         return Base64.getEncoder().encodeToString(plaintext.getBytes(StandardCharsets.UTF_8));

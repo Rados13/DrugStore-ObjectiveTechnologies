@@ -17,6 +17,7 @@ public class EditSupplierCommand implements Command {
         this.editedSupplier = editedSupplier;
         this.supplierDAO = supplierDAO;
     }
+
     @Override
     public void execute() {
         supplierDAO.update(editedSupplier);

@@ -19,28 +19,20 @@ import java.util.LinkedHashSet;
 @AllArgsConstructor
 public class Medication {
 
+    @ManyToMany
+    private final Collection<Illness> illnessesToCure = new LinkedHashSet<>();
+    @ManyToMany
+    private final Collection<Supplier> suppliers = new LinkedHashSet<>();
+    @ElementCollection
+    private final Collection<String> ingredients = new LinkedHashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     private String name;
-
     private MedicationForm form;
-
     private boolean prescriptionRequired;
-
     private BigDecimal price;
-
     private Integer quantity;
-
-    @ManyToMany
-    private final Collection<Illness> illnessesToCure = new LinkedHashSet<>();
-
-    @ManyToMany
-    private final Collection<Supplier> suppliers = new LinkedHashSet<>();
-
-    @ElementCollection
-    private final Collection<String> ingredients = new LinkedHashSet<>();
 
     public Medication() {
         this.name = "";
@@ -59,13 +51,16 @@ public class Medication {
         this.quantity = quantity;
     }
 
-
-    public void setId(int id) {
-        this.id = id;
+    public static String formatMedicationName(String s) {
+        return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -127,16 +122,14 @@ public class Medication {
         this.quantity = quantity;
     }
 
-    public static String formatMedicationName(String s){
-        return s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
-    }
-
     public ObservableValue<String> getNameProperty() {
         return new SimpleStringProperty(name);
     }
+
     public ObservableValue<MedicationForm> getFormProperty() {
         return new SimpleObjectProperty<>(form);
     }
+
     public ObservableValue<Boolean> getPrescriptionRequiredProperty() {
         return new SimpleObjectProperty<>(prescriptionRequired);
     }

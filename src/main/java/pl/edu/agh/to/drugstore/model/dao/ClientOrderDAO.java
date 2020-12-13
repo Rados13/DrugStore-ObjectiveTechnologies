@@ -1,7 +1,6 @@
 package pl.edu.agh.to.drugstore.model.dao;
 
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
-import pl.edu.agh.to.drugstore.model.people.Address;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -18,6 +17,7 @@ public class ClientOrderDAO implements ObjectDAO<ClientOrder> {
 
     /**
      * Zwraca listę wszystkich zamówień zapisanych w bazie danych.
+     *
      * @return
      */
     @Override
@@ -34,6 +34,7 @@ public class ClientOrderDAO implements ObjectDAO<ClientOrder> {
 
     /**
      * Zwraca obiekt o podanym numerze ID
+     *
      * @param orderID
      * @return
      */
@@ -50,6 +51,7 @@ public class ClientOrderDAO implements ObjectDAO<ClientOrder> {
 
     /**
      * Dodaje nowe zamówienie do bazy danych.
+     *
      * @param order
      */
     @Override
@@ -62,10 +64,11 @@ public class ClientOrderDAO implements ObjectDAO<ClientOrder> {
 
     /**
      * Usuwa zamówienie z bazy danych
+     *
      * @param orderID
      */
     @Override
-    public void delete(int orderID){
+    public void delete(int orderID) {
         EntityTransaction etx = em.getTransaction();
         etx.begin();
         ClientOrder order = em.find(ClientOrder.class, orderID);
@@ -76,10 +79,11 @@ public class ClientOrderDAO implements ObjectDAO<ClientOrder> {
 
     /**
      * Aktualizuje w bazie danych dane dotyczące określonego zamówienia.
+     *
      * @param newOrder
      */
     @Override
-    public void update(ClientOrder newOrder){
+    public void update(ClientOrder newOrder) {
         EntityTransaction etx = em.getTransaction();
         etx.begin();
         em.merge(newOrder);

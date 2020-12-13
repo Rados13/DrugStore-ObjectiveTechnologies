@@ -16,9 +16,8 @@ import java.util.List;
 
 public class Parser {
 
-    private ConsoleApp app;
-
     private static final Logger logger = LoggerFactory.getLogger(Parser.class);
+    private final ConsoleApp app;
 
     public Parser(ConsoleApp app) {
         this.app = app;

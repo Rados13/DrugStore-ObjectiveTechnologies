@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface ObjectDAO<T> {
 
-    public List<T> findAll();
+    List<T> findAll();
 
-    public T find(int id);
+    T find(int id);
 
-    public void add(T object);
+    void add(T object);
 
-    public void delete(int id);
+    void delete(int id);
 
-    public void update(T object);
+    void update(T object);
 }

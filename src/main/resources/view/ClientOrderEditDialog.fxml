@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<?import javafx.geometry.Insets?>
-<BorderPane prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefWidth="300.0" xmlns="http://javafx.com/javafx/8"
             fx:controller="pl.edu.agh.to.drugstore.presenter.ClientOrderEditDialogPresenter">
     <center>
         <GridPane hgap="5.0" vgap="5.0" BorderPane.alignment="CENTER">
@@ -66,7 +62,8 @@
                     <columns>
                         <TableColumn fx:id="medicationNameColumn" prefWidth="75.0" text="Medication name"/>
                         <TableColumn fx:id="medicationPriceColumn" prefWidth="75.0" text="Medication price"/>
-                        <TableColumn fx:id="amountOfMedicationBoxesColumn" prefWidth="75.0" text="Amount of medication boxes"/>
+                        <TableColumn fx:id="amountOfMedicationBoxesColumn" prefWidth="75.0"
+                                     text="Amount of medication boxes"/>
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>

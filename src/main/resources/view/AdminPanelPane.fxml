@@ -3,53 +3,58 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<BorderPane prefHeight="82.0" prefWidth="458.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to.drugstore.presenter.AdminPanelPresenter">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="82.0" prefWidth="458.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="pl.edu.agh.to.drugstore.presenter.AdminPanelPresenter">
     <bottom>
         <HBox alignment="BOTTOM_RIGHT" prefHeight="36.0" prefWidth="481.0" spacing="5.0" BorderPane.alignment="CENTER">
             <children>
-                <Button mnemonicParsing="false" onAction="#handleExitAction" prefHeight="26.0" prefWidth="80.0" text="Exit">
+                <Button mnemonicParsing="false" onAction="#handleExitAction" prefHeight="26.0" prefWidth="80.0"
+                        text="Exit">
                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </HBox.margin>
                 </Button>
 
             </children>
             <BorderPane.margin>
-                <Insets bottom="0.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
             </BorderPane.margin>
         </HBox>
     </bottom>
     <opaqueInsets>
-        <Insets />
+        <Insets/>
     </opaqueInsets>
-   <top>
+    <top>
         <HBox alignment="BOTTOM_RIGHT" prefHeight="36.0" prefWidth="484.0" spacing="5.0" BorderPane.alignment="CENTER">
             <children>
-                <Button mnemonicParsing="false" onAction="#handleClientOrderAction" prefHeight="26.0" prefWidth="100.0" text="Client Orders">
+                <Button mnemonicParsing="false" onAction="#handleClientOrderAction" prefHeight="26.0" prefWidth="100.0"
+                        text="Client Orders">
                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </HBox.margin>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#handleMedicationAction" prefHeight="26.0" prefWidth="100.0" text="Medications">
+                <Button mnemonicParsing="false" onAction="#handleMedicationAction" prefHeight="26.0" prefWidth="100.0"
+                        text="Medications">
                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </HBox.margin>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#handlePersonAction" prefHeight="26.0" prefWidth="100.0" text="People">
+                <Button mnemonicParsing="false" onAction="#handlePersonAction" prefHeight="26.0" prefWidth="100.0"
+                        text="People">
                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </HBox.margin>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#handleSupplierAction" prefHeight="26.0" prefWidth="100.0" text="Suppliers">
+                <Button mnemonicParsing="false" onAction="#handleSupplierAction" prefHeight="26.0" prefWidth="100.0"
+                        text="Suppliers">
                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </HBox.margin>
                 </Button>
             </children>
             <BorderPane.margin>
-                <Insets bottom="0.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
             </BorderPane.margin>
         </HBox>
-   </top>
+    </top>
 </BorderPane>

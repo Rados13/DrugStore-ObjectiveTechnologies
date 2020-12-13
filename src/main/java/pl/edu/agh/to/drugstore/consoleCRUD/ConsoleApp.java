@@ -2,8 +2,8 @@ package pl.edu.agh.to.drugstore.consoleCRUD;
 
 import lombok.Data;
 import pl.edu.agh.to.drugstore.model.dao.AddressDAO;
-import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
+import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 
 import javax.persistence.EntityManager;
 import java.io.BufferedReader;
@@ -39,19 +39,18 @@ public class ConsoleApp {
         ArrayList<String> params;
         while (!input.equals("q")) {
             params = Arrays.stream(input.split(" ")).collect(Collectors.toCollection(ArrayList::new));
-            if (params.size() == 1){
+            if (params.size() == 1) {
                 switch (params.get(0)) {
                     case "h" -> printHelp();
                     case "" -> System.out.println("\n");
                 }
-            }
-            else parser.parse(params);
-            if(!input.equals(""))System.out.println("Write new command");
+            } else parser.parse(params);
+            if (!input.equals("")) System.out.println("Write new command");
             input = reader.readLine();
         }
     }
 
-    private void printHelp(){
+    private void printHelp() {
         System.out.println("For now possible are three actions:");
         System.out.println("add)    adding new element");
         System.out.println("search) print all elements from db which match criteria");

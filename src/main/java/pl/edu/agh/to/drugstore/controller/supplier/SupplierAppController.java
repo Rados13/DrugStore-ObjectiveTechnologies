@@ -9,9 +9,9 @@ import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
+import pl.edu.agh.to.drugstore.controller.AppController;
 import pl.edu.agh.to.drugstore.model.business.Supplier;
 import pl.edu.agh.to.drugstore.model.dao.SupplierDAO;
-import pl.edu.agh.to.drugstore.presenter.LoginScreenPresenter;
 import pl.edu.agh.to.drugstore.presenter.SupplierEditDialogPresenter;
 
 import javax.persistence.EntityManager;
@@ -20,17 +20,16 @@ import java.io.IOException;
 @Data
 public class SupplierAppController {
 
-    private final SupplierDAO supplierDAO;
-
-    private final Stage primaryStage;
-
-    private final CommandRegistry commandRegistry = new CommandRegistry();
-
     private final static Logger logger = LoggerFactory.getLogger(SupplierAppController.class);
+    private final SupplierDAO supplierDAO;
+    private final Stage primaryStage;
+    private final CommandRegistry commandRegistry = new CommandRegistry();
+    private AppController appController;
 
-    public SupplierAppController(Stage primaryStage, EntityManager em) {
+    public SupplierAppController(Stage primaryStage, EntityManager em, AppController appController) {
         this.primaryStage = primaryStage;
         this.supplierDAO = new SupplierDAO(em);
+        this.appController = appController;
     }
 
 
@@ -60,7 +59,7 @@ public class SupplierAppController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(SupplierAppController.class
                     .getResource("/view/SupplierEditDialog.fxml"));
-            BorderPane page = (BorderPane) loader.load();
+            BorderPane page = loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
@@ -85,4 +84,15 @@ public class SupplierAppController {
         }
     }
 
+    public AppController getAppController() {
+        return appController;
+    }
+
+    public void setAppController(AppController appController) {
+        this.appController = appController;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
 }

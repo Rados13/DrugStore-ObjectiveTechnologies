@@ -2,14 +2,14 @@ package pl.edu.agh.to.drugstore.model.business;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.util.Pair;
 import lombok.Setter;
-import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
@@ -28,12 +28,12 @@ public abstract class Order {
     @OrderBy("id")
     protected List<Tuple> medications = new ArrayList<>();
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List<Tuple> getMedications() {
@@ -68,22 +68,30 @@ public abstract class Order {
         result.ifPresent(tuple -> tuple.setBooked(true));
     }
 
-    public ObservableValue<Date> getShippingDateProperty() {return new SimpleObjectProperty<Date>(shippingDate);}
-    public ObservableValue<Date> getSubmissionDateProperty() {return new SimpleObjectProperty<Date>(submissionDate);}
-    public ObservableValue<Integer> getMedicationsNumProperty() {return new SimpleObjectProperty<Integer>(medications.size());}
+    public ObservableValue<Date> getShippingDateProperty() {
+        return new SimpleObjectProperty<Date>(shippingDate);
+    }
 
-    public void updateMedications(List<Tuple> newList){
+    public ObservableValue<Date> getSubmissionDateProperty() {
+        return new SimpleObjectProperty<Date>(submissionDate);
+    }
+
+    public ObservableValue<Integer> getMedicationsNumProperty() {
+        return new SimpleObjectProperty<Integer>(medications.size());
+    }
+
+    public void updateMedications(List<Tuple> newList) {
         var toDelete = medications.stream().filter(elem -> !newList.contains(elem)).collect(Collectors.toList());
         medications.removeAll(toDelete);
         newList.forEach(elem -> {
-            if(!medications.contains(elem))medications.add(elem);
+            if (!medications.contains(elem)) medications.add(elem);
         });
     }
 
     public ObservableValue<BigDecimal> getSumPriceProperty() {
         return new SimpleObjectProperty<BigDecimal>(getMedications().stream()
                 .map(elem -> elem.getMedication().getPrice().multiply(BigDecimal.valueOf(elem.getQuantity())))
-                .reduce(BigDecimal.ZERO,BigDecimal::add));
+                .reduce(BigDecimal.ZERO, BigDecimal::add));
     }
 
 

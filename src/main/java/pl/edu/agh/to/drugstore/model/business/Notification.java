@@ -3,25 +3,24 @@ package pl.edu.agh.to.drugstore.model.business;
 import javax.persistence.*;
 
 @Entity
-@Table(name="notifications")
+@Table(name = "notifications")
 public class Notification {
-
-    public Notification() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     private String notification;
-
     private int personId;
 
-    public void setId(int id) {
-        this.id = id;
+    public Notification() {
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNotification() {

@@ -19,13 +19,10 @@ import java.io.IOException;
 
 public class AppController {
 
-    private final Stage primaryStage;
-
-    private final EntityManager em;
-
-    private final CommandRegistry commandRegistry = new CommandRegistry();
-
     private final static Logger logger = LoggerFactory.getLogger(AppController.class);
+    private final Stage primaryStage;
+    private final EntityManager em;
+    private final CommandRegistry commandRegistry = new CommandRegistry();
 
     public AppController(Stage primaryStage, EntityManager em) {
         this.primaryStage = primaryStage;
@@ -55,7 +52,7 @@ public class AppController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(AppController.class
                     .getResource("/view/LoginPane.fxml"));
-            BorderPane page = (BorderPane) loader.load();
+            BorderPane page = loader.load();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Login");
@@ -84,7 +81,7 @@ public class AppController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(AppController.class
                     .getResource("/view/AdminPanelPane.fxml"));
-            BorderPane page = (BorderPane) loader.load();
+            BorderPane page = loader.load();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("AdminPanel");
@@ -97,7 +94,7 @@ public class AppController {
             presenter.setDialogStage(dialogStage);
             presenter.setAppStage(primaryStage);
             presenter.setEntityManager(em);
-
+            presenter.setAppController(this);
             dialogStage.showAndWait();
 
         } catch (IOException e) {

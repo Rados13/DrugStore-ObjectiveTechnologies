@@ -3,8 +3,8 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40"
-            xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/8.0.40"
             fx:controller="pl.edu.agh.to.drugstore.controller.supplier.SupplierOverviewController">
     <center>
         <TableView fx:id="supplierTableView" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
@@ -42,30 +42,23 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </VBox.margin>
                 </Button>
+                <Button fx:id="exitButton" alignment="TOP_CENTER" onAction="#handleExitAction" contentDisplay="TOP"
+                        maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Exit" textAlignment="CENTER">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="30.0"/>
+                    </VBox.margin>
+                </Button>
             </children>
-            <BorderPane.margin>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-            </BorderPane.margin>
         </VBox>
     </right>
     <bottom>
         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <center>
-                <ListView fx:id="commandLogView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                <ListView fx:id="commandLogView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
             </center>
             <top>
                 <HBox maxHeight="-Infinity" prefHeight="39.0" prefWidth="800.0" BorderPane.alignment="TOP_LEFT">
                     <children>
-                        <!--                        <Button fx:id="undoButton" mnemonicParsing="false" onAction="#handleUndoAction" text="Undo">-->
-                        <!--                            <HBox.margin>-->
-                        <!--                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
-                        <!--                            </HBox.margin>-->
-                        <!--                        </Button>-->
-                        <!--                        <Button fx:id="redoButton" mnemonicParsing="false" onAction="#handleRedoAction" text="Redo">-->
-                        <!--                            <HBox.margin>-->
-                        <!--                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
-                        <!--                            </HBox.margin>-->
-                        <!--                        </Button>-->
                     </children>
                 </HBox>
             </top>

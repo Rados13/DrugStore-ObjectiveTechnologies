@@ -1,7 +1,6 @@
 package pl.edu.agh.to.drugstore.model.dao;
 
 import pl.edu.agh.to.drugstore.model.medications.Illness;
-import pl.edu.agh.to.drugstore.model.medications.Medication;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -18,6 +17,7 @@ public class IllnessDAO implements ObjectDAO<Illness> {
 
     /**
      * Zwraca listę wszystkich zarejestrowanych chorób
+     *
      * @return
      */
     @Override
@@ -34,6 +34,7 @@ public class IllnessDAO implements ObjectDAO<Illness> {
 
     /**
      * Zwraca chorobę o podanym id
+     *
      * @param id
      * @return
      */
@@ -49,6 +50,7 @@ public class IllnessDAO implements ObjectDAO<Illness> {
 
     /**
      * Zapisuje w bazie nową chorobę ( :) )
+     *
      * @param illness
      */
     @Override
@@ -61,6 +63,7 @@ public class IllnessDAO implements ObjectDAO<Illness> {
 
     /**
      * Usuwa z bazy chorobę o podanym id
+     *
      * @param id
      */
     @Override
@@ -74,6 +77,7 @@ public class IllnessDAO implements ObjectDAO<Illness> {
 
     /**
      * Aktualizuje w bazie informacje o danej chorobie
+     *
      * @param illness
      */
     @Override

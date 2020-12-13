@@ -17,6 +17,7 @@ public class SupplierDAO implements ObjectDAO<Supplier> {
 
     /**
      * Zwraca listę wszystkich dostawców
+     *
      * @return
      */
     @Override
@@ -33,6 +34,7 @@ public class SupplierDAO implements ObjectDAO<Supplier> {
 
     /**
      * Zwraca dostawcę o podanym id
+     *
      * @param id
      * @return
      */
@@ -55,6 +57,7 @@ public class SupplierDAO implements ObjectDAO<Supplier> {
 
     /**
      * Zapisuje nowego dostawcę do bazy danych
+     *
      * @param object
      */
     @Override
@@ -68,6 +71,7 @@ public class SupplierDAO implements ObjectDAO<Supplier> {
 
     /**
      * Usuwa dostawcę o podanym id z bazy danych
+     *
      * @param id
      */
     @Override
@@ -82,6 +86,7 @@ public class SupplierDAO implements ObjectDAO<Supplier> {
 
     /**
      * Aktualizuje w bazie informacje o dostawcy
+     *
      * @param object
      */
     @Override

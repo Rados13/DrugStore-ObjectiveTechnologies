@@ -4,7 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -28,31 +31,24 @@ import java.util.Optional;
  */
 public class LoginScreenPresenter {
 
+    private final static Logger logger = LoggerFactory.getLogger(LoginScreenPresenter.class);
+    private static boolean cancelClicked;
     @FXML
     private TextField login;
-
     @FXML
     private PasswordField password;
-
     private Stage dialogStage;
-
     private EntityManager em;
-
     private Person approved = null;
-
-    private final static Logger logger = LoggerFactory.getLogger(LoginScreenPresenter.class);
-
     private PasswordManager passwordManager;
-
     private PersonAppController appController;
-
     private CommandRegistry commandRegistry;
-
     private PersonDAO personDAO;
-
     private AddressDAO addressDAO;
 
-    private static boolean cancelClicked;
+    public static boolean isCancelClicked() {
+        return cancelClicked;
+    }
 
     @FXML
     public void initialize() {
@@ -61,7 +57,6 @@ public class LoginScreenPresenter {
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
-        this.appController = new PersonAppController(dialogStage, em);
         dialogStage.setOnCloseRequest(event -> showConfirmationAlert());
     }
 
@@ -112,9 +107,6 @@ public class LoginScreenPresenter {
         this.passwordManager = new PasswordManager(em);
     }
 
-    public static boolean isCancelClicked() {
-        return cancelClicked;
-    }
     public void setPersonDAO(PersonDAO personDAO) {
         this.personDAO = personDAO;
     }
@@ -122,7 +114,8 @@ public class LoginScreenPresenter {
     public void setAddressDAO(AddressDAO addressDAO) {
         this.addressDAO = addressDAO;
     }
-    public  void setCommandRegistry(CommandRegistry commandRegistry){
+
+    public void setCommandRegistry(CommandRegistry commandRegistry) {
         this.commandRegistry = commandRegistry;
     }
 
@@ -131,7 +124,7 @@ public class LoginScreenPresenter {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(PersonAppController.class
                     .getResource("/view/RegisterUserDialog.fxml"));
-            BorderPane page = (BorderPane) loader.load();
+            BorderPane page = loader.load();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Register");

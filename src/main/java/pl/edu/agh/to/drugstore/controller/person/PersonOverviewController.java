@@ -29,38 +29,27 @@ import java.util.List;
 @Setter
 public class PersonOverviewController extends OverviewController<Person> {
 
-    private PersonDAO personDAO;
-
-    private AddressDAO addressDAO;
-
-    private PersonAppController appController;
-
-    @FXML
-    private TableColumn<Person, String> firstNameColumn;
-
-    @FXML
-    private TableColumn<Person, String> lastNameColumn;
-
     @FXML
     public TableColumn<Person, LocalDate> birthdateColumn;
-
     @FXML
     public TableColumn<Person, String> PESELColumn;
-
     @FXML
     public TableColumn<Person, Role> roleColumn;
-
     @FXML
     public TableColumn<Person, String> cityColumn;
-
     @FXML
     public TableColumn<Person, String> streetColumn;
-
     @FXML
     public TableColumn<Person, String> houseIdColumn;
-
     @FXML
     public TableColumn<Person, String> apartmentIdColumn;
+    private PersonDAO personDAO;
+    private AddressDAO addressDAO;
+    private PersonAppController personAppController;
+    @FXML
+    private TableColumn<Person, String> firstNameColumn;
+    @FXML
+    private TableColumn<Person, String> lastNameColumn;
 
     /**
      * Inicjalizuje główne okno aplikacji, w którym wyświetlane są osoby zapisane w bazie danych.
@@ -119,7 +108,7 @@ public class PersonOverviewController extends OverviewController<Person> {
                 .getSelectedItem();
         Person editedPerson = personToEdit;
         if (personToEdit != null) {
-            appController.showPersonEditDialog(editedPerson);
+            personAppController.showPersonEditDialog(editedPerson);
             EditPersonCommand editPersonCommand = new EditPersonCommand(personToEdit, editedPerson, personDAO);
             commandRegistry.executeCommand(editPersonCommand);
         }
@@ -135,7 +124,7 @@ public class PersonOverviewController extends OverviewController<Person> {
     protected void handleAddAction(ActionEvent event) {
         Person person = new Person();
         Address address = new Address();
-        if (appController.showPersonEditDialog(person)) {
+        if (personAppController.showPersonEditDialog(person)) {
             AddPersonCommand addPersonCommand = new AddPersonCommand(person, address, personDAO, addressDAO);
             commandRegistry.executeCommand(addPersonCommand);
         }
@@ -145,8 +134,14 @@ public class PersonOverviewController extends OverviewController<Person> {
         refresh();
     }
 
+    @Override
+    protected void handleExitAction(ActionEvent event) {
+        personAppController.getPrimaryStage().close();
+        personAppController.getAppController().showAdminPanel();
+    }
+
     protected void setData() {
-        allExisting = FXCollections.observableArrayList(appController.getPersonDAO().findAll());
+        allExisting = FXCollections.observableArrayList(personAppController.getPersonDAO().findAll());
         System.out.println(allExisting);
         tableView.refresh();
         tableView.setItems(allExisting);
@@ -154,7 +149,7 @@ public class PersonOverviewController extends OverviewController<Person> {
 
 
     public void setAppController(PersonAppController personAppController) {
-        this.appController = personAppController;
+        this.personAppController = personAppController;
     }
 
     public void setCommandRegistry(CommandRegistry commandRegistry) {

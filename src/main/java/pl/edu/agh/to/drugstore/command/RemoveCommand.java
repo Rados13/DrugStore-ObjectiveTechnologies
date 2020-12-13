@@ -2,7 +2,6 @@ package pl.edu.agh.to.drugstore.command;
 
 import lombok.Getter;
 import pl.edu.agh.to.drugstore.model.dao.ObjectDAO;
-import pl.edu.agh.to.drugstore.model.people.Person;
 
 import java.util.List;
 
@@ -23,7 +22,7 @@ public abstract class RemoveCommand<A> implements Command {
 
 
     @Override
-    public String getName(){
+    public String getName() {
         if (getObjectsToRemove().size() > 1)
             return "Removed " + getObjectsToRemove().size() + " transactions";
         return "Removed transaction: " + getObjectsToRemove().toString();

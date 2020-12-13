@@ -23,7 +23,8 @@ public class SupplierEditDialogPresenter {
     private boolean approved;
 
     @FXML
-    public void initialize() { }
+    public void initialize() {
+    }
 
     public void setData(Supplier supplier) {
         this.supplier = supplier;

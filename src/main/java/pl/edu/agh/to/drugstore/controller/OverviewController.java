@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
-import lombok.Setter;
 import pl.edu.agh.to.drugstore.command.Command;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
 
@@ -24,8 +23,22 @@ abstract public class OverviewController<A> {
 
     @FXML
     protected TableView<A> tableView;
+    @FXML
+    protected ListView<Command> commandLogView;
+    @FXML
+    protected Button deleteButton;
+    @FXML
+    protected Button editButton;
+    @FXML
+    protected Button addButton;
+    @FXML
+    protected Button exitButton;
+    @FXML
+    protected Button undoButton;
+    @FXML
+    protected Button redoButton;
 
-    public void startInitialize(){
+    public void startInitialize() {
         editButton.setOnAction(event -> {
             try {
                 handleEditAction(event);
@@ -35,6 +48,7 @@ abstract public class OverviewController<A> {
         });
         deleteButton.setOnAction(this::handleDeleteAction);
         addButton.setOnAction(this::handleAddAction);
+        exitButton.setOnAction(this::handleExitAction);
 
         deleteButton.disableProperty().bind(
                 Bindings.isEmpty(tableView.getSelectionModel()
@@ -44,25 +58,6 @@ abstract public class OverviewController<A> {
                         tableView.getSelectionModel()
                                 .getSelectedItems()).isNotEqualTo(1));
     }
-
-
-    @FXML
-    protected ListView<Command> commandLogView;
-
-    @FXML
-    protected Button deleteButton;
-
-    @FXML
-    protected Button editButton;
-
-    @FXML
-    protected Button addButton;
-
-    @FXML
-    protected Button undoButton;
-
-    @FXML
-    protected Button redoButton;
 
     /**
      * Inicjalizuje główne okno aplikacji, w którym wyświetlane są przedstawiciele danego maodelu zapisani w bazie danych.
@@ -110,6 +105,9 @@ abstract public class OverviewController<A> {
         refresh();
     }
 
+    @FXML
+    protected abstract void handleExitAction(ActionEvent event);
+
     protected abstract void setData();
 
     protected void refresh() {
@@ -126,7 +124,6 @@ abstract public class OverviewController<A> {
             }
         });
     }
-
 
 
 }

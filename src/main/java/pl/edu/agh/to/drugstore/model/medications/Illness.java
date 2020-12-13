@@ -7,23 +7,23 @@ import java.util.LinkedHashSet;
 @Entity
 public class Illness {
 
-    public Illness() {}
-
+    @ManyToMany()
+    private final Collection<Medication> medications = new LinkedHashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String name;
 
-    @ManyToMany()
-    private final Collection<Medication> medications = new LinkedHashSet<>();
-
-    public void setId(int id) {
-        this.id = id;
+    public Illness() {
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

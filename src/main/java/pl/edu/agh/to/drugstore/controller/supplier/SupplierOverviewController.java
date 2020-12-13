@@ -20,14 +20,10 @@ import java.util.List;
 @Data
 public class SupplierOverviewController {
 
-    private SupplierAppController appController;
-
-    private CommandRegistry commandRegistry;
-
-    private SupplierDAO supplierDAO;
-
     ObservableList<Supplier> allExisting;
-
+    private SupplierAppController appController;
+    private CommandRegistry commandRegistry;
+    private SupplierDAO supplierDAO;
     @FXML
     private TableView<Supplier> supplierTableView;
 
@@ -51,6 +47,9 @@ public class SupplierOverviewController {
 
     @FXML
     private Button addButton;
+
+    @FXML
+    private Button exitButton;
 
     @FXML
     private Button undoButton;
@@ -103,6 +102,12 @@ public class SupplierOverviewController {
         }
         allExisting.add(supplier);
         supplierTableView.refresh();
+    }
+
+    @FXML
+    protected void handleExitAction(ActionEvent event) {
+        appController.getPrimaryStage().close();
+        appController.getAppController().showAdminPanel();
     }
 
     public void setData() {

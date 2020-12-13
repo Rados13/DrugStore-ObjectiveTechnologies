@@ -5,11 +5,11 @@ package pl.edu.agh.to.drugstore.command;
  */
 public interface Command {
 
-	void execute();
+    void execute();
 
-	String getName();
+    String getName();
 
-	void undo();
+    void undo();
 
-	void redo();
+    void redo();
 }

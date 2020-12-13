@@ -19,12 +19,9 @@ import java.time.LocalDate;
  */
 public class RegisterUserPresenter {
 
-    private Person person;
-
-    private Address address;
-
     private final static Logger logger = LoggerFactory.getLogger(RegisterUserPresenter.class);
-
+    private Person person;
+    private Address address;
     @FXML
     private TextField firstNameTextField;
 
@@ -87,8 +84,7 @@ public class RegisterUserPresenter {
             updateModel();
             approved = true;
             dialogStage.close();
-        }
-        else {
+        } else {
             Alerts.showErrorAlert("Error!", "Passwords do not match", "Check your password and try again");
         }
     }

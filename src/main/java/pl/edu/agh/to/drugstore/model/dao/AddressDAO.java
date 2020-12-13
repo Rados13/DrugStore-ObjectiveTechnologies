@@ -28,11 +28,12 @@ public class AddressDAO implements ObjectDAO<Address> {
 
     /**
      * Dodaje do bazy danych nowy adres.
+     *
      * @param address
      * @return
      */
     @Override
-    public void add(Address address){
+    public void add(Address address) {
         EntityTransaction etx = em.getTransaction();
         etx.begin();
         em.persist(address);
@@ -41,13 +42,14 @@ public class AddressDAO implements ObjectDAO<Address> {
 
     /**
      * Usuwa z bazy danych adres o podanym ID.
+     *
      * @param addressID
      */
     @Override
-    public void delete(int addressID){
+    public void delete(int addressID) {
         EntityTransaction etx = em.getTransaction();
         etx.begin();
-        Address address = em.find(Address.class,addressID);
+        Address address = em.find(Address.class, addressID);
         System.out.println(address.toString());
         em.remove(address);
         etx.commit();
@@ -55,6 +57,7 @@ public class AddressDAO implements ObjectDAO<Address> {
 
     /**
      * Aktualizuje w bazie danych informacje o adresie
+     *
      * @param address
      */
     @Override
@@ -67,12 +70,13 @@ public class AddressDAO implements ObjectDAO<Address> {
 
     /**
      * Wyszukuje w bazie danych adres o określonych parametrach.
+     *
      * @param address
      * @return
      */
-    public Address searchExistingAddress(Address address){
+    public Address searchExistingAddress(Address address) {
         List<Address> addresses = searchAddresses(address);
-        if(addresses == null) return null;
+        if (addresses == null) return null;
         Optional<Address> possible = addresses.stream()
                 .filter(address::equalWithoutID).findFirst();
         return possible.orElse(null);
@@ -80,25 +84,26 @@ public class AddressDAO implements ObjectDAO<Address> {
 
     /**
      * Wyszukuje w bazie danych adres o określonych parametrach.
+     *
      * @param address
      * @return
      */
-    public List<Address> searchAddresses(Address address){
+    public List<Address> searchAddresses(Address address) {
         EntityTransaction etx = em.getTransaction();
 
         etx.begin();
         String sql = "from Address where ";
-        if(address.getCity()!=null)sql += " city = :city and";
-        if(address.getStreet()!=null)sql += " street = :street and";
-        if(address.getHouseId()!=null)sql += " houseId = :houseID and";
-        if(address.getApartmentId()!=null)sql += " apartmentId = :apartmentID and";
-        sql = new StringBuffer(sql).replace(sql.length()-3,sql.length(),"").toString();
+        if (address.getCity() != null) sql += " city = :city and";
+        if (address.getStreet() != null) sql += " street = :street and";
+        if (address.getHouseId() != null) sql += " houseId = :houseID and";
+        if (address.getApartmentId() != null) sql += " apartmentId = :apartmentID and";
+        sql = new StringBuffer(sql).replace(sql.length() - 3, sql.length(), "").toString();
 
         Query query = em.createQuery(sql);
-        if(address.getCity()!=null)query.setParameter("city",address.getCity());
-        if(address.getStreet()!=null)query.setParameter("street",address.getStreet());
-        if(address.getHouseId()!=null)query.setParameter("houseID",address.getHouseId());
-        if(address.getApartmentId()!=null)query.setParameter("apartmentID",address.getApartmentId());
+        if (address.getCity() != null) query.setParameter("city", address.getCity());
+        if (address.getStreet() != null) query.setParameter("street", address.getStreet());
+        if (address.getHouseId() != null) query.setParameter("houseID", address.getHouseId());
+        if (address.getApartmentId() != null) query.setParameter("apartmentID", address.getApartmentId());
 
         List result = query.getResultList();
         etx.commit();

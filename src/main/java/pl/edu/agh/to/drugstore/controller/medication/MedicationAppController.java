@@ -9,6 +9,7 @@ import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
+import pl.edu.agh.to.drugstore.controller.AppController;
 import pl.edu.agh.to.drugstore.controller.person.PersonAppController;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
@@ -20,17 +21,18 @@ import java.io.IOException;
 @Data
 public class MedicationAppController {
 
+    private final static Logger logger = LoggerFactory.getLogger(MedicationAppController.class);
     private final MedicationDAO medicationDAO;
 
     private final Stage primaryStage;
 
     private final CommandRegistry commandRegistry = new CommandRegistry();
+    private AppController appController;
 
-    private final static Logger logger = LoggerFactory.getLogger(MedicationAppController.class);
-
-    public MedicationAppController(Stage primaryStage, EntityManager em) {
+    public MedicationAppController(Stage primaryStage, EntityManager em, AppController appController) {
         this.primaryStage = primaryStage;
         this.medicationDAO = new MedicationDAO(em);
+        this.appController = appController;
     }
 
 
@@ -44,7 +46,7 @@ public class MedicationAppController {
         BorderPane rootLayout = loader.load();
 
         MedicationOverviewController controller = loader.getController();
-        controller.setAppController(this);
+        controller.setMedicationAppController(this);
         controller.setData();
         controller.setCommandRegistry(commandRegistry);
         controller.setMedicationDAO(medicationDAO);
@@ -59,7 +61,7 @@ public class MedicationAppController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(PersonAppController.class
                     .getResource("/view/MedicationEditDialog.fxml"));
-            BorderPane page = (BorderPane) loader.load();
+            BorderPane page = loader.load();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Medication");
@@ -78,5 +80,17 @@ public class MedicationAppController {
             logger.error("An error appeared when loading page.", e);
             return false;
         }
+    }
+
+    public AppController getAppController() {
+        return appController;
+    }
+
+    public void setAppController(AppController appController) {
+        this.appController = appController;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 }
