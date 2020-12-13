@@ -18,4 +18,12 @@ public class Alerts {
         alert.setContentText(text);
         return alert;
     }
+
+    public static Alert showInformationDialog(String title, String header, String text) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(text);
+        return alert;
+    }
 }

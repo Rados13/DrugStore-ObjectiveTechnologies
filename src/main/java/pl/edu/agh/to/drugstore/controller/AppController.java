@@ -2,6 +2,7 @@ package pl.edu.agh.to.drugstore.controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -41,9 +42,13 @@ public class AppController {
             case ADMINISTRATOR:
                 showAdminPanel();
             case CLIENT:
-
+                Alert clientAlert = Alerts.showInformationDialog("Not Avaiable", "We are sorry :(", "This place is not implemented yet");
+                clientAlert.showAndWait();
+                showLoginScreen();
             case SELLER:
-
+                Alert sellerAlert = Alerts.showInformationDialog("Not Avaiable", "We are sorry :(", "This place is not implemented yet");
+                sellerAlert.showAndWait();
+                showLoginScreen();
         }
     }
 
