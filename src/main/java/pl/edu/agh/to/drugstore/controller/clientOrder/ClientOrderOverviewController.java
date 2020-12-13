@@ -21,6 +21,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Klasa interfejsu graficznego odpowiedzialna za wyświetlanie wszystkich zamówień klientów dostępnych w bazie danych.
+ */
 @Setter
 public class ClientOrderOverviewController extends OverviewController<ClientOrder> {
 
@@ -45,6 +48,10 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
     @FXML
     private TableColumn<ClientOrder, BigDecimal> summedPriceColumn;
 
+
+    /**
+     * Inicjalizuje główne okno aplikacji, w którym wyświetlane są zamówienia klienta zapisane w bazie danych.
+     */
     @Override
     protected void initialize() {
         startInitialize();
@@ -61,6 +68,11 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
         summedPriceColumn.setCellValueFactory(dataValue -> dataValue.getValue().getSumPriceProperty());
     }
 
+    /**
+     * Odpowiada za obsługę eventu - naciśnięcie przycisku delete odpowiedzialnego za usuwanie zamówienia klienta z bazy danych.
+     *
+     * @param event
+     */
     @Override
     protected void handleDeleteAction(ActionEvent event) {
         List<ClientOrder> clientOrdersToRemove = List.copyOf(tableView.getSelectionModel().getSelectedItems());
@@ -72,6 +84,13 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
         refresh();
     }
 
+    /**
+     * Odpowiada za obsługę eventu - naciśnięcie przycisku edit odpowiedzialnego za edytowanie danych wybranego zamówienia klienta.
+     * Wyświetla osobne okno w interfejsie graficznym, które umożliwia edycję danych.
+     *
+     * @param event
+     * @throws InterruptedException
+     */
     @Override
     protected void handleEditAction(ActionEvent event) throws InterruptedException {
         ClientOrder clientOrderToEdit = tableView.getSelectionModel()
@@ -85,6 +104,11 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
         refresh();
     }
 
+    /**
+     * Odpowiada za obsługę eventu - naciśnięcie przycisku add odpowiedzialnego za dodawanie zamówienia klienta do bazy danych.
+     *
+     * @param event
+     */
     @Override
     protected void handleAddAction(ActionEvent event) {
         ClientOrder clientOrder = new ClientOrder();

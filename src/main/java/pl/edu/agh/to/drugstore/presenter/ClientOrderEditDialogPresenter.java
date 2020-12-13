@@ -24,6 +24,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 
+/**
+ * Klasa odpowiadająca z wyświetlenie okna edycji wybranego zamówienia klienta w interfejsie graficznym
+ */
 
 @Setter
 @Getter

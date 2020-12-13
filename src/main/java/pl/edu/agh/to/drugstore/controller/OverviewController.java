@@ -12,6 +12,10 @@ import lombok.Setter;
 import pl.edu.agh.to.drugstore.command.Command;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
 
+/**
+ * Klasa abstrakcyjna interfejsu graficznego odpowiedzialna za wyświetlanie wszystkich elementów któregoś modelu
+ * dostępnych w bazie danych.
+ */
 abstract public class OverviewController<A> {
 
     public CommandRegistry commandRegistry;
@@ -60,16 +64,37 @@ abstract public class OverviewController<A> {
     @FXML
     protected Button redoButton;
 
-
+    /**
+     * Inicjalizuje główne okno aplikacji, w którym wyświetlane są przedstawiciele danego maodelu zapisani w bazie danych.
+     */
     @FXML
     protected abstract void initialize();
 
+    /**
+     * Odpowiada za obsługę eventu - naciśnięcie przycisku delete odpowiedzialnego za
+     * usuwanie przedstawiciela modelu z bazy danych.
+     *
+     * @param event
+     */
     @FXML
     protected abstract void handleDeleteAction(ActionEvent event);
 
+    /**
+     * Odpowiada za obsługę eventu - naciśnięcie przycisku edit odpowiedzialnego za edytowanie danych
+     * wybranego przedstawiciela modelu. Wyświetla osobne okno w interfejsie graficznym, które umożliwia edycję danych.
+     *
+     * @param event
+     * @throws InterruptedException
+     */
     @FXML
     protected abstract void handleEditAction(ActionEvent event) throws InterruptedException;
 
+    /**
+     * Odpowiada za obsługę eventu - naciśnięcie przycisku add odpowiedzialnego za dodawanie
+     * nowego przedstawiciela modelu do bazy danych.
+     *
+     * @param event
+     */
     @FXML
     protected abstract void handleAddAction(ActionEvent event);
 
