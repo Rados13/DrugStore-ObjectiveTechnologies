@@ -118,7 +118,7 @@ public class MedicationOverviewController {
         Medication editedMedication = medicationToEdit;
         if (medicationToEdit != null) {
             medicationAppController.showMedicationEditDialog(editedMedication);
-            EditMedicationCommand editPersonCommand = new EditMedicationCommand(editedMedication, medicationDAO);
+            EditMedicationCommand editPersonCommand = new EditMedicationCommand(medicationToEdit,editedMedication, medicationDAO);
             commandRegistry.executeCommand(editPersonCommand);
         }
         refresh();

@@ -1,45 +1,28 @@
 package pl.edu.agh.to.drugstore.command.person;
 
+import pl.edu.agh.to.drugstore.command.AddCommand;
 import pl.edu.agh.to.drugstore.command.Command;
 import pl.edu.agh.to.drugstore.model.dao.AddressDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
 
-public class AddPersonCommand implements Command {
+public class AddPersonCommand extends AddCommand<Person> {
 
-    private final Person personToAdd;
-
-    private final Address address;
-
-    private final PersonDAO personDAO;
-
-    private final AddressDAO addressDAO;
 
     public AddPersonCommand(Person person, Address address, PersonDAO personDAO, AddressDAO addressDAO) {
-        this.personToAdd = person;
-        this.address = address;
-        this.personDAO = personDAO;
-        this.addressDAO = addressDAO;
+        super(person,personDAO);
     }
 
-    @Override
-    public void execute() {
-        personDAO.add(personToAdd);
-    }
 
     @Override
     public String getName() {
-        return "New person: " + personToAdd.toString();
+        return "New person: " + getObjectToAdd().toString();
     }
 
     @Override
     public void undo() {
-        personDAO.delete(personToAdd.getId());
+        getObjectDAO().delete(getObjectToAdd().getId());
     }
 
-    @Override
-    public void redo() {
-        execute();
-    }
 }
