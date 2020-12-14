@@ -5,7 +5,6 @@ import pl.edu.agh.to.drugstore.model.medications.Medication;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,14 +14,6 @@ public class MedicationDAO implements ObjectDAO<Medication> {
 
     public MedicationDAO(EntityManager em) {
         this.em = em;
-    }
-
-
-    public Collection<Medication> searchForMedicine() {
-        // TODO
-        //  search by given criteria
-
-        return null;
     }
 
     @Override
