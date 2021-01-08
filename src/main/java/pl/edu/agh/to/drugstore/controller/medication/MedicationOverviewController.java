@@ -114,7 +114,7 @@ public class MedicationOverviewController {
         for (Medication medication : medicationsToRemove) {
             allExisting.remove(medication);
         }
-        refresh();
+        refreshDisplayedItems();
     }
 
     /**
@@ -134,7 +134,7 @@ public class MedicationOverviewController {
             EditMedicationCommand editPersonCommand = new EditMedicationCommand(medicationToEdit,editedMedication, medicationDAO);
             commandRegistry.executeCommand(editPersonCommand);
         }
-        refresh();
+        refreshDisplayedItems();
     }
 
     /**
@@ -152,7 +152,7 @@ public class MedicationOverviewController {
         if (!allExisting.stream().map(Medication::getName).collect(Collectors.toList()).contains(medication.getName()) &&
                 medication.getName() != null && !medication.getName().isEmpty())
             allExisting.add(medication);
-        refresh();
+        refreshDisplayedItems();
     }
 
     // TODO uzupelnic jesli bedzie trzeba
@@ -180,11 +180,15 @@ public class MedicationOverviewController {
         medicationAppController.getAppController().showAdminPanel();
     }
 
+    private void refreshDisplayedItems() {
+        medicationTableView.setItems(allExisting.filtered(medication -> filter.matches(medication)));
+        refresh();
+    }
+
     public void setData() {
         allExisting = FXCollections.observableArrayList(medicationAppController.getMedicationDAO().findAll());
         System.out.println(allExisting);
-        medicationTableView.refresh();
-        medicationTableView.setItems(allExisting.filtered(medication -> filter.matches(medication)));
+        refreshDisplayedItems();
     }
 
     private void clearFilterOptions() {
@@ -206,7 +210,7 @@ public class MedicationOverviewController {
         };
         filter = new CompositeMedicationFilter(filters);
 
-        medicationTableView.setItems(allExisting.filtered(medication -> filter.matches(medication)));
+        refreshDisplayedItems();
     }
 
     void refresh() {
