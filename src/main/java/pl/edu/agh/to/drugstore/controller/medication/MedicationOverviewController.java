@@ -11,11 +11,13 @@ import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.command.medicationCommands.AddMedicationCommand;
 import pl.edu.agh.to.drugstore.command.medicationCommands.EditMedicationCommand;
 import pl.edu.agh.to.drugstore.command.medicationCommands.RemoveMedicationCommand;
+import pl.edu.agh.to.drugstore.filters.*;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
 import pl.edu.agh.to.drugstore.model.medications.MedicationForm;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +36,10 @@ public class MedicationOverviewController {
     private MedicationAppController medicationAppController;
     private CommandRegistry commandRegistry;
     private MedicationDAO medicationDAO;
+
+    private Object[] filterOptions;
+    private MedicationFilter filter;
+
     @FXML
     private TableView<Medication> medicationTableView;
     @FXML
@@ -53,6 +59,9 @@ public class MedicationOverviewController {
     private Button addButton;
 
     @FXML
+    private Button filterButton;
+
+    @FXML
     private Button undoButton;
 
     @FXML
@@ -66,6 +75,10 @@ public class MedicationOverviewController {
      */
     @FXML
     private void initialize() {
+        filterOptions = new Object[7];
+        Arrays.fill(filterOptions, null);
+        filter = new DefaultMedicationFilter();
+
         medicationTableView.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue()
@@ -142,6 +155,13 @@ public class MedicationOverviewController {
         refresh();
     }
 
+    // TODO uzupelnic jesli bedzie trzeba
+    @FXML
+    private void handleFilterAction(ActionEvent event) {
+        medicationAppController.showMedicationFilterDialog(this, filterOptions);
+        refresh();
+    }
+
     @FXML
     private void handleUndoAction(ActionEvent event) {
         commandRegistry.undo();
@@ -164,7 +184,29 @@ public class MedicationOverviewController {
         allExisting = FXCollections.observableArrayList(medicationAppController.getMedicationDAO().findAll());
         System.out.println(allExisting);
         medicationTableView.refresh();
-        medicationTableView.setItems(allExisting);
+        medicationTableView.setItems(allExisting.filtered(medication -> filter.matches(medication)));
+    }
+
+    private void clearFilterOptions() {
+        filterOptions = new Object[7];
+        Arrays.fill(filterOptions, null);
+        filter = new DefaultMedicationFilter();
+    }
+
+    public void setFilterOptions(Object[] filterOptions) {
+        if (filterOptions == null) throw new NullPointerException("Tablica opcji filtrow nie istnieje");
+        this.filterOptions = filterOptions;
+
+        MedicationFilter[] filters = {
+                new NameMedicationFilter((String) filterOptions[0]),
+                new FormMedicationFilter((MedicationForm) filterOptions[1]),
+                new PrescriptionMedicationFilter((Boolean) filterOptions[2]),
+                new PriceMedicationFilter((BigDecimal) filterOptions[3], (BigDecimal) filterOptions[4]),
+                new QuantityMedicationFilter((Integer) filterOptions[5], (Integer) filterOptions[6])
+        };
+        filter = new CompositeMedicationFilter(filters);
+
+        medicationTableView.setItems(allExisting.filtered(medication -> filter.matches(medication)));
     }
 
     void refresh() {

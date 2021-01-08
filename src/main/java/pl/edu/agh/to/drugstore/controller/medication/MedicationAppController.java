@@ -11,12 +11,17 @@ import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.controller.AppController;
 import pl.edu.agh.to.drugstore.controller.person.PersonAppController;
+import pl.edu.agh.to.drugstore.filters.*;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
+import pl.edu.agh.to.drugstore.model.medications.MedicationForm;
 import pl.edu.agh.to.drugstore.presenter.MedicationEditDialogPresenter;
+import pl.edu.agh.to.drugstore.presenter.MedicationsFilterDialogPresenter;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Arrays;
 
 @Data
 public class MedicationAppController {
@@ -79,6 +84,30 @@ public class MedicationAppController {
         } catch (IOException e) {
             logger.error("An error appeared when loading page.", e);
             return false;
+        }
+    }
+
+    public void showMedicationFilterDialog(MedicationOverviewController overviewController, Object[] filterOptions) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(PersonAppController.class
+                    .getResource("/view/MedicationsFilterDialog.fxml"));
+            BorderPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Filter medications");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            MedicationsFilterDialogPresenter presenter = loader.getController();
+            presenter.setDialogStage(dialogStage);
+            presenter.setData(overviewController, filterOptions);
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            logger.error("An error appeared when loading page.", e);
         }
     }
 
