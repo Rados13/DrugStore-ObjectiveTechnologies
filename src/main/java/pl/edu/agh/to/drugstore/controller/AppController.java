@@ -12,6 +12,7 @@ import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Person;
 import pl.edu.agh.to.drugstore.presenter.AdminPanelPresenter;
+import pl.edu.agh.to.drugstore.presenter.ClientPanelPresenter;
 import pl.edu.agh.to.drugstore.presenter.Alerts;
 import pl.edu.agh.to.drugstore.presenter.LoginScreenPresenter;
 
@@ -24,6 +25,7 @@ public class AppController {
     private final Stage primaryStage;
     private final EntityManager em;
     private final CommandRegistry commandRegistry = new CommandRegistry();
+    private Person loggedPerson;
 
     public AppController(Stage primaryStage, EntityManager em) {
         this.primaryStage = primaryStage;
@@ -37,17 +39,20 @@ public class AppController {
                 Alerts.showErrorAlert("Permissions Denied!", "Permissions Denied!", "Check your login and password and try again");
             approvedPerson = showLoginScreen();
         }
+        loggedPerson = approvedPerson;
         Alert alert;
         switch (approvedPerson.getRole()) {
             case ADMINISTRATOR:
                 showAdminPanel();
                 break;
             case SELLER:
-            case CLIENT:
                 alert = Alerts.showInformationDialog("Not Avaiable", "We are sorry :(", "This place is not implemented yet");
                 alert.showAndWait();
                 primaryStage.close();
                 initRootLayout();
+                break;
+            case CLIENT:
+                showClientPanel();
                 break;
             default:
                 throw new Exception("Role not recognized");
@@ -98,6 +103,33 @@ public class AppController {
             dialogStage.setScene(scene);
 
             AdminPanelPresenter presenter = loader.getController();
+            presenter.setDialogStage(dialogStage);
+            presenter.setAppStage(primaryStage);
+            presenter.setEntityManager(em);
+            presenter.setAppController(this);
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            logger.error("An error appeared when loading page.", e);
+        }
+    }
+
+    public void showClientPanel() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(AppController.class
+                    .getResource("/view/ClientPanelPane.fxml"));
+            BorderPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("ClientPanel");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            ClientPanelPresenter presenter = loader.getController();
+            presenter.setPerson(loggedPerson);
             presenter.setDialogStage(dialogStage);
             presenter.setAppStage(primaryStage);
             presenter.setEntityManager(em);

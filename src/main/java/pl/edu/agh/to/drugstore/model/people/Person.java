@@ -31,6 +31,8 @@ public class Person {
 
     private LocalDate birthdate;
 
+    private String email;
+
     @Column(unique = true)
     private String PESEL;
 

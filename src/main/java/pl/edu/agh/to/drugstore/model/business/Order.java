@@ -20,6 +20,8 @@ public abstract class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected int id;
 
+    protected OrderStatus orderStatus;
+
     protected Date submissionDate;
 
     protected Date shippingDate;
@@ -79,6 +81,10 @@ public abstract class Order {
     public ObservableValue<Integer> getMedicationsNumProperty() {
         return new SimpleObjectProperty<Integer>(medications.size());
     }
+    public ObservableValue<OrderStatus> getOrderStatus() {
+        return new SimpleObjectProperty<>(orderStatus);
+    }
+
 
     public void updateMedications(List<Tuple> newList) {
         var toDelete = medications.stream().filter(elem -> !newList.contains(elem)).collect(Collectors.toList());

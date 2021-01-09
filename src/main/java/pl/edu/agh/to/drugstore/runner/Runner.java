@@ -7,7 +7,6 @@ import pl.edu.agh.to.drugstore.controller.AppController;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.io.IOException;
 
 public class Runner extends Application {
 
@@ -21,9 +20,6 @@ public class Runner extends Application {
         EntityManager em = emf.createEntityManager();
 
         primaryStage.setTitle("DrugStore");
-
-//        PersonDAO dao = new PersonDAO(em);
-//        dao.
 
         AppController appController = new AppController(primaryStage, em);
         appController.initRootLayout();

@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
-import pl.edu.agh.to.drugstore.model.business.OrderStatus;
 import pl.edu.agh.to.drugstore.model.business.Tuple;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
@@ -31,7 +30,7 @@ import java.util.Optional;
 
 @Setter
 @Getter
-public class ClientOrderEditDialogPresenter {
+public class MyOrdersEditDialogPresenter {
 
     private ClientOrder clientOrder;
 
@@ -53,9 +52,6 @@ public class ClientOrderEditDialogPresenter {
 
     @FXML
     private ComboBox<Person> clientComboBox;
-
-    @FXML
-    private ComboBox<OrderStatus> orderStatusComboBox;
 
     @FXML
     private TableView<Tuple> orderElemsTableView;
@@ -85,11 +81,6 @@ public class ClientOrderEditDialogPresenter {
                 FXCollections.observableArrayList());
         orderElemsTableView.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
-        orderStatusComboBox.getItems().addAll(
-                FXCollections.observableArrayList(
-                        OrderStatus.class.getEnumConstants()
-                ));
-
 
         medicationNameColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMedication().getNameProperty());
         medicationPriceColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMedication().getPriceProperty());
@@ -128,7 +119,6 @@ public class ClientOrderEditDialogPresenter {
         medicationsList = FXCollections.observableArrayList(medicationDAO.findAll());
         medicationsNames = new FilteredList<Medication>(medicationsList, p -> true);
         medicationComboBox.setItems(medicationsNames);
-//        orderStatusComboBox.setItems(or);
     }
 
     @FXML
@@ -157,7 +147,6 @@ public class ClientOrderEditDialogPresenter {
             orderElemsTableView.refresh();
             medicationComboBox.valueProperty().set(null);
             amountBoxesTextField.setText("");
-
         }
     }
 
@@ -172,7 +161,6 @@ public class ClientOrderEditDialogPresenter {
         clientOrder.setSubmissionDate(java.sql.Date.valueOf(submissionDatePicker.getValue()));
         clientOrder.setPerson(clientComboBox.getValue());
         clientOrder.updateMedications(allOrderElems);
-        clientOrder.setOrderStatus(orderStatusComboBox.getValue());
     }
 
     private LocalDate changeDateToLocalDate(Date date) {

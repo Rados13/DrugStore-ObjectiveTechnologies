@@ -1,4 +1,4 @@
-package pl.edu.agh.to.drugstore.controller.clientOrder;
+package pl.edu.agh.to.drugstore.controller.clientOrder.MyOrders;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -11,7 +11,6 @@ import pl.edu.agh.to.drugstore.command.clientorder.EditClientOrderCommand;
 import pl.edu.agh.to.drugstore.command.clientorder.RemoveClientOrderCommand;
 import pl.edu.agh.to.drugstore.controller.OverviewController;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
-import pl.edu.agh.to.drugstore.model.business.OrderStatus;
 import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.people.Person;
@@ -24,13 +23,13 @@ import java.util.List;
  * Klasa interfejsu graficznego odpowiedzialna za wyświetlanie wszystkich zamówień klientów dostępnych w bazie danych.
  */
 @Setter
-public class ClientOrderOverviewController extends OverviewController<ClientOrder> {
+public class MyOrdersOverviewController extends OverviewController<ClientOrder> {
 
     private ClientOrderDAO clientOrderDAO;
 
     private MedicationDAO medicationDAO;
 
-    private ClientOrderAppController appController;
+    private MyOrdersAppController appController;
 
     @FXML
     private TableColumn<ClientOrder, Date> submissionDateColumn;
@@ -47,8 +46,6 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
     @FXML
     private TableColumn<ClientOrder, BigDecimal> summedPriceColumn;
 
-    @FXML
-    private TableColumn<ClientOrder, OrderStatus> orderStatusTableColumn;
 
     /**
      * Inicjalizuje główne okno aplikacji, w którym wyświetlane są zamówienia klienta zapisane w bazie danych.
@@ -67,7 +64,6 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
         });
         amountOfMedicinesOrderedColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMedicationsNumProperty());
         summedPriceColumn.setCellValueFactory(dataValue -> dataValue.getValue().getSumPriceProperty());
-        orderStatusTableColumn.setCellValueFactory(dataValue -> dataValue.getValue().getOrderStatus());
     }
 
     /**
@@ -138,7 +134,7 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
         tableView.setItems(allExisting);
     }
 
-    public void setAppController(ClientOrderAppController controller) {
+    public void setAppController(MyOrdersAppController controller) {
         this.appController = controller;
     }
 }

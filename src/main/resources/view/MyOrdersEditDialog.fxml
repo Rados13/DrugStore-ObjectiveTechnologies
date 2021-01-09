@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" prefWidth="300.0" xmlns="http://javafx.com/javafx/8"
-            fx:controller="pl.edu.agh.to.drugstore.presenter.ClientOrderEditDialogPresenter">
+            fx:controller="pl.edu.agh.to.drugstore.presenter.MyOrdersEditDialogPresenter">
     <center>
         <GridPane hgap="5.0" vgap="5.0" BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -12,7 +12,6 @@
                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0"/>
                 <RowConstraints minHeight="10.0"/>
                 <RowConstraints minHeight="10.0"/>
                 <RowConstraints minHeight="10.0"/>
@@ -91,16 +90,7 @@
                         <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </TextField>
-                <Label text="Status" GridPane.rowIndex="11">
-                    <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
-                    </GridPane.margin>
-                </Label>
-                <ComboBox fx:id="orderStatusComboBox" GridPane.rowIndex="11" GridPane.columnIndex="1">
-                    <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
-                    </GridPane.margin>
-                </ComboBox>
+
 
             </children>
         </GridPane>
