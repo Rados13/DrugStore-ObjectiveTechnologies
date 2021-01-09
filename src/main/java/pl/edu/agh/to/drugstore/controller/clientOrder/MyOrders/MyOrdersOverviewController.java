@@ -29,6 +29,7 @@ public class MyOrdersOverviewController extends OverviewController<ClientOrder> 
 
     private MedicationDAO medicationDAO;
 
+    @Setter
     private MyOrdersAppController appController;
 
     @FXML
@@ -137,7 +138,4 @@ public class MyOrdersOverviewController extends OverviewController<ClientOrder> 
         tableView.setItems(allExisting);
     }
 
-    public void setAppController(MyOrdersAppController controller) {
-        this.appController = controller;
-    }
 }
