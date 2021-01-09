@@ -97,5 +97,4 @@ public class ClientOrderAppController {
     public AppController getAppController() {
         return appController;
     }
-
 }
