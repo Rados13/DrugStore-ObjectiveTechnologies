@@ -1,8 +1,6 @@
 package pl.edu.agh.to.drugstore.controller.supplier;
 
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,20 +10,18 @@ import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.command.supplier.AddSupplierCommand;
 import pl.edu.agh.to.drugstore.command.supplier.EditSupplierCommand;
 import pl.edu.agh.to.drugstore.command.supplier.RemoveSupplierCommand;
+import pl.edu.agh.to.drugstore.controller.OverviewController;
 import pl.edu.agh.to.drugstore.model.business.Supplier;
 import pl.edu.agh.to.drugstore.model.dao.SupplierDAO;
 
 import java.util.List;
 
 @Data
-public class SupplierOverviewController {
+public class SupplierOverviewController extends OverviewController<Supplier> {
 
-    ObservableList<Supplier> allExisting;
     private SupplierAppController appController;
-    private CommandRegistry commandRegistry;
+
     private SupplierDAO supplierDAO;
-    @FXML
-    private TableView<Supplier> supplierTableView;
 
     @FXML
     private TableColumn<Supplier, Number> IdColumn;
@@ -37,60 +33,33 @@ public class SupplierOverviewController {
     private TableColumn<Supplier, String> NIPColumn;
 
     @FXML
-    private ListView<Command> commandLogView;
-
-    @FXML
-    private Button deleteButton;
-
-    @FXML
-    private Button editButton;
-
-    @FXML
-    private Button addButton;
-
-    @FXML
-    private Button exitButton;
-
-    @FXML
-    private Button undoButton;
-
-    @FXML
-    private Button redoButton;
-
-    @FXML
-    private void initialize() {
-        supplierTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
+    protected void initialize() {
+        startInitialize();
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         IdColumn.setCellValueFactory(dataValue -> dataValue.getValue().getIdProperty());
         NameColumn.setCellValueFactory(dataValue -> dataValue.getValue().getNameProperty());
         NIPColumn.setCellValueFactory(dataValue -> dataValue.getValue().getNIPProperty());
-
-        deleteButton.disableProperty().bind(
-                Bindings.isEmpty(supplierTableView.getSelectionModel().getSelectedItems()));
-        editButton.disableProperty().bind(
-                Bindings.size(supplierTableView.getSelectionModel().getSelectedItems())
-                        .isNotEqualTo(1));
     }
 
     @FXML
     public void handleDeleteAction(ActionEvent actionEvent) {
-        List<Supplier> suppliersToRemove = List.copyOf(supplierTableView.getSelectionModel().getSelectedItems());
+        List<Supplier> suppliersToRemove = List.copyOf(tableView.getSelectionModel().getSelectedItems());
         RemoveSupplierCommand removeSupplierCommand = new RemoveSupplierCommand(suppliersToRemove, supplierDAO);
         commandRegistry.executeCommand(removeSupplierCommand);
         suppliersToRemove.forEach(supplier -> allExisting.remove(supplier));
-        supplierTableView.refresh();
+        tableView.refresh();
     }
 
     @FXML
     public void handleEditAction(ActionEvent actionEvent) {
-        Supplier supplierToEdit = supplierTableView.getSelectionModel().getSelectedItem();
+        Supplier supplierToEdit = tableView.getSelectionModel().getSelectedItem();
         Supplier editedSupplier = supplierToEdit;
         if (supplierToEdit != null) {
             appController.showSupplierEditDialog(editedSupplier);
             EditSupplierCommand editSupplierCommand = new EditSupplierCommand(supplierToEdit, editedSupplier, supplierDAO);
             commandRegistry.executeCommand(editSupplierCommand);
         }
-        supplierTableView.refresh();
+        tableView.refresh();
     }
 
     @FXML
@@ -101,7 +70,7 @@ public class SupplierOverviewController {
             commandRegistry.executeCommand(addSupplierCommand);
         }
         allExisting.add(supplier);
-        supplierTableView.refresh();
+        tableView.refresh();
     }
 
     @FXML
@@ -113,8 +82,8 @@ public class SupplierOverviewController {
     public void setData() {
         allExisting = FXCollections.observableArrayList(appController.getSupplierDAO().findAll());
         System.out.println(allExisting);
-        supplierTableView.refresh();
-        supplierTableView.setItems(allExisting);
+        tableView.refresh();
+        tableView.setItems(allExisting);
     }
 
     public void setCommandRegistry(CommandRegistry commandRegistry) {

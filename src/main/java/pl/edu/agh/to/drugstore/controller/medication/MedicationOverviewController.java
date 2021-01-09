@@ -1,8 +1,6 @@
 package pl.edu.agh.to.drugstore.controller.medication;
 
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,6 +9,7 @@ import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.command.medicationCommands.AddMedicationCommand;
 import pl.edu.agh.to.drugstore.command.medicationCommands.EditMedicationCommand;
 import pl.edu.agh.to.drugstore.command.medicationCommands.RemoveMedicationCommand;
+import pl.edu.agh.to.drugstore.controller.OverviewController;
 import pl.edu.agh.to.drugstore.filters.*;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
@@ -24,62 +23,44 @@ import java.util.stream.Collectors;
 /**
  * Klasa interfejsu graficznego odpowiedzialna za wyświetlanie wszystkich lekarstw dostępnych w bazie danych.
  */
-public class MedicationOverviewController {
+public class MedicationOverviewController extends OverviewController<Medication> {
 
     @FXML
     public TableColumn<Medication, Boolean> prescriptionRequiredColumn;
+
     @FXML
     public TableColumn<Medication, BigDecimal> priceColumn;
+
     @FXML
     public TableColumn<Medication, Integer> quantityColumn;
-    ObservableList<Medication> allExisting;
+
     private MedicationAppController medicationAppController;
+
     private CommandRegistry commandRegistry;
+
     private MedicationDAO medicationDAO;
 
     private Object[] filterOptions;
+
     private MedicationFilter filter;
 
     @FXML
-    private TableView<Medication> medicationTableView;
-    @FXML
     private TableColumn<Medication, String> nameColumn;
+
     @FXML
     private TableColumn<Medication, MedicationForm> formColumn;
-    @FXML
-    private ListView<Command> commandLogView;
-
-    @FXML
-    private Button deleteButton;
-
-    @FXML
-    private Button editButton;
-
-    @FXML
-    private Button addButton;
-
-    @FXML
-    private Button filterButton;
-
-    @FXML
-    private Button undoButton;
-
-    @FXML
-    private Button redoButton;
-
-    @FXML
-    private Button exitButton;
 
     /**
      * Inicjalizuje główne okno aplikacji, w którym wyświetlane są osoby zapisane w bazie danych.
      */
     @FXML
-    private void initialize() {
+    protected void initialize() {
+        startInitialize();
         filterOptions = new Object[7];
         Arrays.fill(filterOptions, null);
         filter = new DefaultMedicationFilter();
 
-        medicationTableView.getSelectionModel().setSelectionMode(
+        tableView.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
         nameColumn.setCellValueFactory(dataValue -> dataValue.getValue()
                 .getNameProperty());
@@ -91,14 +72,6 @@ public class MedicationOverviewController {
                 .getPriceProperty());
         quantityColumn.setCellValueFactory(dataValue -> dataValue.getValue()
                 .getQuantityProperty());
-
-        deleteButton.disableProperty().bind(
-                Bindings.isEmpty(medicationTableView.getSelectionModel()
-                        .getSelectedItems()));
-        editButton.disableProperty().bind(
-                Bindings.size(
-                        medicationTableView.getSelectionModel()
-                                .getSelectedItems()).isNotEqualTo(1));
     }
 
     /**
@@ -107,8 +80,8 @@ public class MedicationOverviewController {
      * @param event
      */
     @FXML
-    private void handleDeleteAction(ActionEvent event) {
-        List<Medication> medicationsToRemove = List.copyOf(medicationTableView.getSelectionModel().getSelectedItems());
+    protected void handleDeleteAction(ActionEvent event) {
+        List<Medication> medicationsToRemove = List.copyOf(tableView.getSelectionModel().getSelectedItems());
         RemoveMedicationCommand removeMedicationCommand = new RemoveMedicationCommand(medicationsToRemove, medicationDAO);
         commandRegistry.executeCommand(removeMedicationCommand);
         for (Medication medication : medicationsToRemove) {
@@ -125,8 +98,8 @@ public class MedicationOverviewController {
      * @throws InterruptedException
      */
     @FXML
-    private void handleEditAction(ActionEvent event) throws InterruptedException {
-        Medication medicationToEdit = medicationTableView.getSelectionModel()
+    protected void handleEditAction(ActionEvent event) throws InterruptedException {
+        Medication medicationToEdit = tableView.getSelectionModel()
                 .getSelectedItem();
         Medication editedMedication = medicationToEdit;
         if (medicationToEdit != null) {
@@ -143,7 +116,7 @@ public class MedicationOverviewController {
      * @param event
      */
     @FXML
-    private void handleAddAction(ActionEvent event) {
+    protected void handleAddAction(ActionEvent event) {
         Medication medication = new Medication();
         if (medicationAppController.showMedicationEditDialog(medication)) {
             AddMedicationCommand addMedicationCommand = new AddMedicationCommand(medication, medicationDAO);
@@ -163,13 +136,13 @@ public class MedicationOverviewController {
     }
 
     @FXML
-    private void handleUndoAction(ActionEvent event) {
+    protected void handleUndoAction(ActionEvent event) {
         commandRegistry.undo();
         refresh();
     }
 
     @FXML
-    private void handleRedoAction(ActionEvent event) {
+    protected void handleRedoAction(ActionEvent event) {
         commandRegistry.redo();
         refresh();
     }
@@ -181,7 +154,7 @@ public class MedicationOverviewController {
     }
 
     private void refreshDisplayedItems() {
-        medicationTableView.setItems(allExisting.filtered(medication -> filter.matches(medication)));
+        tableView.setItems(allExisting.filtered(medication -> filter.matches(medication)));
         refresh();
     }
 
@@ -213,8 +186,8 @@ public class MedicationOverviewController {
         refreshDisplayedItems();
     }
 
-    void refresh() {
-        medicationTableView.refresh();
+    protected void refresh() {
+        tableView.refresh();
     }
 
     public void setMedicationAppController(MedicationAppController medicationAppController) {

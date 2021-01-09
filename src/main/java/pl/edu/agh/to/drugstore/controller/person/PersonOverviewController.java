@@ -31,23 +31,34 @@ public class PersonOverviewController extends OverviewController<Person> {
 
     @FXML
     public TableColumn<Person, LocalDate> birthdateColumn;
+
     @FXML
     public TableColumn<Person, String> PESELColumn;
+
     @FXML
     public TableColumn<Person, Role> roleColumn;
+
     @FXML
     public TableColumn<Person, String> cityColumn;
+
     @FXML
     public TableColumn<Person, String> streetColumn;
+
     @FXML
     public TableColumn<Person, String> houseIdColumn;
+
     @FXML
     public TableColumn<Person, String> apartmentIdColumn;
+
     private PersonDAO personDAO;
+
     private AddressDAO addressDAO;
+
     private PersonAppController personAppController;
+
     @FXML
     private TableColumn<Person, String> firstNameColumn;
+
     @FXML
     private TableColumn<Person, String> lastNameColumn;
 
