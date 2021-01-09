@@ -1,4 +1,4 @@
-package pl.edu.agh.to.drugstore.presenter;
+package pl.edu.agh.to.drugstore.presenter.editDialog;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -7,7 +7,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
@@ -31,7 +30,7 @@ import java.util.Optional;
 
 @Setter
 @Getter
-public class ClientOrderEditDialogPresenter {
+public class ClientOrderEditDialogPresenter extends EditDialogPresenter {
 
     private ClientOrder clientOrder;
 
@@ -74,10 +73,6 @@ public class ClientOrderEditDialogPresenter {
 
     @FXML
     private TextField amountBoxesTextField;
-
-    private Stage dialogStage;
-
-    private boolean approved;
 
     @FXML
     public void initialize() {
@@ -128,21 +123,15 @@ public class ClientOrderEditDialogPresenter {
         medicationsList = FXCollections.observableArrayList(medicationDAO.findAll());
         medicationsNames = new FilteredList<Medication>(medicationsList, p -> true);
         medicationComboBox.setItems(medicationsNames);
-//        orderStatusComboBox.setItems(or);
     }
 
     @FXML
-    private void handleOkAction(ActionEvent event) {
+    public void handleOkAction(ActionEvent event) {
         if (clientComboBox.getValue() != null) {
             updateModel();
             approved = true;
             dialogStage.close();
         }
-    }
-
-    @FXML
-    private void handleCancelAction(ActionEvent event) {
-        dialogStage.close();
     }
 
     @FXML
@@ -167,7 +156,7 @@ public class ClientOrderEditDialogPresenter {
         allOrderElems.removeAll(elemsToDelete);
     }
 
-    private void updateModel() {
+    protected void updateModel() {
         clientOrder.setShippingDate(java.sql.Date.valueOf(shippingDatePicker.getValue()));
         clientOrder.setSubmissionDate(java.sql.Date.valueOf(submissionDatePicker.getValue()));
         clientOrder.setPerson(clientComboBox.getValue());
@@ -180,7 +169,7 @@ public class ClientOrderEditDialogPresenter {
         return LocalDate.ofInstant(clientOrder.getSubmissionDate().toInstant(), ZoneId.systemDefault());
     }
 
-    private void updateControls() {
+    protected void updateControls() {
         if (clientOrder.getSubmissionDate() != null)
             submissionDatePicker.setValue(changeDateToLocalDate(clientOrder.getSubmissionDate()));
         else submissionDatePicker.setValue(LocalDate.now());
@@ -192,7 +181,5 @@ public class ClientOrderEditDialogPresenter {
         if (clientOrder.getPerson() != null)
             clientComboBox.setValue(clientOrder.getPerson());
         else clientComboBox.setValue(new Person());
-
     }
-
 }

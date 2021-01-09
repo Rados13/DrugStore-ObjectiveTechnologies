@@ -1,12 +1,10 @@
-package pl.edu.agh.to.drugstore.presenter;
+package pl.edu.agh.to.drugstore.presenter.editDialog;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
 import pl.edu.agh.to.drugstore.model.people.Role;
@@ -16,7 +14,7 @@ import java.time.LocalDate;
 /**
  * Klasa odpowiadająca z wyświetlenie okna edycji wybranej osoby w interfejsie graficznym
  */
-public class PersonEditDialogPresenter {
+public class PersonEditDialogPresenter extends EditDialogPresenter {
 
     private Person person;
 
@@ -55,10 +53,6 @@ public class PersonEditDialogPresenter {
     @FXML
     private TextField passwordTextField;
 
-    private Stage dialogStage;
-
-    private boolean approved;
-
     @FXML
     public void initialize() {
         roleComboBox.getItems().addAll(
@@ -67,33 +61,13 @@ public class PersonEditDialogPresenter {
                 ));
     }
 
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-
     public void setData(Person person, Address address) {
         this.person = person;
         this.address = address;
         updateControls();
     }
 
-    public boolean isApproved() {
-        return approved;
-    }
-
-    @FXML
-    private void handleOkAction(ActionEvent event) {
-        updateModel();
-        approved = true;
-        dialogStage.close();
-    }
-
-    @FXML
-    private void handleCancelAction(ActionEvent event) {
-        dialogStage.close();
-    }
-
-    private void updateModel() {
+    protected void updateModel() {
         person.setFirstname(firstNameTextField.getText());
         person.setLastname(lastNameTextField.getText());
         person.setBirthdate(LocalDate.from(birthDatePicker.getValue()));
@@ -110,7 +84,7 @@ public class PersonEditDialogPresenter {
         this.person.setPassword(passwordTextField.getText());
     }
 
-    private void updateControls() {
+    protected void updateControls() {
         firstNameTextField.setText(person.getFirstname());
         lastNameTextField.setText(person.getLastname());
         if (person.getBirthdate() != null)

@@ -13,7 +13,7 @@ import pl.edu.agh.to.drugstore.model.dao.AddressDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
-import pl.edu.agh.to.drugstore.presenter.PersonEditDialogPresenter;
+import pl.edu.agh.to.drugstore.presenter.editDialog.PersonEditDialogPresenter;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;

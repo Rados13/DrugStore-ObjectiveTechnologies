@@ -1,14 +1,12 @@
-package pl.edu.agh.to.drugstore.presenter;
+package pl.edu.agh.to.drugstore.presenter.editDialog;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import lombok.Data;
 import pl.edu.agh.to.drugstore.model.business.Supplier;
 
 @Data
-public class SupplierEditDialogPresenter {
+public class SupplierEditDialogPresenter extends EditDialogPresenter {
 
     private Supplier supplier;
 
@@ -17,10 +15,6 @@ public class SupplierEditDialogPresenter {
 
     @FXML
     private TextField NIPTextField;
-
-    private Stage dialogStage;
-
-    private boolean approved;
 
     @FXML
     public void initialize() {
@@ -32,24 +26,12 @@ public class SupplierEditDialogPresenter {
     }
 
 
-    private void updateControls() {
+    protected void updateControls() {
         nameTextField.setText(supplier.getName());
         NIPTextField.setText(supplier.getNIP());
     }
 
-    @FXML
-    public void handleCancelAction(ActionEvent actionEvent) {
-        dialogStage.close();
-    }
-
-    @FXML
-    public void handleOkAction(ActionEvent actionEvent) {
-        updateModel();
-        approved = true;
-        dialogStage.close();
-    }
-
-    private void updateModel() {
+    protected void updateModel() {
         supplier.setName(nameTextField.getText());
         supplier.setNIP(NIPTextField.getText());
     }

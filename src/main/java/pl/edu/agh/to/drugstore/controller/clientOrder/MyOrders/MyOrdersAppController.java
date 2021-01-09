@@ -16,8 +16,7 @@ import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Person;
-import pl.edu.agh.to.drugstore.presenter.ClientOrderEditDialogPresenter;
-import pl.edu.agh.to.drugstore.presenter.MyOrdersEditDialogPresenter;
+import pl.edu.agh.to.drugstore.presenter.editDialog.MyOrdersEditDialogPresenter;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;

@@ -16,6 +16,7 @@ import pl.edu.agh.to.drugstore.controller.clientOrder.MyOrders.MyOrdersAppContro
 import pl.edu.agh.to.drugstore.controller.person.PersonAppController;
 import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
+import pl.edu.agh.to.drugstore.presenter.editDialog.ClientEditDialogPresenter;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;

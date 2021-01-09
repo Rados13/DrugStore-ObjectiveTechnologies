@@ -1,12 +1,10 @@
-package pl.edu.agh.to.drugstore.presenter;
+package pl.edu.agh.to.drugstore.presenter.editDialog;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
 import pl.edu.agh.to.drugstore.model.medications.MedicationForm;
 
@@ -15,7 +13,7 @@ import java.math.BigDecimal;
 /**
  * Klasa odpowiadająca z wyświetlenie okna edycji wybranego leku w interfejsie graficznym
  */
-public class MedicationEditDialogPresenter {
+public class MedicationEditDialogPresenter extends EditDialogPresenter {
 
     private Medication medication;
 
@@ -34,10 +32,6 @@ public class MedicationEditDialogPresenter {
     @FXML
     private TextField quantityTextField;
 
-    private Stage dialogStage;
-
-    private boolean approved;
-
     @FXML
     public void initialize() {
         formComboBox.getItems().addAll(
@@ -46,32 +40,12 @@ public class MedicationEditDialogPresenter {
                 ));
     }
 
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-
     public void setData(Medication medication) {
         this.medication = medication;
         updateControls();
     }
 
-    public boolean isApproved() {
-        return approved;
-    }
-
-    @FXML
-    private void handleOkAction(ActionEvent event) {
-        updateModel();
-        approved = true;
-        dialogStage.close();
-    }
-
-    @FXML
-    private void handleCancelAction(ActionEvent event) {
-        dialogStage.close();
-    }
-
-    private void updateModel() {
+    protected void updateModel() {
         medication.setName(nameTextField.getText());
         medication.setForm(formComboBox.getValue());
         medication.setPrescriptionRequired(prescriptionRequiredCheckBox.isSelected());
@@ -79,7 +53,7 @@ public class MedicationEditDialogPresenter {
         medication.setQuantity(Integer.parseInt(quantityTextField.getText()));
     }
 
-    private void updateControls() {
+    protected void updateControls() {
         nameTextField.setText(medication.getName());
         if (medication.getForm() != null)
             formComboBox.setValue(medication.getForm());

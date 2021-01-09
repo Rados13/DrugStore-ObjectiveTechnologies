@@ -12,7 +12,7 @@ import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.controller.AppController;
 import pl.edu.agh.to.drugstore.model.business.Supplier;
 import pl.edu.agh.to.drugstore.model.dao.SupplierDAO;
-import pl.edu.agh.to.drugstore.presenter.SupplierEditDialogPresenter;
+import pl.edu.agh.to.drugstore.presenter.editDialog.SupplierEditDialogPresenter;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;

@@ -13,7 +13,7 @@ import pl.edu.agh.to.drugstore.controller.AppController;
 import pl.edu.agh.to.drugstore.controller.person.PersonAppController;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
-import pl.edu.agh.to.drugstore.presenter.MedicationEditDialogPresenter;
+import pl.edu.agh.to.drugstore.presenter.editDialog.MedicationEditDialogPresenter;
 import pl.edu.agh.to.drugstore.presenter.MedicationsFilterDialogPresenter;
 
 import javax.persistence.EntityManager;

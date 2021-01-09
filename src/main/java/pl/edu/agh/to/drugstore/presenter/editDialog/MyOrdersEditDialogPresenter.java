@@ -1,4 +1,4 @@
-package pl.edu.agh.to.drugstore.presenter;
+package pl.edu.agh.to.drugstore.presenter.editDialog;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -7,7 +7,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
@@ -16,7 +15,6 @@ import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.medications.Medication;
 import pl.edu.agh.to.drugstore.model.people.Person;
-import pl.edu.agh.to.drugstore.model.people.Role;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -30,7 +28,7 @@ import java.util.Optional;
 
 @Setter
 @Getter
-public class MyOrdersEditDialogPresenter {
+public class MyOrdersEditDialogPresenter extends EditDialogPresenter {
 
     private ClientOrder clientOrder;
 
@@ -68,9 +66,7 @@ public class MyOrdersEditDialogPresenter {
     @FXML
     private TextField amountBoxesTextField;
 
-    private Stage dialogStage;
     private Person currentPerson;
-    private boolean approved;
 
     @FXML
     public void initialize() {
@@ -114,18 +110,6 @@ public class MyOrdersEditDialogPresenter {
     }
 
     @FXML
-    private void handleOkAction(ActionEvent event) {
-            updateModel();
-            approved = true;
-            dialogStage.close();
-    }
-
-    @FXML
-    private void handleCancelAction(ActionEvent event) {
-        dialogStage.close();
-    }
-
-    @FXML
     private void handleAddAction(ActionEvent event) {
         if (medicationsNames.size() > 0) {
             Optional<Medication> optionalMedication = medicationsNames.stream()
@@ -146,7 +130,7 @@ public class MyOrdersEditDialogPresenter {
         allOrderElems.removeAll(elemsToDelete);
     }
 
-    private void updateModel() {
+    protected void updateModel() {
         clientOrder.setShippingDate(java.sql.Date.valueOf(shippingDatePicker.getValue()));
         clientOrder.setSubmissionDate(java.sql.Date.valueOf(submissionDatePicker.getValue()));
         clientOrder.setPerson(currentPerson);
@@ -158,7 +142,7 @@ public class MyOrdersEditDialogPresenter {
         return LocalDate.ofInstant(clientOrder.getSubmissionDate().toInstant(), ZoneId.systemDefault());
     }
 
-    private void updateControls() {
+    protected void updateControls() {
         if (clientOrder.getSubmissionDate() != null)
             submissionDatePicker.setValue(changeDateToLocalDate(clientOrder.getSubmissionDate()));
         else submissionDatePicker.setValue(LocalDate.now());

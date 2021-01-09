@@ -22,9 +22,13 @@ import java.io.IOException;
 public class AppController {
 
     private final static Logger logger = LoggerFactory.getLogger(AppController.class);
+
     private final Stage primaryStage;
+
     private final EntityManager em;
+
     private final CommandRegistry commandRegistry = new CommandRegistry();
+
     private Person loggedPerson;
 
     public AppController(Stage primaryStage, EntityManager em) {

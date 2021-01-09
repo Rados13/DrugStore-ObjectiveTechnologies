@@ -90,7 +90,6 @@ public class LoginScreenPresenter {
     private void showConfirmationAlert() {
         Alert alert = Alerts.showConfirmationDialog("Confirmation Dialog", null, "Are you sure?");
 
-
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             alert.close();
