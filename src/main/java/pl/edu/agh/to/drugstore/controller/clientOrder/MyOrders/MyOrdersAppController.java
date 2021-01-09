@@ -15,7 +15,9 @@ import pl.edu.agh.to.drugstore.model.business.ClientOrder;
 import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
+import pl.edu.agh.to.drugstore.model.people.Person;
 import pl.edu.agh.to.drugstore.presenter.ClientOrderEditDialogPresenter;
+import pl.edu.agh.to.drugstore.presenter.MyOrdersEditDialogPresenter;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
@@ -30,13 +32,16 @@ public class MyOrdersAppController {
 
     private final CommandRegistry commandRegistry = new CommandRegistry();
     private final AppController appController;
+    private final Person currentPerson;
 
-    public MyOrdersAppController(Stage primaryStage, EntityManager em, AppController appController) {
+
+    public MyOrdersAppController(Stage primaryStage, EntityManager em, AppController appController, Person person) {
         this.primaryStage = primaryStage;
         this.personDAO = new PersonDAO(em);
         this.clientOrderDAO = new ClientOrderDAO(em);
         this.medicationDAO = new MedicationDAO(em);
         this.appController = appController;
+        this.currentPerson = person;
     }
 
     public void initRootLayout() throws IOException {
@@ -49,7 +54,7 @@ public class MyOrdersAppController {
 
         MyOrdersOverviewController controller = loader.getController();
         controller.setAppController(this);
-        controller.setData();
+        controller.setData(currentPerson);
         controller.setCommandRegistry(commandRegistry);
         controller.setClientOrderDAO(clientOrderDAO);
         controller.setMedicationDAO(medicationDAO);
@@ -64,7 +69,7 @@ public class MyOrdersAppController {
             // Load the fxml file and create a new stage for the dialog
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(PersonAppController.class
-                    .getResource("/view/ClientOrderEditDialog.fxml"));
+                    .getResource("/view/MyOrdersEditDialog.fxml"));
             BorderPane page = loader.load();
 
             Stage dialogStage = new Stage();
@@ -74,12 +79,13 @@ public class MyOrdersAppController {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            ClientOrderEditDialogPresenter presenter = loader.getController();
+            MyOrdersEditDialogPresenter presenter = loader.getController();
             presenter.setDialogStage(dialogStage);
             presenter.setPersonDAO(personDAO);
             presenter.setMedicationDAO(medicationDAO);
             presenter.updateClientComboBox();
             presenter.setData(clientOrder);
+            presenter.setCurrentPerson(getCurrentPerson());
 
             dialogStage.showAndWait();
             return presenter.isApproved();

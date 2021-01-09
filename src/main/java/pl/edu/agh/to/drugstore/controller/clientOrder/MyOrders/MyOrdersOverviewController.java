@@ -11,6 +11,7 @@ import pl.edu.agh.to.drugstore.command.clientorder.EditClientOrderCommand;
 import pl.edu.agh.to.drugstore.command.clientorder.RemoveClientOrderCommand;
 import pl.edu.agh.to.drugstore.controller.OverviewController;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
+import pl.edu.agh.to.drugstore.model.business.OrderStatus;
 import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.people.Person;
@@ -45,7 +46,6 @@ public class MyOrdersOverviewController extends OverviewController<ClientOrder> 
 
     @FXML
     private TableColumn<ClientOrder, BigDecimal> summedPriceColumn;
-
 
     /**
      * Inicjalizuje główne okno aplikacji, w którym wyświetlane są zamówienia klienta zapisane w bazie danych.
@@ -124,12 +124,16 @@ public class MyOrdersOverviewController extends OverviewController<ClientOrder> 
     @Override
     protected void handleExitAction(ActionEvent event) {
         appController.getPrimaryStage().close();
-        appController.getAppController().showAdminPanel();
+        appController.getAppController().showClientPanel();
     }
 
     @Override
     protected void setData() {
-        allExisting = FXCollections.observableArrayList(appController.getClientOrderDAO().findAll());
+
+    }
+
+    protected void setData(Person person) {
+        allExisting = FXCollections.observableArrayList(appController.getClientOrderDAO().findAllClientOrders(person.getId()));
         tableView.refresh();
         tableView.setItems(allExisting);
     }

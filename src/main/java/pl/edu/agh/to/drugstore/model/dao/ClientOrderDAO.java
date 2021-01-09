@@ -1,6 +1,7 @@
 package pl.edu.agh.to.drugstore.model.dao;
 
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
+import pl.edu.agh.to.drugstore.model.medications.Medication;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -47,6 +48,18 @@ public class ClientOrderDAO implements ObjectDAO<ClientOrder> {
         etx.commit();
 
         return order;
+    }
+
+    public List<ClientOrder> findAllClientOrders(int clientID) {
+        EntityTransaction etx = em.getTransaction();
+
+        etx.begin();
+        Query query = em.createQuery("from ClientOrder as m where m.person.id = :personID");
+        query.setParameter("personID", clientID);
+        List result = query.getResultList();
+        etx.commit();
+
+        return result;
     }
 
     /**

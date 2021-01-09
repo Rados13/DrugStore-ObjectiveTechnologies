@@ -51,9 +51,6 @@ public class MyOrdersEditDialogPresenter {
     private DatePicker shippingDatePicker;
 
     @FXML
-    private ComboBox<Person> clientComboBox;
-
-    @FXML
     private TableView<Tuple> orderElemsTableView;
 
     @FXML
@@ -72,13 +69,11 @@ public class MyOrdersEditDialogPresenter {
     private TextField amountBoxesTextField;
 
     private Stage dialogStage;
-
+    private Person currentPerson;
     private boolean approved;
 
     @FXML
     public void initialize() {
-        clientComboBox.getItems().addAll(
-                FXCollections.observableArrayList());
         orderElemsTableView.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
 
@@ -113,9 +108,6 @@ public class MyOrdersEditDialogPresenter {
 
 
     public void updateClientComboBox() {
-        clientComboBox.getItems().addAll(
-                FXCollections.observableArrayList(
-                        personDAO.searchPeople(Person.builder().role(Role.CLIENT).build())));
         medicationsList = FXCollections.observableArrayList(medicationDAO.findAll());
         medicationsNames = new FilteredList<Medication>(medicationsList, p -> true);
         medicationComboBox.setItems(medicationsNames);
@@ -123,11 +115,9 @@ public class MyOrdersEditDialogPresenter {
 
     @FXML
     private void handleOkAction(ActionEvent event) {
-        if (clientComboBox.getValue() != null) {
             updateModel();
             approved = true;
             dialogStage.close();
-        }
     }
 
     @FXML
@@ -159,7 +149,7 @@ public class MyOrdersEditDialogPresenter {
     private void updateModel() {
         clientOrder.setShippingDate(java.sql.Date.valueOf(shippingDatePicker.getValue()));
         clientOrder.setSubmissionDate(java.sql.Date.valueOf(submissionDatePicker.getValue()));
-        clientOrder.setPerson(clientComboBox.getValue());
+        clientOrder.setPerson(currentPerson);
         clientOrder.updateMedications(allOrderElems);
     }
 
@@ -177,10 +167,9 @@ public class MyOrdersEditDialogPresenter {
             shippingDatePicker.setValue(changeDateToLocalDate(clientOrder.getShippingDate()));
         else shippingDatePicker.setValue(LocalDate.now());
 
-        if (clientOrder.getPerson() != null)
-            clientComboBox.setValue(clientOrder.getPerson());
-        else clientComboBox.setValue(new Person());
-
     }
 
+    public void setCurrentPerson(Person currentPerson) {
+        this.currentPerson = currentPerson;
+    }
 }

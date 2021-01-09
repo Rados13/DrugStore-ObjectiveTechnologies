@@ -53,7 +53,7 @@ public class ClientPanelPresenter {
     @FXML
     private void handleClientOrderAction(ActionEvent event) throws IOException {
         dialogStage.close();
-        MyOrdersAppController myOrdersAppController = new MyOrdersAppController(appStage, em, appController);
+        MyOrdersAppController myOrdersAppController = new MyOrdersAppController(appStage, em, appController,person);
         myOrdersAppController.initRootLayout();
     }
 
