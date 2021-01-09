@@ -23,32 +23,30 @@
             <opaqueInsets>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </opaqueInsets>
-            <children>
-                <Button fx:id="deleteButton" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308"
-                        mnemonicParsing="false" onAction="#handleDeleteAction" text="Delete">
-                    <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </VBox.margin>
-                </Button>
-                <Button fx:id="editButton" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308"
-                        mnemonicParsing="false" onAction="#handleEditAction" text="Edit">
-                    <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </VBox.margin>
-                </Button>
-                <Button fx:id="addButton" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308"
-                        mnemonicParsing="false" onAction="#handleAddAction" text="Add">
-                    <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </VBox.margin>
-                </Button>
-                <Button fx:id="exitButton" alignment="TOP_CENTER" onAction="#handleExitAction" contentDisplay="TOP"
-                        maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Exit" textAlignment="CENTER">
-                    <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="30.0"/>
-                    </VBox.margin>
-                </Button>
-            </children>
+            <Button fx:id="deleteButton" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308"
+                    mnemonicParsing="false" onAction="#handleDeleteAction" text="Delete">
+                <VBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </VBox.margin>
+            </Button>
+            <Button fx:id="editButton" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308"
+                    mnemonicParsing="false" onAction="#handleEditAction" text="Edit">
+                <VBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </VBox.margin>
+            </Button>
+            <Button fx:id="addButton" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308"
+                    mnemonicParsing="false" onAction="#handleAddAction" text="Add">
+                <VBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </VBox.margin>
+            </Button>
+            <Button fx:id="exitButton" alignment="TOP_CENTER" onAction="#handleExitAction" contentDisplay="TOP"
+                    maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Exit" textAlignment="CENTER">
+                <VBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="30.0"/>
+                </VBox.margin>
+            </Button>
         </VBox>
     </right>
     <bottom>
@@ -58,8 +56,6 @@
             </center>
             <top>
                 <HBox maxHeight="-Infinity" prefHeight="39.0" prefWidth="800.0" BorderPane.alignment="TOP_LEFT">
-                    <children>
-                    </children>
                 </HBox>
             </top>
         </BorderPane>

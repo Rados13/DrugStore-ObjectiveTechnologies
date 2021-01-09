@@ -37,27 +37,27 @@
             </rowConstraints>
             <Label text="Login">
                 <GridPane.margin>
-                    <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </Label>
             <Label text="Password" GridPane.rowIndex="1">
                 <GridPane.margin>
-                    <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </Label>
             <Label text="Or register as a client:" GridPane.rowIndex="3">
                 <GridPane.margin>
-                    <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </Label>
             <TextField fx:id="login" promptText="Username" GridPane.columnIndex="1">
                 <GridPane.margin>
-                    <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </TextField>
             <PasswordField fx:id="password" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <GridPane.margin>
-                    <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </PasswordField>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="23.0" prefWidth="290.0" spacing="5.0" GridPane.columnIndex="1"

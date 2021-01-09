@@ -26,37 +26,37 @@
             <children>
                 <Label text="Name">
                     <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </Label>
                 <Label text="Form" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </Label>
                 <Label text="Prescription required" GridPane.rowIndex="2">
                     <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </Label>
                 <Label text="Price - lower bound" GridPane.rowIndex="3">
                     <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </Label>
                 <Label text="Price - upper bound" GridPane.rowIndex="4">
                     <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </Label>
                 <Label text="Quantity - lower bound" GridPane.rowIndex="5">
                     <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </Label>
                 <Label text="Quantity - upper bound" GridPane.rowIndex="6">
                     <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </Label>
 
@@ -64,42 +64,37 @@
 
                 <TextField fx:id="nameTextField" GridPane.columnIndex="1">
                     <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </TextField>
                 <ComboBox fx:id="formComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </ComboBox>
-<!--                <CheckBox fx:id="prescriptionRequiredCheckBox" GridPane.columnIndex="1" GridPane.rowIndex="2">-->
-<!--                    <GridPane.margin>-->
-<!--                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>-->
-<!--                    </GridPane.margin>-->
-<!--                </CheckBox>-->
                 <ComboBox fx:id="prescriptionRequiredComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </ComboBox>
                 <TextField fx:id="priceLowerBoundTextField" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </TextField>
                 <TextField fx:id="priceUpperBoundTextField" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </TextField>
                 <TextField fx:id="quantityLowerBoundTextField" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </TextField>
                 <TextField fx:id="quantityUpperBoundTextField" GridPane.columnIndex="1" GridPane.rowIndex="6">
                     <GridPane.margin>
-                        <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </GridPane.margin>
                 </TextField>
             </children>
@@ -125,7 +120,7 @@
                 </Button>
             </children>
             <BorderPane.margin>
-                <Insets bottom="0.0" left="5.0" right="5.0" top="5.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </BorderPane.margin>
         </HBox>
     </bottom>
