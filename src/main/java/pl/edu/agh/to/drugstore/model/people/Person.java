@@ -31,6 +31,8 @@ public class Person {
 
     private LocalDate birthdate;
 
+//    @NonNull
+    @Column(unique = true)
     private String email;
 
     @Column(unique = true)
@@ -65,6 +67,7 @@ public class Person {
         this.notificationList = person.getNotificationList();
         this.orders = person.getOrders();
         this.login = person.getLogin();
+        this.email = person.getEmail();
         this.password = person.getPassword();
     }
 
@@ -183,5 +186,9 @@ public class Person {
 
     public ObservableValue<Role> getRoleProperty() {
         return new SimpleObjectProperty<Role>(role);
+    }
+
+    public ObservableValue<String> getEmailProperty() {
+        return  new SimpleObjectProperty<>(email);
     }
 }

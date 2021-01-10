@@ -50,6 +50,9 @@ public class RegisterUserPresenter {
     private TextField loginTextField;
 
     @FXML
+    public TextField emailTextField;
+
+    @FXML
     private PasswordField passwordTextField;
 
     @FXML
@@ -100,6 +103,7 @@ public class RegisterUserPresenter {
         person.setBirthdate(LocalDate.from(birthDatePicker.getValue()));
         person.setPESEL(PESELTextField.getText());
         person.setRole(Role.CLIENT);
+        person.setEmail(emailTextField.getText());
 
         this.address.setCity(cityTextField.getText());
         this.address.setStreet(streetTextField.getText());
@@ -109,8 +113,6 @@ public class RegisterUserPresenter {
 
         this.person.setLogin(loginTextField.getText());
         this.person.setPassword(passwordTextField.getText());
-
-        //zastąpić dialogiem
     }
 
     private void updateControls() {
@@ -127,6 +129,7 @@ public class RegisterUserPresenter {
             apartmentIdTextField.setText(person.getAddress().getApartmentId());
         }
         loginTextField.setText(person.getLogin());
+        emailTextField.setText(person.getEmail());
     }
 
     boolean checkPasswords(String pass1, String pass2) {

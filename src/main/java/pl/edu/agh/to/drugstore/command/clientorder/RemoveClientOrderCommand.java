@@ -18,6 +18,7 @@ public class RemoveClientOrderCommand extends RemoveCommand<ClientOrder> {
         for (ClientOrder clientOrder : getObjectsToRemove()){
             clientOrder.setOrderStatus(OrderStatus.CANCELED);
             getObjectDAO().update(clientOrder);
+            EmailSend.sendEmail(clientOrder);
         }
     }
 }

@@ -83,7 +83,7 @@ public class MyOrdersOverviewController extends OverviewController<ClientOrder> 
         ListIterator<ClientOrder> iterator = clientOrdersToRemove.listIterator();
         while (iterator.hasNext()) {
             ClientOrder order = iterator.next();
-            if (!order.getOrderStatus().getValue().equals(OrderStatus.PLACED)) {
+            if (!order.getOrderStatus().getValue().equals(OrderStatus.CREATED)) {
                 Alerts.showErrorAlert("We are sorry", "You tried to cancel order with status " + order.getOrderStatus().getValue(), "You can't cancel this order");
                 iterator.remove();
             }
@@ -113,8 +113,8 @@ public class MyOrdersOverviewController extends OverviewController<ClientOrder> 
     protected void handleEditAction(ActionEvent event) throws InterruptedException {
         ClientOrder clientOrderToEdit = tableView.getSelectionModel()
                 .getSelectedItem();
-        ClientOrder editedClientOrder = clientOrderToEdit;
-        if (clientOrderToEdit.getOrderStatus().getValue() != OrderStatus.PAID && clientOrderToEdit.getOrderStatus().getValue() != OrderStatus.PLACED) {
+        ClientOrder editedClientOrder = new ClientOrder(clientOrderToEdit);
+        if (clientOrderToEdit.getOrderStatus().getValue() != OrderStatus.PAID && clientOrderToEdit.getOrderStatus().getValue() != OrderStatus.CREATED) {
             Alerts.showErrorAlert("We are sorry", "You can't edit order if status is different than placed or paid", "Please contact us");
             return;
         }

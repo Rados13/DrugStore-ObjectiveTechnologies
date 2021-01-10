@@ -104,7 +104,7 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
     protected void handleEditAction(ActionEvent event) throws InterruptedException {
         ClientOrder clientOrderToEdit = tableView.getSelectionModel()
                 .getSelectedItem();
-        ClientOrder editedClientOrder = clientOrderToEdit;
+        ClientOrder editedClientOrder = new ClientOrder(clientOrderToEdit);
         if (clientOrderToEdit != null) {
             appController.showClientOrderEditDialog(editedClientOrder);
             EditClientOrderCommand editPersonCommand = new EditClientOrderCommand(clientOrderToEdit, editedClientOrder, clientOrderDAO);

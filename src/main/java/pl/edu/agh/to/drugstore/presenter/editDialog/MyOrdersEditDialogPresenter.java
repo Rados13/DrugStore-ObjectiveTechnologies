@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import lombok.Getter;
 import lombok.Setter;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
+import pl.edu.agh.to.drugstore.model.business.OrderStatus;
 import pl.edu.agh.to.drugstore.model.business.Tuple;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
@@ -21,7 +22,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
-
+import java.util.Date;
 /**
  * Klasa odpowiadająca z wyświetlenie okna edycji wybranego zamówienia klienta w interfejsie graficznym
  */
@@ -131,10 +132,11 @@ public class MyOrdersEditDialogPresenter extends EditDialogPresenter {
     }
 
     protected void updateModel() {
-//        clientOrder.setShippingDate(java.sql.Date.valueOf(shippingDatePicker.getValue()));
-//        clientOrder.setSubmissionDate(java.sql.Date.valueOf(submissionDatePicker.getValue()));
+        clientOrder.setShippingDate(java.sql.Date.valueOf(LocalDate.now()));
+        clientOrder.setSubmissionDate(java.sql.Date.valueOf(LocalDate.now()));
         clientOrder.setPerson(currentPerson);
         clientOrder.updateMedications(allOrderElems);
+        clientOrder.setOrderStatus(OrderStatus.CREATED);
     }
 
     private LocalDate changeDateToLocalDate(Date date) {

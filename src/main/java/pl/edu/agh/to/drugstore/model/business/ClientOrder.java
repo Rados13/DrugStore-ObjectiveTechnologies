@@ -16,6 +16,17 @@ public class ClientOrder extends Order {
     @NonNull
     private Person person;
 
+    public ClientOrder(ClientOrder clientOrder) {
+        this.person = clientOrder.person;
+        this.id = clientOrder.id;
+        this.medications = clientOrder.medications;
+        this.shippingDate = clientOrder.shippingDate;
+        this.submissionDate = clientOrder.submissionDate;
+        this.orderStatus = clientOrder.orderStatus;
+    }
+
+    public ClientOrder() { }
+
     public Person getPerson() {
         return person;
     }

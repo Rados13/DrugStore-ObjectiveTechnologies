@@ -62,6 +62,9 @@ public class PersonOverviewController extends OverviewController<Person> {
     @FXML
     private TableColumn<Person, String> lastNameColumn;
 
+    @FXML
+    private TableColumn<Person, String> emailColumn;
+
     /**
      * Inicjalizuje główne okno aplikacji, w którym wyświetlane są osoby zapisane w bazie danych.
      */
@@ -79,6 +82,8 @@ public class PersonOverviewController extends OverviewController<Person> {
                 .getBirthdateProperty());
         PESELColumn.setCellValueFactory(dataValue -> dataValue.getValue()
                 .getPESELProperty());
+        emailColumn.setCellValueFactory(dataValue -> dataValue.getValue()
+                .getEmailProperty());
         roleColumn.setCellValueFactory(dataValue -> dataValue.getValue()
                 .getRoleProperty());
         cityColumn.setCellValueFactory(dataValue -> dataValue.getValue()
