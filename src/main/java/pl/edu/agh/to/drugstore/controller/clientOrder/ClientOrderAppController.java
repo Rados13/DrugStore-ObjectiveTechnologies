@@ -16,6 +16,7 @@ import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.presenter.ClientOrderEditDialogPresenter;
+import pl.edu.agh.to.drugstore.presenter.StatsPresenter;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
@@ -57,6 +58,35 @@ public class ClientOrderAppController {
         Scene scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public boolean showOrdersStatsDialog(){
+        try {
+            // Load the fxml file and create a new stage for the dialog
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(PersonAppController.class
+                    .getResource("/view/OrdersStatsDialog.fxml"));
+            BorderPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Orders Stats dialog");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            StatsPresenter presenter = loader.getController();
+            presenter.setDialogStage(dialogStage);
+            presenter.setClientOrderDAO(clientOrderDAO);
+            presenter.setData();
+
+            dialogStage.showAndWait();
+            return presenter.isApproved();
+
+        } catch (IOException e) {
+            logger.error("An error appeared when loading page.", e);
+            return false;
+        }
     }
 
     public boolean showClientOrderEditDialog(ClientOrder clientOrder) {
