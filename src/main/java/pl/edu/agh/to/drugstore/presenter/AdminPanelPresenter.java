@@ -23,10 +23,10 @@ import java.util.Optional;
 public class AdminPanelPresenter {
 
     private final static Logger logger = LoggerFactory.getLogger(AdminPanelPresenter.class);
+    private final boolean approved = false;
     private Stage dialogStage;
     private Stage appStage;
     private EntityManager em;
-    private final boolean approved = false;
     private AppController appController;
 
     @FXML

@@ -24,7 +24,7 @@ public abstract class EditDialogPresenter {
     }
 
     @FXML
-    public void handleOkAction(ActionEvent event){
+    public void handleOkAction(ActionEvent event) {
         updateModel();
         approved = true;
         dialogStage.close();

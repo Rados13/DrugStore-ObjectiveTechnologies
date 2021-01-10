@@ -1,6 +1,5 @@
 package pl.edu.agh.to.drugstore.command.person;
 
-import pl.edu.agh.to.drugstore.command.Command;
 import pl.edu.agh.to.drugstore.command.RemoveCommand;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Person;
@@ -11,7 +10,7 @@ public class RemovePeopleCommand extends RemoveCommand<Person> {
 
 
     public RemovePeopleCommand(List<Person> peopleToRemove, PersonDAO personDAO) {
-        super(peopleToRemove,personDAO);
+        super(peopleToRemove, personDAO);
     }
 
     @Override

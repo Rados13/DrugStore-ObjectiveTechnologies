@@ -15,8 +15,8 @@ import pl.edu.agh.to.drugstore.model.business.ClientOrder;
 import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
-import pl.edu.agh.to.drugstore.presenter.editDialog.ClientOrderEditDialogPresenter;
 import pl.edu.agh.to.drugstore.presenter.StatsPresenter;
+import pl.edu.agh.to.drugstore.presenter.editDialog.ClientOrderEditDialogPresenter;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
@@ -60,7 +60,7 @@ public class ClientOrderAppController {
         primaryStage.show();
     }
 
-    public boolean showOrdersStatsDialog(){
+    public boolean showOrdersStatsDialog() {
         try {
             // Load the fxml file and create a new stage for the dialog
             FXMLLoader loader = new FXMLLoader();

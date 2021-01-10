@@ -81,10 +81,10 @@ public abstract class Order {
     public ObservableValue<Integer> getMedicationsNumProperty() {
         return new SimpleObjectProperty<Integer>(medications.size());
     }
+
     public ObservableValue<OrderStatus> getOrderStatus() {
         return new SimpleObjectProperty<>(orderStatus);
     }
-
 
     public void updateMedications(List<Tuple> newList) {
         var toDelete = medications.stream().filter(elem -> !newList.contains(elem)).collect(Collectors.toList());

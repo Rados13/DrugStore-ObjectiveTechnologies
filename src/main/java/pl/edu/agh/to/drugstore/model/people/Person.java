@@ -31,7 +31,7 @@ public class Person {
 
     private LocalDate birthdate;
 
-//    @NonNull
+    //    @NonNull
     @Column(unique = true)
     private String email;
 
@@ -189,6 +189,6 @@ public class Person {
     }
 
     public ObservableValue<String> getEmailProperty() {
-        return  new SimpleObjectProperty<>(email);
+        return new SimpleObjectProperty<>(email);
     }
 }

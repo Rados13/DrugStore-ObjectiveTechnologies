@@ -13,36 +13,28 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 // TODO
+
 /**
  * Klasa odpowiadajaca za wyswietlanie okna opcji filtrowania lekow
  */
 public class MedicationsFilterDialogPresenter {
 
+    private final Object[] filterOptions = new Object[7];
     @FXML
     private TextField nameTextField;
-
     @FXML
     private ComboBox<MedicationForm> formComboBox;
-
     @FXML
     private ComboBox<Boolean> prescriptionRequiredComboBox;
-
     @FXML
     private TextField priceLowerBoundTextField;
-
     @FXML
     private TextField priceUpperBoundTextField;
-
     @FXML
     private TextField quantityLowerBoundTextField;
-
     @FXML
     private TextField quantityUpperBoundTextField;
-
     private Stage dialogStage;
-
-    private final Object[] filterOptions = new Object[7];
-
     private MedicationOverviewController overviewController;
 
     @FXML

@@ -19,6 +19,7 @@ public class AddClientOrderCommand extends AddCommand<ClientOrder> {
     public void undo() {
         getObjectDAO().delete(getObjectToAdd().getId());
     }
+
     @Override
     public void execute() {
         this.getObjectDAO().add(getObjectToAdd());

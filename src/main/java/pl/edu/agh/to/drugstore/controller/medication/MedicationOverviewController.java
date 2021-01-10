@@ -3,7 +3,9 @@ package pl.edu.agh.to.drugstore.controller.medication;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
 import pl.edu.agh.to.drugstore.command.Command;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.command.medicationCommands.AddMedicationCommand;
@@ -104,7 +106,7 @@ public class MedicationOverviewController extends OverviewController<Medication>
         Medication editedMedication = medicationToEdit;
         if (medicationToEdit != null) {
             medicationAppController.showMedicationEditDialog(editedMedication);
-            EditMedicationCommand editPersonCommand = new EditMedicationCommand(medicationToEdit,editedMedication, medicationDAO);
+            EditMedicationCommand editPersonCommand = new EditMedicationCommand(medicationToEdit, editedMedication, medicationDAO);
             commandRegistry.executeCommand(editPersonCommand);
         }
         refreshDisplayedItems();

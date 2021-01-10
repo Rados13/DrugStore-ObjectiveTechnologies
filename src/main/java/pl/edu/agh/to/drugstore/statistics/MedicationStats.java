@@ -12,18 +12,24 @@ public class MedicationStats implements StatsElem {
     private final Medication medication;
     private final Optional<String> additionalStat;
 
-    public MedicationStats(String name, Medication medication, Optional<String> additional){
+    public MedicationStats(String name, Medication medication, Optional<String> additional) {
         this.statName = name;
         this.medication = medication;
         this.additionalStat = additional;
     }
 
     @Override
-    public StringProperty getStatName() { return new SimpleStringProperty(statName); }
+    public StringProperty getStatName() {
+        return new SimpleStringProperty(statName);
+    }
 
     @Override
-    public StringProperty getStatValue() { return new SimpleStringProperty(medication.toString()); }
+    public StringProperty getStatValue() {
+        return new SimpleStringProperty(medication.toString());
+    }
 
     @Override
-    public StringProperty getAdditionalValue() { return new SimpleStringProperty(additionalStat.orElseGet(() -> ""));}
+    public StringProperty getAdditionalValue() {
+        return new SimpleStringProperty(additionalStat.orElseGet(() -> ""));
+    }
 }

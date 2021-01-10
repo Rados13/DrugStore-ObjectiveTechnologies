@@ -16,43 +16,30 @@ import java.time.LocalDate;
  */
 public class PersonEditDialogPresenter extends EditDialogPresenter {
 
-    private Person person;
-
-    private Address address;
-
-    @FXML
-    private TextField firstNameTextField;
-
-    @FXML
-    private TextField lastNameTextField;
-
-    @FXML
-    private DatePicker birthDatePicker;
-
-    @FXML
-    private TextField PESELTextField;
-
-    @FXML
-    private ComboBox<Role> roleComboBox;
-
-    @FXML
-    private TextField cityTextField;
-
-    @FXML
-    private TextField streetTextField;
-
-    @FXML
-    private TextField houseIdTextField;
-
-    @FXML
-    private TextField apartmentIdTextField;
-
-    @FXML
-    private TextField loginTextField;
-
     @FXML
     public TextField emailTextField;
-
+    private Person person;
+    private Address address;
+    @FXML
+    private TextField firstNameTextField;
+    @FXML
+    private TextField lastNameTextField;
+    @FXML
+    private DatePicker birthDatePicker;
+    @FXML
+    private TextField PESELTextField;
+    @FXML
+    private ComboBox<Role> roleComboBox;
+    @FXML
+    private TextField cityTextField;
+    @FXML
+    private TextField streetTextField;
+    @FXML
+    private TextField houseIdTextField;
+    @FXML
+    private TextField apartmentIdTextField;
+    @FXML
+    private TextField loginTextField;
     @FXML
     private TextField passwordTextField;
 

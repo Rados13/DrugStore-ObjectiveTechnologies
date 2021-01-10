@@ -6,7 +6,7 @@ import javafx.beans.property.StringProperty;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-public class NumericalStat implements StatsElem{
+public class NumericalStat implements StatsElem {
 
     private final String statName;
     private final BigDecimal statValue;
@@ -30,5 +30,7 @@ public class NumericalStat implements StatsElem{
     }
 
     @Override
-    public StringProperty getAdditionalValue() { return new SimpleStringProperty(additionalStat.orElseGet(() -> ""));}
+    public StringProperty getAdditionalValue() {
+        return new SimpleStringProperty(additionalStat.orElseGet(() -> ""));
+    }
 }

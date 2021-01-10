@@ -27,32 +27,23 @@ import java.util.List;
 @Setter
 public class ClientOrderOverviewController extends OverviewController<ClientOrder> {
 
-    private ClientOrderDAO clientOrderDAO;
-
-    private MedicationDAO medicationDAO;
-
-    private ClientOrderAppController appController;
-
-    @FXML
-    private TableColumn<ClientOrder, Date> submissionDateColumn;
-
-    @FXML
-    private TableColumn<ClientOrder, Date> shippingDateColumn;
-
-    @FXML
-    private TableColumn<ClientOrder, Integer> amountOfMedicinesOrderedColumn;
-
-    @FXML
-    private TableColumn<ClientOrder, String> clientLastNameColumn;
-
-    @FXML
-    private TableColumn<ClientOrder, BigDecimal> summedPriceColumn;
-
-    @FXML
-    private TableColumn<ClientOrder, OrderStatus> orderStatusTableColumn;
-
     @FXML
     protected Button showStatsButton;
+    private ClientOrderDAO clientOrderDAO;
+    private MedicationDAO medicationDAO;
+    private ClientOrderAppController appController;
+    @FXML
+    private TableColumn<ClientOrder, Date> submissionDateColumn;
+    @FXML
+    private TableColumn<ClientOrder, Date> shippingDateColumn;
+    @FXML
+    private TableColumn<ClientOrder, Integer> amountOfMedicinesOrderedColumn;
+    @FXML
+    private TableColumn<ClientOrder, String> clientLastNameColumn;
+    @FXML
+    private TableColumn<ClientOrder, BigDecimal> summedPriceColumn;
+    @FXML
+    private TableColumn<ClientOrder, OrderStatus> orderStatusTableColumn;
 
     /**
      * Inicjalizuje główne okno aplikacji, w którym wyświetlane są zamówienia klienta zapisane w bazie danych.
@@ -76,7 +67,7 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
         orderStatusTableColumn.setCellValueFactory(dataValue -> dataValue.getValue().getOrderStatus());
     }
 
-    private void handleShowStatsAction(ActionEvent event){
+    private void handleShowStatsAction(ActionEvent event) {
         appController.showOrdersStatsDialog();
     }
 

@@ -20,11 +20,17 @@ public class ClientStats implements StatsElem {
 
 
     @Override
-    public StringProperty getStatName() { return new SimpleStringProperty(statName); }
+    public StringProperty getStatName() {
+        return new SimpleStringProperty(statName);
+    }
 
     @Override
-    public StringProperty getStatValue() { return new SimpleStringProperty(person.getFirstname() + " "+ person.getLastname());  }
+    public StringProperty getStatValue() {
+        return new SimpleStringProperty(person.getFirstname() + " " + person.getLastname());
+    }
 
     @Override
-    public StringProperty getAdditionalValue() { return new SimpleStringProperty(additionalStat.orElseGet(() -> "")); }
+    public StringProperty getAdditionalValue() {
+        return new SimpleStringProperty(additionalStat.orElseGet(() -> ""));
+    }
 }

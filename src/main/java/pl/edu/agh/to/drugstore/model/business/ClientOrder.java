@@ -25,7 +25,8 @@ public class ClientOrder extends Order {
         this.orderStatus = clientOrder.orderStatus;
     }
 
-    public ClientOrder() { }
+    public ClientOrder() {
+    }
 
     public Person getPerson() {
         return person;

@@ -1,7 +1,6 @@
 package pl.edu.agh.to.drugstore.model.dao;
 
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
-import pl.edu.agh.to.drugstore.model.medications.Medication;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

@@ -24,27 +24,27 @@
                 <RowConstraints minHeight="10.0"/>
                 <RowConstraints minHeight="10.0"/>
             </rowConstraints>
-<!--            <Label text="Shipping date" GridPane.rowIndex="1">-->
-<!--                <GridPane.margin>-->
-<!--                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>-->
-<!--                </GridPane.margin>-->
-<!--            </Label>-->
-<!--            <DatePicker fx:id="shippingDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="1">-->
-<!--                <GridPane.margin>-->
-<!--                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>-->
-<!--                </GridPane.margin>-->
-<!--            </DatePicker>-->
+            <!--            <Label text="Shipping date" GridPane.rowIndex="1">-->
+            <!--                <GridPane.margin>-->
+            <!--                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>-->
+            <!--                </GridPane.margin>-->
+            <!--            </Label>-->
+            <!--            <DatePicker fx:id="shippingDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="1">-->
+            <!--                <GridPane.margin>-->
+            <!--                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>-->
+            <!--                </GridPane.margin>-->
+            <!--            </DatePicker>-->
 
-<!--            <Label text="Submission date" GridPane.rowIndex="2">-->
-<!--                <GridPane.margin>-->
-<!--                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>-->
-<!--                </GridPane.margin>-->
-<!--            </Label>-->
-<!--            <DatePicker fx:id="submissionDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="2">-->
-<!--                <GridPane.margin>-->
-<!--                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>-->
-<!--                </GridPane.margin>-->
-<!--            </DatePicker>-->
+            <!--            <Label text="Submission date" GridPane.rowIndex="2">-->
+            <!--                <GridPane.margin>-->
+            <!--                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>-->
+            <!--                </GridPane.margin>-->
+            <!--            </Label>-->
+            <!--            <DatePicker fx:id="submissionDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="2">-->
+            <!--                <GridPane.margin>-->
+            <!--                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>-->
+            <!--                </GridPane.margin>-->
+            <!--            </DatePicker>-->
 
             <TableView fx:id="orderElemsTableView" GridPane.columnIndex="0" GridPane.columnSpan="2"
                        GridPane.rowIndex="3" GridPane.rowSpan="5">

@@ -1,6 +1,5 @@
 package pl.edu.agh.to.drugstore.statistics;
 
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
@@ -29,7 +28,7 @@ public class CalculateStats {
         return FXCollections.observableArrayList(clientOrderDAO.findAll());
     }
 
-    public List<StatsElem> getAllStats(){
+    public List<StatsElem> getAllStats() {
 
         List<StatsElem> result = new ArrayList<>();
         ObservableList<ClientOrder> orders = getListOfOrders();
@@ -43,47 +42,46 @@ public class CalculateStats {
     }
 
 
-
     public StatsElem getAveragePriceOfOrder(ObservableList<ClientOrder> orders) {
         int amountOfOrders = orders.size();
         BigDecimal summed = orders
                 .stream()
                 .map(elem -> elem.getSumPriceProperty().getValue())
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        var result = summed.divide(new BigDecimal(amountOfOrders),2, RoundingMode.CEILING);
-        return new NumericalStat("Average price of order", result,Optional.empty());
+        var result = summed.divide(new BigDecimal(amountOfOrders), 2, RoundingMode.CEILING);
+        return new NumericalStat("Average price of order", result, Optional.empty());
     }
 
-    public StatsElem getAverageAmountOfOrdersByClient(ObservableList<ClientOrder> orders){
+    public StatsElem getAverageAmountOfOrdersByClient(ObservableList<ClientOrder> orders) {
         BigDecimal clients = new BigDecimal(orders.stream()
                 .map(ClientOrder::getPerson)
                 .distinct()
                 .count());
-        var result = BigDecimal.valueOf(orders.size()).divide(clients,2, RoundingMode.CEILING);
-        return new NumericalStat("Average amount of order per client",result,Optional.empty());
+        var result = BigDecimal.valueOf(orders.size()).divide(clients, 2, RoundingMode.CEILING);
+        return new NumericalStat("Average amount of order per client", result, Optional.empty());
     }
 
-    public StatsElem getClientWithMostOrders(ObservableList<ClientOrder> orders){
+    public StatsElem getClientWithMostOrders(ObservableList<ClientOrder> orders) {
         List<Person> persons = orders.stream()
                 .map(ClientOrder::getPerson)
                 .distinct()
                 .collect(Collectors.toList());
-        var result =  persons.stream().map(person -> new Pair<Person,Long>(person,
+        var result = persons.stream().map(person -> new Pair<Person, Long>(person,
                 orders.stream().filter(elem -> elem.getPerson().equals(person)).count()))
-                .reduce(new Pair<Person,Long>(null,0l),
-                        (first,second) -> first.getValue() > second.getValue()?first:second);
+                .reduce(new Pair<Person, Long>(null, 0l),
+                        (first, second) -> first.getValue() > second.getValue() ? first : second);
 
-        return new ClientStats("Client with most orders", result.getKey(),Optional.of(result.getValue().toString()));
+        return new ClientStats("Client with most orders", result.getKey(), Optional.of(result.getValue().toString()));
     }
 
-    private Integer getAmountOfMedicationFromTuples(Medication med,List<Tuple> tuples){
+    private Integer getAmountOfMedicationFromTuples(Medication med, List<Tuple> tuples) {
         return tuples.stream()
                 .filter(elem -> elem.getMedication().equals(med))
                 .mapToInt(Tuple::getQuantity)
                 .sum();
     }
 
-    public StatsElem getMostCommonBoughtMedicine(ObservableList<ClientOrder> orders){
+    public StatsElem getMostCommonBoughtMedicine(ObservableList<ClientOrder> orders) {
         List<Tuple> allTuples = orders.stream()
                 .flatMap(elem -> elem.getMedications().stream())
                 .collect(Collectors.toList());
@@ -93,24 +91,22 @@ public class CalculateStats {
                 .collect(Collectors.toList());
 
         var result = allMedications.stream()
-                .map(med -> new Pair<Medication,Integer>(med,getAmountOfMedicationFromTuples(med,allTuples)))
-                .reduce(new Pair<Medication,Integer>(null,0),(first,second) -> first.getValue() > second.getValue()?first:second);
+                .map(med -> new Pair<Medication, Integer>(med, getAmountOfMedicationFromTuples(med, allTuples)))
+                .reduce(new Pair<Medication, Integer>(null, 0), (first, second) -> first.getValue() > second.getValue() ? first : second);
 
-        return new MedicationStats("Most common bought medicine",result.getKey(), Optional.of(result.getValue().toString()));
+        return new MedicationStats("Most common bought medicine", result.getKey(), Optional.of(result.getValue().toString()));
 
     }
 
-    public StatsElem getAverageAmountOfMedicinesPerOrder(ObservableList<ClientOrder> orders){
+    public StatsElem getAverageAmountOfMedicinesPerOrder(ObservableList<ClientOrder> orders) {
         long medicinesNum = orders.stream()
                 .map(elem -> elem.getMedications().size())
                 .reduce(0, Integer::sum)
                 .longValue();
-        var result = BigDecimal.valueOf(medicinesNum).divide(new BigDecimal(orders.size()),2, RoundingMode.CEILING);
-        return new NumericalStat("Average Amount of medicines per order", result,Optional.empty());
+        var result = BigDecimal.valueOf(medicinesNum).divide(new BigDecimal(orders.size()), 2, RoundingMode.CEILING);
+        return new NumericalStat("Average Amount of medicines per order", result, Optional.empty());
 
     }
-
-
 
 
 }

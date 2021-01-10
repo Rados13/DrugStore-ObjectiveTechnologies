@@ -1,6 +1,5 @@
 package pl.edu.agh.to.drugstore.command.supplier;
 
-import pl.edu.agh.to.drugstore.command.Command;
 import pl.edu.agh.to.drugstore.command.RemoveCommand;
 import pl.edu.agh.to.drugstore.model.business.Supplier;
 import pl.edu.agh.to.drugstore.model.dao.SupplierDAO;
@@ -11,7 +10,7 @@ public class RemoveSupplierCommand extends RemoveCommand<Supplier> {
 
 
     public RemoveSupplierCommand(List<Supplier> suppliersToRemove, SupplierDAO supplierDAO) {
-        super(suppliersToRemove,supplierDAO);
+        super(suppliersToRemove, supplierDAO);
     }
 
     @Override

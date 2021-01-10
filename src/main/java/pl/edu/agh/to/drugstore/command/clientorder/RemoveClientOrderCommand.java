@@ -15,7 +15,7 @@ public class RemoveClientOrderCommand extends RemoveCommand<ClientOrder> {
 
     @Override
     public void execute() {
-        for (ClientOrder clientOrder : getObjectsToRemove()){
+        for (ClientOrder clientOrder : getObjectsToRemove()) {
             clientOrder.setOrderStatus(OrderStatus.CANCELED);
             getObjectDAO().update(clientOrder);
             EmailSend.sendEmail(clientOrder);

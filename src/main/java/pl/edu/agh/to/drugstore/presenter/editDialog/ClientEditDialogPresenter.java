@@ -45,6 +45,9 @@ public class ClientEditDialogPresenter extends EditDialogPresenter {
     private TextField loginTextField;
 
     @FXML
+    public TextField emailTextField;
+
+    @FXML
     private TextField passwordTextField;
 
     @FXML
@@ -70,6 +73,7 @@ public class ClientEditDialogPresenter extends EditDialogPresenter {
         this.person.setAddress(address);
 
         this.person.setLogin(loginTextField.getText());
+        this.person.setEmail(emailTextField.getText());
         this.person.setPassword(passwordTextField.getText());
     }
 
@@ -88,5 +92,6 @@ public class ClientEditDialogPresenter extends EditDialogPresenter {
             apartmentIdTextField.setText(person.getAddress().getApartmentId());
         }
         loginTextField.setText(person.getLogin());
+        emailTextField.setText(person.getEmail());
     }
 }

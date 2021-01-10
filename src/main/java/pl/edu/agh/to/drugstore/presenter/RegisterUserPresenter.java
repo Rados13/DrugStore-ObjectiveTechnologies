@@ -20,38 +20,28 @@ import java.time.LocalDate;
 public class RegisterUserPresenter {
 
     private final static Logger logger = LoggerFactory.getLogger(RegisterUserPresenter.class);
+    @FXML
+    public TextField emailTextField;
     private Person person;
     private Address address;
     @FXML
     private TextField firstNameTextField;
-
     @FXML
     private TextField lastNameTextField;
-
     @FXML
     private DatePicker birthDatePicker;
-
     @FXML
     private TextField PESELTextField;
-
     @FXML
     private TextField cityTextField;
-
     @FXML
     private TextField streetTextField;
-
     @FXML
     private TextField houseIdTextField;
-
     @FXML
     private TextField apartmentIdTextField;
-
     @FXML
     private TextField loginTextField;
-
-    @FXML
-    public TextField emailTextField;
-
     @FXML
     private PasswordField passwordTextField;
 
