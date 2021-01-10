@@ -3,7 +3,9 @@ package pl.edu.agh.to.drugstore.presenter.editDialog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
+import lombok.Getter;
 
+@Getter
 public abstract class EditDialogPresenter {
 
     protected Stage dialogStage;

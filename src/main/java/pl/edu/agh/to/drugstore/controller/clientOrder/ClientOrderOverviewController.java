@@ -3,6 +3,7 @@ package pl.edu.agh.to.drugstore.controller.clientOrder;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import lombok.Setter;
@@ -50,12 +51,17 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
     @FXML
     private TableColumn<ClientOrder, OrderStatus> orderStatusTableColumn;
 
+    @FXML
+    protected Button showStatsButton;
+
     /**
      * Inicjalizuje główne okno aplikacji, w którym wyświetlane są zamówienia klienta zapisane w bazie danych.
      */
     @Override
     protected void initialize() {
         startInitialize();
+        showStatsButton.setOnAction(this::handleShowStatsAction);
+
         tableView.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
 
@@ -68,6 +74,10 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
         amountOfMedicinesOrderedColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMedicationsNumProperty());
         summedPriceColumn.setCellValueFactory(dataValue -> dataValue.getValue().getSumPriceProperty());
         orderStatusTableColumn.setCellValueFactory(dataValue -> dataValue.getValue().getOrderStatus());
+    }
+
+    private void handleShowStatsAction(ActionEvent event){
+        appController.showOrdersStatsDialog();
     }
 
     /**
