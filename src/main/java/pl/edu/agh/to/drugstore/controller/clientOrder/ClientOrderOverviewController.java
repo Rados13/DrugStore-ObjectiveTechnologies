@@ -90,9 +90,6 @@ public class ClientOrderOverviewController extends OverviewController<ClientOrde
         List<ClientOrder> clientOrdersToRemove = List.copyOf(tableView.getSelectionModel().getSelectedItems());
         RemoveClientOrderCommand removePeopleCommand = new RemoveClientOrderCommand(clientOrdersToRemove, clientOrderDAO);
         commandRegistry.executeCommand(removePeopleCommand);
-        for (ClientOrder person : clientOrdersToRemove) {
-            allExisting.remove(person);
-        }
         refresh();
     }
 

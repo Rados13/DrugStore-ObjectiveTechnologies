@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Person;
+import pl.edu.agh.to.drugstore.model.people.Role;
 import pl.edu.agh.to.drugstore.presenter.AdminPanelPresenter;
 import pl.edu.agh.to.drugstore.presenter.ClientPanelPresenter;
 import pl.edu.agh.to.drugstore.presenter.Alerts;
@@ -30,6 +31,7 @@ public class AppController {
     private final CommandRegistry commandRegistry = new CommandRegistry();
 
     private Person loggedPerson;
+    private boolean logout = false;
 
     public AppController(Stage primaryStage, EntityManager em) {
         this.primaryStage = primaryStage;

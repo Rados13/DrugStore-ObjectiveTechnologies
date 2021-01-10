@@ -42,11 +42,11 @@ public class MyOrdersEditDialogPresenter extends EditDialogPresenter {
 
     private FilteredList<Medication> medicationsNames;
 
-    @FXML
-    private DatePicker submissionDatePicker;
-
-    @FXML
-    private DatePicker shippingDatePicker;
+//    @FXML
+//    private DatePicker submissionDatePicker;
+//
+//    @FXML
+//    private DatePicker shippingDatePicker;
 
     @FXML
     private TableView<Tuple> orderElemsTableView;
@@ -131,8 +131,8 @@ public class MyOrdersEditDialogPresenter extends EditDialogPresenter {
     }
 
     protected void updateModel() {
-        clientOrder.setShippingDate(java.sql.Date.valueOf(shippingDatePicker.getValue()));
-        clientOrder.setSubmissionDate(java.sql.Date.valueOf(submissionDatePicker.getValue()));
+//        clientOrder.setShippingDate(java.sql.Date.valueOf(shippingDatePicker.getValue()));
+//        clientOrder.setSubmissionDate(java.sql.Date.valueOf(submissionDatePicker.getValue()));
         clientOrder.setPerson(currentPerson);
         clientOrder.updateMedications(allOrderElems);
     }
@@ -143,13 +143,13 @@ public class MyOrdersEditDialogPresenter extends EditDialogPresenter {
     }
 
     protected void updateControls() {
-        if (clientOrder.getSubmissionDate() != null)
-            submissionDatePicker.setValue(changeDateToLocalDate(clientOrder.getSubmissionDate()));
-        else submissionDatePicker.setValue(LocalDate.now());
-
-        if (clientOrder.getShippingDate() != null)
-            shippingDatePicker.setValue(changeDateToLocalDate(clientOrder.getShippingDate()));
-        else shippingDatePicker.setValue(LocalDate.now());
+//        if (clientOrder.getSubmissionDate() != null)
+//            submissionDatePicker.setValue(changeDateToLocalDate(clientOrder.getSubmissionDate()));
+//        else submissionDatePicker.setValue(LocalDate.now());
+//
+//        if (clientOrder.getShippingDate() != null)
+//            shippingDatePicker.setValue(changeDateToLocalDate(clientOrder.getShippingDate()));
+//        else shippingDatePicker.setValue(LocalDate.now());
 
     }
 

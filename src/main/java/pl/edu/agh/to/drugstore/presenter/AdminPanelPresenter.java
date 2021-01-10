@@ -64,7 +64,6 @@ public class AdminPanelPresenter {
         dialogStage.close();
         PersonAppController personAppController = new PersonAppController(appStage, em, appController);
         personAppController.initRootLayout();
-
     }
 
     @FXML
@@ -72,7 +71,6 @@ public class AdminPanelPresenter {
         dialogStage.close();
         SupplierAppController supplierAppController = new SupplierAppController(appStage, em, appController);
         supplierAppController.initRootLayout();
-
     }
 
     @FXML
@@ -91,7 +89,6 @@ public class AdminPanelPresenter {
         if (result.get() == ButtonType.OK) {
             alert.close();
             dialogStage.close();
-//            appController.initRootLayout();
         } else {
             alert.close();
         }

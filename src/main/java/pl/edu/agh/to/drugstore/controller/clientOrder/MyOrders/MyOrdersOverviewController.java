@@ -11,13 +11,14 @@ import pl.edu.agh.to.drugstore.command.clientorder.EditClientOrderCommand;
 import pl.edu.agh.to.drugstore.command.clientorder.RemoveClientOrderCommand;
 import pl.edu.agh.to.drugstore.controller.OverviewController;
 import pl.edu.agh.to.drugstore.model.business.ClientOrder;
+import pl.edu.agh.to.drugstore.model.business.OrderStatus;
 import pl.edu.agh.to.drugstore.model.dao.ClientOrderDAO;
 import pl.edu.agh.to.drugstore.model.dao.MedicationDAO;
 import pl.edu.agh.to.drugstore.model.people.Person;
+import pl.edu.agh.to.drugstore.presenter.Alerts;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Klasa interfejsu graficznego odpowiedzialna za wyświetlanie wszystkich zamówień klientów dostępnych w bazie danych.
@@ -47,6 +48,9 @@ public class MyOrdersOverviewController extends OverviewController<ClientOrder> 
     @FXML
     private TableColumn<ClientOrder, BigDecimal> summedPriceColumn;
 
+    @FXML
+    private TableColumn<ClientOrder, OrderStatus> orderStatusTableColumn;
+
     /**
      * Inicjalizuje główne okno aplikacji, w którym wyświetlane są zamówienia klienta zapisane w bazie danych.
      */
@@ -64,6 +68,8 @@ public class MyOrdersOverviewController extends OverviewController<ClientOrder> 
         });
         amountOfMedicinesOrderedColumn.setCellValueFactory(dataValue -> dataValue.getValue().getMedicationsNumProperty());
         summedPriceColumn.setCellValueFactory(dataValue -> dataValue.getValue().getSumPriceProperty());
+        orderStatusTableColumn.setCellValueFactory(dataValue -> dataValue.getValue().getOrderStatus());
+
     }
 
     /**
@@ -73,11 +79,25 @@ public class MyOrdersOverviewController extends OverviewController<ClientOrder> 
      */
     @Override
     protected void handleDeleteAction(ActionEvent event) {
-        List<ClientOrder> clientOrdersToRemove = List.copyOf(tableView.getSelectionModel().getSelectedItems());
-        RemoveClientOrderCommand removePeopleCommand = new RemoveClientOrderCommand(clientOrdersToRemove, clientOrderDAO);
-        commandRegistry.executeCommand(removePeopleCommand);
-        for (ClientOrder person : clientOrdersToRemove) {
-            allExisting.remove(person);
+        List<ClientOrder> clientOrdersToRemove = new ArrayList<>(List.copyOf(tableView.getSelectionModel().getSelectedItems()));
+        ListIterator<ClientOrder> iterator = clientOrdersToRemove.listIterator();
+        while (iterator.hasNext()) {
+            ClientOrder order = iterator.next();
+            if (!order.getOrderStatus().getValue().equals(OrderStatus.PLACED)) {
+                Alerts.showErrorAlert("We are sorry", "You tried to cancel order with status " + order.getOrderStatus().getValue(), "You can't cancel this order");
+                iterator.remove();
+            }
+        }
+//            for (ClientOrder order : clientOrdersToRemove) {
+//                if (order.getOrderStatus().getValue() != OrderStatus.PLACED) {
+//                    Alerts.showErrorAlert("We are sorry", "You tried to cancel order with status " + order.getOrderStatus().getValue(), "You can't cancel this order");
+//                    clientOrdersToRemove.remove(order);
+//                }
+//            }
+
+        if (clientOrdersToRemove.size() > 0) {
+            RemoveClientOrderCommand removePeopleCommand = new RemoveClientOrderCommand(clientOrdersToRemove, clientOrderDAO);
+            commandRegistry.executeCommand(removePeopleCommand);
         }
         refresh();
     }
@@ -94,6 +114,11 @@ public class MyOrdersOverviewController extends OverviewController<ClientOrder> 
         ClientOrder clientOrderToEdit = tableView.getSelectionModel()
                 .getSelectedItem();
         ClientOrder editedClientOrder = clientOrderToEdit;
+        if (clientOrderToEdit.getOrderStatus().getValue() != OrderStatus.PAID && clientOrderToEdit.getOrderStatus().getValue() != OrderStatus.PLACED) {
+            Alerts.showErrorAlert("We are sorry", "You can't edit order if status is different than placed or paid", "Please contact us");
+            return;
+        }
+
         if (clientOrderToEdit != null) {
             appController.showClientOrderEditDialog(editedClientOrder);
             EditClientOrderCommand editPersonCommand = new EditClientOrderCommand(clientOrderToEdit, editedClientOrder, clientOrderDAO);

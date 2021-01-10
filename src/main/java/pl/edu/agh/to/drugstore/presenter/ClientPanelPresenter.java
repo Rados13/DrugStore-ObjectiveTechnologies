@@ -54,7 +54,7 @@ public class ClientPanelPresenter {
     @FXML
     private void handleClientOrderAction(ActionEvent event) throws IOException {
         dialogStage.close();
-        MyOrdersAppController myOrdersAppController = new MyOrdersAppController(appStage, em, appController,person);
+        MyOrdersAppController myOrdersAppController = new MyOrdersAppController(appStage, em, appController, person);
         myOrdersAppController.initRootLayout();
     }
 
@@ -83,7 +83,6 @@ public class ClientPanelPresenter {
         if (result.get() == ButtonType.OK) {
             alert.close();
             dialogStage.close();
-//            appController.initRootLayout();
         } else {
             alert.close();
         }
