@@ -35,7 +35,11 @@ public class EmailSend {
                     InternetAddress.parse(editedObject.getPerson().getEmail())
             );
             StringBuilder messageBuilder = new StringBuilder();
-            messageBuilder.append("Dear, ").append(editedObject.getPerson().getFirstname()).append(" ").append(editedObject.getPerson().getLastname()).append("\n\n");
+            messageBuilder.append("Dear ")
+                    .append(editedObject.getPerson().getFirstname())
+                    .append(" ")
+                    .append(editedObject.getPerson().getLastname())
+                    .append(",\n\n");
 
             switch (editedObject.getOrderStatus().getValue()) {
                 case CREATED:
