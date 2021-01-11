@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.agh.to.drugstore.command.CommandRegistry;
+import pl.edu.agh.to.drugstore.controller.clientOrder.ClientOrderAppController;
 import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Person;
 import pl.edu.agh.to.drugstore.presenter.AdminPanelPresenter;
@@ -49,9 +50,7 @@ public class AppController {
                 showAdminPanel();
                 break;
             case SELLER:
-                Alerts.showInformationDialog("Not Avaiable", "We are sorry :(", "This place is not implemented yet");
-                primaryStage.close();
-                initRootLayout();
+                showSellerPanel();
                 break;
             case CLIENT:
                 showClientPanel();
@@ -115,6 +114,36 @@ public class AppController {
             logger.error("An error appeared when loading page.", e);
         }
     }
+
+    public void showSellerPanel() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(AppController.class
+                    .getResource("/view/AdminPanelPane.fxml"));
+            BorderPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("AdminPanel");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            AdminPanelPresenter presenter = loader.getController();
+            presenter.setDialogStage(dialogStage);
+            presenter.setAppStage(primaryStage);
+            presenter.setEntityManager(em);
+            presenter.setAppController(this);
+            dialogStage.close();
+            ClientOrderAppController clientOrderAppController = new ClientOrderAppController(primaryStage, em, this);
+            clientOrderAppController.initRootLayout();
+//            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            logger.error("An error appeared when loading page.", e);
+        }
+    }
+
 
     public void showClientPanel() {
         try {
