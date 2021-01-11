@@ -181,5 +181,9 @@ public class ClientOrderEditDialogPresenter extends EditDialogPresenter {
         if (clientOrder.getPerson() != null)
             clientComboBox.setValue(clientOrder.getPerson());
         else clientComboBox.setValue(new Person());
+
+        if (clientOrder.getOrderStatus().getValue() != null)
+            orderStatusComboBox.setValue(clientOrder.getOrderStatus().getValue());
+        else orderStatusComboBox.setValue(OrderStatus.CREATED);
     }
 }
