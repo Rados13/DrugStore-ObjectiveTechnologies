@@ -11,9 +11,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.edu.agh.to.drugstore.command.CommandRegistry;
+import pl.edu.agh.to.drugstore.command.person.EditPersonCommand;
 import pl.edu.agh.to.drugstore.controller.AppController;
 import pl.edu.agh.to.drugstore.controller.clientOrder.MyOrders.MyOrdersAppController;
+import pl.edu.agh.to.drugstore.controller.person.ClientAppController;
 import pl.edu.agh.to.drugstore.controller.person.PersonAppController;
+import pl.edu.agh.to.drugstore.model.dao.PersonDAO;
 import pl.edu.agh.to.drugstore.model.people.Address;
 import pl.edu.agh.to.drugstore.model.people.Person;
 import pl.edu.agh.to.drugstore.presenter.editDialog.ClientEditDialogPresenter;
@@ -34,6 +38,8 @@ public class ClientPanelPresenter {
     private EntityManager em;
     private AppController appController;
     private Person person;
+    private PersonDAO personDAO;
+    private CommandRegistry commandRegistry;
 
     @FXML
     public void initialize() {
@@ -60,11 +66,18 @@ public class ClientPanelPresenter {
 
     @FXML
     private void handlePersonAction(ActionEvent event) throws IOException {
-        dialogStage.close();
-//        ClientEditDialogPresenter clientEditDialogPresenter = new ClientEditDialogPresenter();
-//        clientEditDialogPresenter.initialize();
-        showClientDialog(person);
-        appController.showClientPanel();
+//        dialogStage.close();
+        ClientAppController personAppController = new ClientAppController(appStage, em, appController, person);
+        personAppController.initRootLayout();
+//        Person personToEdit = person;
+//        Person editedPerson = personToEdit;
+//        if (personToEdit != null) {
+//            PersonAppController personAppController = new PersonAppController(appStage, em, appController);
+//            personAppController.showPersonEditDialog(editedPerson);
+//            EditPersonCommand editPersonCommand = new EditPersonCommand(personToEdit, editedPerson, personDAO);
+//            commandRegistry.executeCommand(editPersonCommand);
+//        }
+//        appController.showClientPanel();
     }
 
     @FXML
@@ -98,6 +111,14 @@ public class ClientPanelPresenter {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public void setPersonDAO(PersonDAO personDAO) {
+        this.personDAO = personDAO;
+    }
+
+    public void setCommandRegistry(CommandRegistry commandRegistry) {
+        this.commandRegistry = commandRegistry;
     }
 
     public boolean showClientDialog(Person person) {

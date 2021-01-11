@@ -23,7 +23,6 @@
                 <RowConstraints minHeight="10.0"/>
                 <RowConstraints minHeight="10.0"/>
                 <RowConstraints minHeight="10.0"/>
-                <RowConstraints minHeight="10.0"/>
 
             </rowConstraints>
             <Label text="FirstName">
@@ -46,37 +45,37 @@
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </Label>
-            <Label text="City" GridPane.rowIndex="5">
+            <Label text="City" GridPane.rowIndex="4">
                 <GridPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </Label>
-            <Label text="Street" GridPane.rowIndex="6">
+            <Label text="Street" GridPane.rowIndex="5">
                 <GridPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </Label>
-            <Label text="House number" GridPane.rowIndex="7">
+            <Label text="House number" GridPane.rowIndex="6">
                 <GridPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </Label>
-            <Label text="Apartment number" GridPane.rowIndex="8">
+            <Label text="Apartment number" GridPane.rowIndex="7">
                 <GridPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </Label>
-            <Label text="Login" GridPane.rowIndex="9">
+            <Label text="Login" GridPane.rowIndex="8">
                 <GridPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </Label>
-            <Label text="Email" GridPane.rowIndex="10">
+            <Label text="Email" GridPane.rowIndex="9">
                 <GridPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </Label>
-            <Label text="Password" GridPane.rowIndex="11">
+            <Label text="Password" GridPane.rowIndex="10">
                 <GridPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
@@ -101,37 +100,37 @@
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </TextField>
-            <TextField fx:id="cityTextField" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <TextField fx:id="cityTextField" GridPane.columnIndex="1" GridPane.rowIndex="4">
                 <GridPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </TextField>
-            <TextField fx:id="streetTextField" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <TextField fx:id="streetTextField" GridPane.columnIndex="1" GridPane.rowIndex="5">
                 <GridPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </TextField>
-            <TextField fx:id="houseIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <TextField fx:id="houseIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="6">
                 <GridPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </TextField>
-            <TextField fx:id="apartmentIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <TextField fx:id="apartmentIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="7">
                 <GridPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </TextField>
-            <TextField fx:id="loginTextField" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <TextField fx:id="loginTextField" GridPane.columnIndex="1" GridPane.rowIndex="8">
                 <GridPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </TextField>
-            <TextField fx:id="emailTextField" GridPane.columnIndex="1" GridPane.rowIndex="10">
+            <TextField fx:id="emailTextField" GridPane.columnIndex="1" GridPane.rowIndex="9">
                 <GridPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>
             </TextField>
-            <TextField fx:id="passwordTextField" GridPane.columnIndex="1" GridPane.rowIndex="11">
+            <TextField fx:id="passwordTextField" GridPane.columnIndex="1" GridPane.rowIndex="10">
                 <GridPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </GridPane.margin>

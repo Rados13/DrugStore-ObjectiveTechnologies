@@ -139,6 +139,8 @@ public class AppController {
             presenter.setAppStage(primaryStage);
             presenter.setEntityManager(em);
             presenter.setAppController(this);
+            presenter.setCommandRegistry(commandRegistry);
+            presenter.setPersonDAO(new PersonDAO(em));
             dialogStage.showAndWait();
 
         } catch (IOException e) {
