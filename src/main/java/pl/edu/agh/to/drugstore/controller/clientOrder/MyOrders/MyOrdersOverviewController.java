@@ -91,16 +91,11 @@ public class MyOrdersOverviewController extends OverviewController<ClientOrder> 
                 iterator.remove();
             }
         }
-//            for (ClientOrder order : clientOrdersToRemove) {
-//                if (order.getOrderStatus().getValue() != OrderStatus.PLACED) {
-//                    Alerts.showErrorAlert("We are sorry", "You tried to cancel order with status " + order.getOrderStatus().getValue(), "You can't cancel this order");
-//                    clientOrdersToRemove.remove(order);
-//                }
-//            }
 
         if (clientOrdersToRemove.size() > 0) {
             RemoveClientOrderCommand removePeopleCommand = new RemoveClientOrderCommand(clientOrdersToRemove, clientOrderDAO);
             commandRegistry.executeCommand(removePeopleCommand);
+            Alerts.showInformationDialog("Cancel order", null, "You have successfully cancelled order(s)" );
         }
         refresh();
     }
@@ -126,6 +121,8 @@ public class MyOrdersOverviewController extends OverviewController<ClientOrder> 
             appController.showClientOrderEditDialog(editedClientOrder);
             EditClientOrderCommand editPersonCommand = new EditClientOrderCommand(clientOrderToEdit, editedClientOrder, clientOrderDAO);
             commandRegistry.executeCommand(editPersonCommand);
+            Alerts.showInformationDialog("Edit order", null, "You have successfully edited order" );
+
         }
         refresh();
     }
@@ -146,6 +143,7 @@ public class MyOrdersOverviewController extends OverviewController<ClientOrder> 
             allExisting.add(clientOrder);
             refresh();
         }
+        Alerts.showInformationDialog("Place order", null, "You have successfully placed order" );
 
     }
 

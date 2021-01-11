@@ -66,18 +66,8 @@ public class ClientPanelPresenter {
 
     @FXML
     private void handlePersonAction(ActionEvent event) throws IOException {
-//        dialogStage.close();
         ClientAppController personAppController = new ClientAppController(appStage, em, appController, person);
         personAppController.initRootLayout();
-//        Person personToEdit = person;
-//        Person editedPerson = personToEdit;
-//        if (personToEdit != null) {
-//            PersonAppController personAppController = new PersonAppController(appStage, em, appController);
-//            personAppController.showPersonEditDialog(editedPerson);
-//            EditPersonCommand editPersonCommand = new EditPersonCommand(personToEdit, editedPerson, personDAO);
-//            commandRegistry.executeCommand(editPersonCommand);
-//        }
-//        appController.showClientPanel();
     }
 
     @FXML
@@ -88,7 +78,6 @@ public class ClientPanelPresenter {
     public void setEntityManager(EntityManager em) {
         this.em = em;
     }
-
 
     private void showConfirmationAlert() throws Exception {
         Alert alert = Alerts.showConfirmationDialog("Confirmation Dialog", null, "Are you sure?");
@@ -119,34 +108,5 @@ public class ClientPanelPresenter {
 
     public void setCommandRegistry(CommandRegistry commandRegistry) {
         this.commandRegistry = commandRegistry;
-    }
-
-    public boolean showClientDialog(Person person) {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(PersonAppController.class
-                    .getResource("/view/ClientEditDialog.fxml"));
-            BorderPane page = loader.load();
-
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit person");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(appStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            ClientEditDialogPresenter presenter = loader.getController();
-            presenter.setDialogStage(dialogStage);
-            if (person.getAddress() == null)
-                presenter.setData(person, new Address());
-            else presenter.setData(person, person.getAddress());
-
-            dialogStage.showAndWait();
-            return presenter.isApproved();
-
-        } catch (IOException e) {
-            logger.error("An error appeared when loading page.", e);
-            return false;
-        }
     }
 }
