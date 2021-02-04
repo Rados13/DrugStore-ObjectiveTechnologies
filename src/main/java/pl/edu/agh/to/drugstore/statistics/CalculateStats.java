@@ -57,8 +57,10 @@ public class CalculateStats {
                 .map(ClientOrder::getPerson)
                 .distinct()
                 .count());
-        var result = BigDecimal.valueOf(orders.size()).divide(clients, 2, RoundingMode.CEILING);
-        return new NumericalStat("Average amount of order per client", result, Optional.empty());
+        var result = BigDecimal.valueOf(orders.size())
+                .divide(clients, 2, RoundingMode.CEILING);
+        return new NumericalStat("Average amount of order per client",
+                result, Optional.empty());
     }
 
     public StatsElem getClientWithMostOrders(ObservableList<ClientOrder> orders) {
