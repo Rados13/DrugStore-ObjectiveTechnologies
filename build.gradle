@@ -1,0 +1,39 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
+}
+
+group 'pl.edu.agh.to'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'org.openjfx.javafxplugin'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.24.Final'
+    compile 'org.hsqldb:hsqldb:2.2.9'
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    compile 'ch.qos.logback:logback-classic:1.0.13'
+    compile 'org.postgresql:postgresql:42.2.18'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.16'
+    compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_14
+    targetCompatibility = JavaVersion.VERSION_14
+}
+
+application {
+    mainClassName = 'pl.edu.agh.to.drugstore.runner.Runner'
+}
+
+javafx {
+    version = '14'
+    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media', 'javafx.swing', 'javafx.web']
+}

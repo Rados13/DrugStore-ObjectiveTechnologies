@@ -1,0 +1,38 @@
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://java.sun.com/xml/ns/persistence" version="2.0"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="postgresql" transaction-type="RESOURCE_LOCAL">
+
+        <description>HSQLDB Persistence Unit</description>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- This is where we tell JPA/Hibernate about our @Entity objects -->
+        <class>pl.edu.agh.to.drugstore.model.people.Address</class>
+        <class>pl.edu.agh.to.drugstore.model.people.Person</class>
+        <class>pl.edu.agh.to.drugstore.model.medications.Illness</class>
+        <class>pl.edu.agh.to.drugstore.model.medications.Medication</class>
+        <class>pl.edu.agh.to.drugstore.model.business.Notification</class>
+        <class>pl.edu.agh.to.drugstore.model.business.Order</class>
+        <class>pl.edu.agh.to.drugstore.model.business.ClientOrder</class>
+        <class>pl.edu.agh.to.drugstore.model.business.SupplyOrder</class>
+        <class>pl.edu.agh.to.drugstore.model.business.Supplier</class>
+        <class>pl.edu.agh.to.drugstore.model.business.Tuple</class>
+
+        <!--<class>pl.edu.agh.to.drugstore.model.business.Tuple</class>-->
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/> <!-- DB Driver -->
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:postgresql://ec2-35-168-77-215.compute-1.amazonaws.com:5432/dddnufd788s97e"/> <!-- BD Mane -->
+            <property name="javax.persistence.jdbc.user" value="uauietgltybxbi"/> <!-- DB User -->
+            <property name="javax.persistence.jdbc.password"
+                      value="8d540c7f7c147e38f81625549dfbb63c3a7a811404893a76c8cc0fbf3f0f1003"/> <!-- DB Password -->
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect"/> <!-- DB Dialect -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/> <!-- create / create-drop / update -->
+            <property name="hibernate.show_sql" value="true"/> <!-- Show SQL in console -->
+            <property name="hibernate.format_sql" value="true"/> <!-- Show SQL formatted -->
+        </properties>
+
+    </persistence-unit>
+</persistence>

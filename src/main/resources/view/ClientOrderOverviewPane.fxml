@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/8.0.40"
+            fx:controller="pl.edu.agh.to.drugstore.controller.clientOrder.ClientOrderOverviewController">
+    <center>
+        <TableView fx:id="tableView" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="clientLastNameColumn" prefWidth="75.0" text="Client last name"/>
+                <TableColumn fx:id="amountOfMedicinesOrderedColumn" prefWidth="75.0"
+                             text="Amount of medicines ordered"/>
+                <TableColumn fx:id="shippingDateColumn" prefWidth="75.0" text="Shipping date"/>
+                <TableColumn fx:id="submissionDateColumn" prefWidth="75.0" text="Submission date"/>
+                <TableColumn fx:id="summedPriceColumn" prefWidth="75.0" text="Summed price"/>
+                <TableColumn fx:id="orderStatusTableColumn" prefWidth="75.0" text="Status"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </center>
+    <right>
+        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+            <opaqueInsets>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </opaqueInsets>
+            <Button fx:id="deleteButton" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308"
+                    mnemonicParsing="false" text="Cancel order">
+                <VBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </VBox.margin>
+            </Button>
+            <Button fx:id="editButton" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308"
+                    mnemonicParsing="false" text="Edit">
+                <VBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </VBox.margin>
+            </Button>
+            <Button fx:id="addButton" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308"
+                    mnemonicParsing="false" text="Add">
+                <VBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </VBox.margin>
+            </Button>
+            <Button fx:id="showStatsButton" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308"
+                    mnemonicParsing="false" text="Stats">
+                <VBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </VBox.margin>
+            </Button>
+            <Button fx:id="exitButton" alignment="TOP_CENTER" contentDisplay="TOP" maxWidth="1.7976931348623157E308"
+                    mnemonicParsing="false" text="Exit" textAlignment="CENTER">
+                <VBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="30.0"/>
+                </VBox.margin>
+            </Button>
+        </VBox>
+    </right>
+    <bottom>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <center>
+                <ListView fx:id="commandLogView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+            </center>
+            <top>
+                <HBox maxHeight="-Infinity" prefHeight="39.0" prefWidth="800.0" BorderPane.alignment="TOP_LEFT">
+                </HBox>
+            </top>
+        </BorderPane>
+    </bottom>
+
+</BorderPane>
